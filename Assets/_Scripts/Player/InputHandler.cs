@@ -37,6 +37,8 @@ public class InputHandler : MonoBehaviour
 
     private void OnEnable()
     {
+        input.Enable();
+
         //플레이어
         input.Player.Move.performed += MoveCtx;
         input.Player.Move.canceled += MoveCtx;
@@ -81,6 +83,8 @@ public class InputHandler : MonoBehaviour
         input.UI.LeftClick.performed -= UILeftClickCtx;
         input.UI.MiddleClick.performed -= UIMiddleClickCtx;
         input.UI.RightClick.performed -= UIRightClickCtx;
+
+        input.Disable();
     }
 
     // --- 입력 모드 전환 ---
