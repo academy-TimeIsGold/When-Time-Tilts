@@ -8,11 +8,11 @@ using UnityEngine.Playables;
 public class CutsceneTrigger : MonoBehaviour
 {
     [Header("재생할 타임라인")]
-    public PlayableDirector timelineToPlay;
+    [SerializeField] PlayableDirector timelineToPlay;
 
     [Header("설정")]
     [Tooltip("체크 시 한 번 재생 후 이 트리거를 파괴")]
-    public bool playOnlyOnce = true;
+    [SerializeField] bool playOnlyOnce = true;
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
