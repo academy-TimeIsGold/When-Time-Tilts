@@ -48,19 +48,18 @@ public class DialogueUIManager : MonoBehaviour
     private void OnEnable()
     {
         // 타임라인 클립에서 쏘는 이벤트 구독!
-        //DialogueBehaviour.OnBubbleStateChanged += HandleBubbleState;
+        DialogueBehaviour.OnBubbleStateChanged += HandleBubbleState;
     }
 
     private void OnDisable()
     {
         // 구독 해제
-        // DialogueBehaviour.OnBubbleStateChanged -= HandleBubbleState;
+        DialogueBehaviour.OnBubbleStateChanged -= HandleBubbleState;
     }
 
     /// <summary>
     /// 타임라인 클립에 들어오거나 나갈 때 자동 실행
     /// </summary>
-    /*
     private void HandleBubbleState(bool isOn, DialogueLine line)
     {
         // 1. 기존에 돌고 있던 타이핑 애니메이션이 있다면 강제 중지 (UI 버그 방지)
@@ -125,5 +124,4 @@ public class DialogueUIManager : MonoBehaviour
             }
         }
     }
-    */
 }
