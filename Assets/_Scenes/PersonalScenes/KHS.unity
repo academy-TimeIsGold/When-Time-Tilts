@@ -119,6 +119,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!4 &758426152 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4329372154158302361, guid: d03d18b9d7e5b4247bee6153ed6220a4, type: 3}
+  m_PrefabInstance: {fileID: 4199557222510165092}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1292026816
 GameObject:
   m_ObjectHideFlags: 0
@@ -130,7 +135,7 @@ GameObject:
   - component: {fileID: 1292026819}
   - component: {fileID: 1292026818}
   - component: {fileID: 1292026817}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -257,6 +262,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1658321839 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1286618355159644329, guid: d03d18b9d7e5b4247bee6153ed6220a4, type: 3}
+  m_PrefabInstance: {fileID: 4199557222510165092}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2034852386
 GameObject:
   m_ObjectHideFlags: 0
@@ -349,6 +359,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &2121809558 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4942382296745932309, guid: d03d18b9d7e5b4247bee6153ed6220a4, type: 3}
+  m_PrefabInstance: {fileID: 4199557222510165092}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4199557222510165092
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -357,9 +372,33 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 790634560550467089, guid: d03d18b9d7e5b4247bee6153ed6220a4, type: 3}
+      propertyPath: groundCheckPoint
+      value: 
+      objectReference: {fileID: 1658321839}
+    - target: {fileID: 790634560550467089, guid: d03d18b9d7e5b4247bee6153ed6220a4, type: 3}
+      propertyPath: groundCheckRadius
+      value: 1.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 790634560550467089, guid: d03d18b9d7e5b4247bee6153ed6220a4, type: 3}
+      propertyPath: groundLayer.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
     - target: {fileID: 3143042470486084312, guid: d03d18b9d7e5b4247bee6153ed6220a4, type: 3}
       propertyPath: m_Name
       value: Players
+      objectReference: {fileID: 0}
+    - target: {fileID: 6062933818187380869, guid: d03d18b9d7e5b4247bee6153ed6220a4, type: 3}
+      propertyPath: groundCheckPoint
+      value: 
+      objectReference: {fileID: 758426152}
+    - target: {fileID: 6062933818187380869, guid: d03d18b9d7e5b4247bee6153ed6220a4, type: 3}
+      propertyPath: groundCheckRadius
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6062933818187380869, guid: d03d18b9d7e5b4247bee6153ed6220a4, type: 3}
+      propertyPath: groundLayer.m_Bits
+      value: 64
       objectReference: {fileID: 0}
     - target: {fileID: 7715039660117644651, guid: d03d18b9d7e5b4247bee6153ed6220a4, type: 3}
       propertyPath: m_LocalPosition.x
@@ -400,6 +439,18 @@ PrefabInstance:
     - target: {fileID: 7715039660117644651, guid: d03d18b9d7e5b4247bee6153ed6220a4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9183023583829840846, guid: d03d18b9d7e5b4247bee6153ed6220a4, type: 3}
+      propertyPath: groundCheckPoint
+      value: 
+      objectReference: {fileID: 2121809558}
+    - target: {fileID: 9183023583829840846, guid: d03d18b9d7e5b4247bee6153ed6220a4, type: 3}
+      propertyPath: groundCheckRadius
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 9183023583829840846, guid: d03d18b9d7e5b4247bee6153ed6220a4, type: 3}
+      propertyPath: groundLayer.m_Bits
+      value: 64
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
