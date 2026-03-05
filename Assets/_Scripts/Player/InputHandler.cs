@@ -59,6 +59,9 @@ public class InputHandler : MonoBehaviour
         input.UI.LeftClick.performed += UILeftClickCtx;
         input.UI.MiddleClick.performed += UIMiddleClickCtx;
         input.UI.RightClick.performed += UIRightClickCtx;
+
+        //컷신
+        CinematicManager.OnCinematicStateChanged += HandleCinematicState;
     }
 
     private void OnDisable()
@@ -84,7 +87,27 @@ public class InputHandler : MonoBehaviour
         input.UI.MiddleClick.performed -= UIMiddleClickCtx;
         input.UI.RightClick.performed -= UIRightClickCtx;
 
+        //컷신
+        CinematicManager.OnCinematicStateChanged -= HandleCinematicState;
+
         input.Disable();
+    }
+
+    private void HandleCinematicState(bool isCinematicPlaying)
+    {
+        if (isCinematicPlaying)
+        {
+            // 1. 플레이어의 모든 조작(이동, 점프, 스킬 등)을 차단
+            input.Player.Disable();
+
+            moveInput = Vector2.zero;
+            OnMove?.Invoke(Vector2.zero);
+        }
+        else
+        {
+            // 컷신이 끝나면 다시 조작을 활성화합니다.
+            input.Player.Enable();
+        }
     }
 
     // --- 입력 모드 전환 ---

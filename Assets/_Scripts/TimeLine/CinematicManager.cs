@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.Events;
 using System;
+using System.Collections;
 
 /// <summary>
 /// 역할: 컷신 총괄 매니저
@@ -16,6 +17,10 @@ public class CinematicManager : MonoBehaviour
     [Header("현재 실행 중인 타임라인")]
     public PlayableDirector currentDirector;
 
+    [Header("설정")]
+    [Tooltip("레터박스가 다 내려올 때까지 기다릴 시간")]
+    public float playDelay = 0.5f;
+
     [Header("컷신 종료 후 실행할 이벤트")]
     [Tooltip("인트로 씬이면 씬 로드 함수를, 인게임이면 비워두거나 필요한 연출을 연결")]
     public UnityEvent onCutsceneFinished;
@@ -25,13 +30,14 @@ public class CinematicManager : MonoBehaviour
     {
         currentDirector = director;
 
-        // 1. UI 및 플레이어에게 연출 시작 알림
+        // 1. 레터박스 애니메이션 시작!
         OnCinematicStateChanged?.Invoke(true);
 
         // 2. 타임라인 종료 이벤트 구독
         currentDirector.stopped += EndCutscene;
 
-        currentDirector.Play();
+        // 3. 바로 Play() 하지 않고 대기 코루틴 실행!
+        StartCoroutine(WaitAndPlayTimeline());
     }
 
     // 타임라인 재생이 끝났을 때 자동 호출
@@ -46,5 +52,17 @@ public class CinematicManager : MonoBehaviour
 
         // 3. 인스펙터에서 연결된 후속 작업 실행 (ex. 씬 이동)
         onCutsceneFinished?.Invoke();
+    }
+
+    private IEnumerator WaitAndPlayTimeline()
+    {
+        // playDelay(예: 0.5초) 만큼 멈춰서 기다림
+        yield return new WaitForSeconds(playDelay);
+
+        // 시간이 다 지나면 그제야 진짜로 타임라인 재생!
+        if (currentDirector != null)
+        {
+            currentDirector.Play();
+        }
     }
 }
