@@ -2,9 +2,9 @@ using UnityEngine;
 using UnityEngine.Playables;
 
 /// <summary>
+/// 역할:컷신 센서
 /// 특정 구역에 플레이어가 닿으면 지정된 타임라인을 실행시켜줄 스크립트
 /// </summary>
-
 public class CutsceneTrigger : MonoBehaviour
 {
     [Header("재생할 타임라인")]

@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 
 /// <summary>
+/// 역할: 레터박스 애니메이터
 /// CinematicManager의 연출 시작/종료 이벤트를 듣고 레터박스를 관리하는 스크립트
 /// </summary>
 public class LetterboxController : MonoBehaviour

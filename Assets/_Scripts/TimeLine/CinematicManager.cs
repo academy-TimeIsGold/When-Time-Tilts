@@ -4,6 +4,7 @@ using UnityEngine.Events;
 using System;
 
 /// <summary>
+/// 역할: 컷신 총괄 매니저
 /// 타임라인 연출 총괄 매니저
 /// </summary>
 public class CinematicManager : MonoBehaviour
