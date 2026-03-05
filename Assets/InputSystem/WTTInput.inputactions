@@ -34,7 +34,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Befo",
+                    "name": "Revert",
                     "type": "Button",
                     "id": "d597e25c-3126-498d-8fdb-166558074880",
                     "expectedControlType": "",
@@ -43,7 +43,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "After",
+                    "name": "Accel",
                     "type": "Button",
                     "id": "2cf00ece-f108-4e35-9997-dc7a613e0782",
                     "expectedControlType": "",
@@ -160,7 +160,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Befo",
+                    "action": "Revert",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -171,7 +171,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "After",
+                    "action": "Accel",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

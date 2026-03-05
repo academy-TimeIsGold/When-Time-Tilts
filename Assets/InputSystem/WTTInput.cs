@@ -120,7 +120,7 @@ public partial class @WTTInput: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Befo"",
+                    ""name"": ""Revert"",
                     ""type"": ""Button"",
                     ""id"": ""d597e25c-3126-498d-8fdb-166558074880"",
                     ""expectedControlType"": """",
@@ -129,7 +129,7 @@ public partial class @WTTInput: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""After"",
+                    ""name"": ""Accel"",
                     ""type"": ""Button"",
                     ""id"": ""2cf00ece-f108-4e35-9997-dc7a613e0782"",
                     ""expectedControlType"": """",
@@ -246,7 +246,7 @@ public partial class @WTTInput: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Befo"",
+                    ""action"": ""Revert"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -257,7 +257,7 @@ public partial class @WTTInput: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""After"",
+                    ""action"": ""Accel"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -436,8 +436,8 @@ public partial class @WTTInput: IInputActionCollection2, IDisposable
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
-        m_Player_Befo = m_Player.FindAction("Befo", throwIfNotFound: true);
-        m_Player_After = m_Player.FindAction("After", throwIfNotFound: true);
+        m_Player_Revert = m_Player.FindAction("Revert", throwIfNotFound: true);
+        m_Player_Accel = m_Player.FindAction("Accel", throwIfNotFound: true);
         m_Player_MousePoint = m_Player.FindAction("MousePoint", throwIfNotFound: true);
         m_Player_LeftClick = m_Player.FindAction("LeftClick", throwIfNotFound: true);
         m_Player_MiddleClick = m_Player.FindAction("MiddleClick", throwIfNotFound: true);
@@ -533,8 +533,8 @@ public partial class @WTTInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Move;
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_Interact;
-    private readonly InputAction m_Player_Befo;
-    private readonly InputAction m_Player_After;
+    private readonly InputAction m_Player_Revert;
+    private readonly InputAction m_Player_Accel;
     private readonly InputAction m_Player_MousePoint;
     private readonly InputAction m_Player_LeftClick;
     private readonly InputAction m_Player_MiddleClick;
@@ -564,13 +564,13 @@ public partial class @WTTInput: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @Interact => m_Wrapper.m_Player_Interact;
         /// <summary>
-        /// Provides access to the underlying input action "Player/Befo".
+        /// Provides access to the underlying input action "Player/Revert".
         /// </summary>
-        public InputAction @Befo => m_Wrapper.m_Player_Befo;
+        public InputAction @Revert => m_Wrapper.m_Player_Revert;
         /// <summary>
-        /// Provides access to the underlying input action "Player/After".
+        /// Provides access to the underlying input action "Player/Accel".
         /// </summary>
-        public InputAction @After => m_Wrapper.m_Player_After;
+        public InputAction @Accel => m_Wrapper.m_Player_Accel;
         /// <summary>
         /// Provides access to the underlying input action "Player/MousePoint".
         /// </summary>
@@ -626,12 +626,12 @@ public partial class @WTTInput: IInputActionCollection2, IDisposable
             @Interact.started += instance.OnInteract;
             @Interact.performed += instance.OnInteract;
             @Interact.canceled += instance.OnInteract;
-            @Befo.started += instance.OnBefo;
-            @Befo.performed += instance.OnBefo;
-            @Befo.canceled += instance.OnBefo;
-            @After.started += instance.OnAfter;
-            @After.performed += instance.OnAfter;
-            @After.canceled += instance.OnAfter;
+            @Revert.started += instance.OnRevert;
+            @Revert.performed += instance.OnRevert;
+            @Revert.canceled += instance.OnRevert;
+            @Accel.started += instance.OnAccel;
+            @Accel.performed += instance.OnAccel;
+            @Accel.canceled += instance.OnAccel;
             @MousePoint.started += instance.OnMousePoint;
             @MousePoint.performed += instance.OnMousePoint;
             @MousePoint.canceled += instance.OnMousePoint;
@@ -667,12 +667,12 @@ public partial class @WTTInput: IInputActionCollection2, IDisposable
             @Interact.started -= instance.OnInteract;
             @Interact.performed -= instance.OnInteract;
             @Interact.canceled -= instance.OnInteract;
-            @Befo.started -= instance.OnBefo;
-            @Befo.performed -= instance.OnBefo;
-            @Befo.canceled -= instance.OnBefo;
-            @After.started -= instance.OnAfter;
-            @After.performed -= instance.OnAfter;
-            @After.canceled -= instance.OnAfter;
+            @Revert.started -= instance.OnRevert;
+            @Revert.performed -= instance.OnRevert;
+            @Revert.canceled -= instance.OnRevert;
+            @Accel.started -= instance.OnAccel;
+            @Accel.performed -= instance.OnAccel;
+            @Accel.canceled -= instance.OnAccel;
             @MousePoint.started -= instance.OnMousePoint;
             @MousePoint.performed -= instance.OnMousePoint;
             @MousePoint.canceled -= instance.OnMousePoint;
@@ -879,19 +879,19 @@ public partial class @WTTInput: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnInteract(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "Befo" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "Revert" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnBefo(InputAction.CallbackContext context);
+        void OnRevert(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "After" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "Accel" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnAfter(InputAction.CallbackContext context);
+        void OnAccel(InputAction.CallbackContext context);
         /// <summary>
         /// Method invoked when associated input action "MousePoint" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
