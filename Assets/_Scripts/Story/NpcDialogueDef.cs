@@ -65,7 +65,7 @@ public class NpcDialogueDef
             return float.TryParse(s, out var v) ? v : fallback;
         }
 
-        var npcId = Get("Npc_id", "").Trim();
+        var npcId = Get("npc_id", "").Trim();
         var groupId = Get("group_id", "").Trim();
 
         // 필수 컬럼 유효성 검사

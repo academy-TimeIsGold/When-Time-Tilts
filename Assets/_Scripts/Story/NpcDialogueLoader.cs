@@ -10,9 +10,7 @@ public class NpcDialogueLoader : MonoBehaviour
     [Header("구글 스프레드시트 CSV URL")]
     [SerializeField]
     private string sheetUrl =
-        "https://docs.google.com/spreadsheets/d/e/" +
-        "2PACX-1vRNoVmL65swzBMJ-c4VjV6Xx4yUc_-JtajcRJjoVIEzimdWIy2izlcwjtFUJEASch2Pn6klA7WE7JG_" +
-        "/pubhtml";
+        "https://docs.google.com/spreadsheets/d/e/2PACX-1vRNoVmL65swzBMJ-c4VjV6Xx4yUc_-JtajcRJjoVIEzimdWIy2izlcwjtFUJEASch2Pn6klA7WE7JG_/pub?output=csv";
 
     [Header("캐시 우회 - 수정 즉시 반영")]
     // URL에 현재 시각을 붙여 캐시를 무시하고 항상 최신 데이터 반영
@@ -107,6 +105,13 @@ public class NpcDialogueLoader : MonoBehaviour
 
             var def = NpcDialogueDef.FromRow(row);
             if (def == null) continue;
+
+            // display_time이 0이면 글자 수 기반 자동 계산
+            // 기본 2초 + 글자 당 0.1초
+            if (def.IsAmbient && def.displayTime <= 0f)
+            {
+                def.displayTime = 2f + (def.textKr.Length * 0.1f);
+            }
 
             dialogueDb.Register(def);
             count++;
