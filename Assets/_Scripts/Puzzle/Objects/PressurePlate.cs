@@ -39,7 +39,7 @@ public class PressurePlate : MonoBehaviour
         transform.position = new Vector3(transform.position.x, transform.position.y - 0.1f, transform.position.z);
         
         //발판이 눌렸다고 알림
-        OnPlantePressed.Invoke();
+        OnPlantePressed?.Invoke();
     }
 
 
@@ -51,7 +51,7 @@ public class PressurePlate : MonoBehaviour
         transform.position = new Vector3(transform.position.x, transform.position.y + 0.1f, transform.position.z);
 
         //발판이 초기화 됐다고 알림
-        OnPlanteReleased.Invoke();
+        OnPlanteReleased?.Invoke();
     }
     #endregion
 
