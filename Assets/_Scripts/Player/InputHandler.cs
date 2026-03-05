@@ -10,7 +10,7 @@ public class InputHandler : MonoBehaviour
     public event Action<Vector2> OnMove;        //기본 좌우 이동 및 아이상태 기어오르기
     public event Action OnJump;                 //점프
     public event Action OnInteract;             //근접 NPC상호작용 등
-    public event Action OnRevert;                 //시간 조절 모드 과거
+    public event Action OnRevert;               //시간 조절 모드 과거
     public event Action OnAccel;                //시간 조절 모드 미래
     public event Action OnEscape;               //일시정지? 및 설정창
 
