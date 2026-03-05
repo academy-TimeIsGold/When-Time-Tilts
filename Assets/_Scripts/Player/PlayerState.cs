@@ -34,9 +34,13 @@ public class PlayerState : MonoBehaviour
     // [3] 초기화 단계 (Awake)
     private void Awake()
     {
-        _moveController = new PlayerMoveController(GetComponent<Rigidbody2D>());
-
         _inputHandler = GetComponentInParent<InputHandler>();
+
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        if (rb != null)
+        {
+            _moveController = new PlayerMoveController(rb);
+        }
 
         Animator myAnimator = GetComponent<Animator>();
         if (myAnimator != null)
