@@ -1,8 +1,10 @@
-using UnityEngine;
-using UnityEngine.Playables;
-using UnityEngine.Events;
 using System;
 using System.Collections;
+using Unity.Cinemachine;
+using Unity.VisualScripting;
+using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.Playables;
 
 /// <summary>
 /// 역할: 컷신 총괄 매니저
@@ -10,6 +12,8 @@ using System.Collections;
 /// </summary>
 public class CinematicManager : MonoBehaviour
 {
+    public static CinematicManager Instance { get; private set; }   
+
     // 조작 제어용 이벤트 (true: 연출 시작/조작 잠금, false: 연출 종료/조작 풀림)
     public static Action<bool> OnCinematicStateChanged;
     public static Action<string> OnDialogueRequested;
@@ -27,12 +31,38 @@ public class CinematicManager : MonoBehaviour
 
     private bool isCutscenePlaying = false;
 
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (Instance == this)
+        {
+            Instance = null;
+        }
+    }
+
     // 버튼 클릭(인트로) 또는 트리거(인게임)에서 호출
     public void PlayCutscene(PlayableDirector director)
     {
         currentDirector = director;
 
         isCutscenePlaying = true;
+
+        if (TimeSystemManager.Instance != null)
+        {
+            // defaultResource(0)로 초기화하여 청년 폼으로 만듭니다.
+            TimeSystemManager.Instance.ResetResource(0);
+        }
 
         // 1. 레터박스 애니메이션 시작!
         OnCinematicStateChanged?.Invoke(true);
