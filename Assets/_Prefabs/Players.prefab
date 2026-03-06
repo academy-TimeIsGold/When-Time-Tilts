@@ -147,11 +147,11 @@ MonoBehaviour:
   jumpForce: 5
   canTriggerWeightPlate: 0
   interactionRange: 5
-  groundCheckPoint: {fileID: 0}
-  groundCheckRadius: 0.2
+  groundCheckPoint: {fileID: 1286618355159644329}
+  groundCheckRadius: 1.1
   groundLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   rangeVisual: {fileID: 0}
 --- !u!50 &1056889708170180666
 Rigidbody2D:
@@ -394,11 +394,11 @@ MonoBehaviour:
   jumpForce: 4
   canTriggerWeightPlate: 0
   interactionRange: 5
-  groundCheckPoint: {fileID: 0}
-  groundCheckRadius: 0.2
+  groundCheckPoint: {fileID: 4329372154158302361}
+  groundCheckRadius: 0.6
   groundLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   rangeVisual: {fileID: 0}
 --- !u!50 &850367655910528779
 Rigidbody2D:
@@ -574,11 +574,11 @@ MonoBehaviour:
   jumpForce: 0
   canTriggerWeightPlate: 0
   interactionRange: 5
-  groundCheckPoint: {fileID: 0}
-  groundCheckRadius: 0.2
+  groundCheckPoint: {fileID: 4942382296745932309}
+  groundCheckRadius: 0.9
   groundLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   rangeVisual: {fileID: 0}
 --- !u!50 &621760622074884434
 Rigidbody2D:
