@@ -69,6 +69,9 @@ public class PlayerState : MonoBehaviour
         {
             ClearFocus();
         }
+
+        if (rangeVisual != null && rangeVisual.gameObject.activeSelf)
+            rangeVisual.transform.position = transform.position;
     }
 
     // [5] 물리 루프 (FixedUpdate) - 0.02초마다 실행되는 물리 연산 전용
@@ -211,7 +214,7 @@ public class PlayerState : MonoBehaviour
             // 모드가 None이 아닐 때만 켬
             rangeVisual.gameObject.SetActive(mode != TimeMode.None);
             // 가속은 빨강, 회귀는 파랑으로 색상 변경
-            rangeVisual.color = (mode == TimeMode.Accelerate) ? Color.red : Color.blue;
+            rangeVisual.color = (mode == TimeMode.Accelerate) ? new Color(1f, 0f, 0f, 0.5f): new Color(0f, 0f, 1f, 0.5f);
             // 사거리(interactionRange)에 맞춰 원의 크기 조절 (지름 = 반지름 * 2)
             rangeVisual.transform.localScale = new Vector3(interactionRange * 2, interactionRange * 2, 1);
         }
@@ -228,18 +231,21 @@ public class PlayerState : MonoBehaviour
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(_inputHandler.mouseInput);
 
         // 마우스 위치에 있는 오브젝트를 레이캐스트로 검출
-        RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero);
+        //RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero);
+        Collider2D col = Physics2D.OverlapPoint(mousePos);
 
-        if (hit.collider == null) return;
+        if (col == null) return;
+
+        //if (hit.collider == null) return;
 
         // IFocusable이 없으면 시간 조작 대상이 아님
-        if (hit.collider.GetComponent<IFocusable>() == null) return;
+        if (col.GetComponent<IFocusable>() == null) return;
 
-        TimeObject timeObj = hit.collider.GetComponent<TimeObject>();
+        TimeObject timeObj = col.GetComponent<TimeObject>();
         if (timeObj == null) return;
 
         // 대상이 존재하고, 플레이어와의 거리가 사거리 이내일 때만 실행
-        if (Vector2.Distance(transform.position, hit.collider.transform.position) <= interactionRange)
+        if (Vector2.Distance(transform.position, col.transform.position) <= interactionRange)
         {
             TimeSystemManager.Instance.TryInteract(timeObj);
         }

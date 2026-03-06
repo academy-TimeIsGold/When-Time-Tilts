@@ -297,7 +297,7 @@ public partial class @WTTInput: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""a1d7cead-e789-496f-a248-3587c02d2c00"",
-                    ""path"": ""<Mouse>/delta"",
+                    ""path"": ""<Mouse>/position"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
