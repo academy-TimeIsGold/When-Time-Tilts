@@ -60,6 +60,11 @@ public class DialogueUIManager : MonoBehaviour
         DialogueBehaviour.OnBubbleStateChanged -= HandleBubbleState;
     }
 
+    private void OnDestroy()
+    {
+        actorRegistry.Clear();
+    }
+
     // 말풍선이 캐릭터를 따라다니게 
     private void LateUpdate()
     {
