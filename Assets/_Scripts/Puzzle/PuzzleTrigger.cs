@@ -56,10 +56,7 @@ public class PuzzleTrigger : MonoBehaviour
 
             //지정된 자유 이동 시간 동안 반복
             while (timer < autoMoveDuration)
-            {               
-                //가속도 0
-                //rb.linearVelocity = Vector2.zero;
-
+            {                              
                 //Y축은 그대로, X축만 지정 속도로 이동
                 rb.linearVelocity = new Vector2(autoMoveSpeed, rb.linearVelocity.y);
                 rb.gravityScale = 0f;                
@@ -73,12 +70,13 @@ public class PuzzleTrigger : MonoBehaviour
             rb.gravityScale = 1f;
         }
 
+        CameraManager.Instance.TestSnapToNewStage();
         
         yield return ScreenManager.Instance.FadeIn();
 
         Debug.Log("자동 걷기 연출 종료");
-        GameManager.Instance.EndStageClearSequence();
-        
+        GameManager.Instance.EndStageClearSequence();       
+
         /*              
         * TODO: [세이브 매니저 연동] SaveloadManager를 통한 새로운 SavePoint 지정 스크립트 추가
         */
