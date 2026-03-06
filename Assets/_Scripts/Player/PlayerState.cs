@@ -247,8 +247,10 @@ public class PlayerState : MonoBehaviour
         // 대상이 존재하고, 플레이어와의 거리가 사거리 이내일 때만 실행
         if (Vector2.Distance(transform.position, col.transform.position) <= interactionRange)
         {
-            TimeSystemManager.Instance.TryInteract(timeObj);
+            bool success = TimeSystemManager.Instance.TryInteract(timeObj);
+            if (success) TimeSystemManager.Instance.ClearMode();
         }
+        
     }
 
     // 시간 모드 외의 일반 상호작용
