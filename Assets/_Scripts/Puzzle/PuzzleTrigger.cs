@@ -64,14 +64,18 @@ public class PuzzleTrigger : MonoBehaviour
                 timer += Time.deltaTime;
                 yield return null;
             }
+
+            //화면 FadeOut
             yield return ScreenManager.Instance.FadeOut();
+
             //이동이 끝나면 정지
             rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
             rb.gravityScale = 1f;
         }
 
+        //Player 위치 이동
         CameraManager.Instance.TestSnapToNewStage();
-        
+        //화면 FadeIn
         yield return ScreenManager.Instance.FadeIn();
 
         Debug.Log("자동 걷기 연출 종료");
