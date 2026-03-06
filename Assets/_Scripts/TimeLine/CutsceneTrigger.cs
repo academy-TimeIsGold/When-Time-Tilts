@@ -18,22 +18,19 @@ public class CutsceneTrigger : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            CinematicManager manager = FindFirstObjectByType<CinematicManager>();
-            
-            if (manager != null && timelineToPlay != null )
-            {
-                manager.PlayCutscene(timelineToPlay);
+            CinematicManager.Instance.PlayCutscene(timelineToPlay);
 
-                if (playOnlyOnce)
-                {
-                    gameObject.SetActive(false);
-                }
+            playOnlyOnce = true;
+
+            if (playOnlyOnce)
+            {
+                gameObject.SetActive(false);
             }
 
-            else
-            {
-                Debug.LogWarning("CinematicManager나 타임라인이 할당되지 않았습니다!");
-            }
+        }
+        else
+        {
+            Debug.LogWarning("CinematicManager나 타임라인이 할당되지 않았습니다!");
         }
     }
 
