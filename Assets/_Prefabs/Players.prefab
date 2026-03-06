@@ -243,7 +243,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4f87012acd5dee4093849f539f7740d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerVisualSwitcher
-  currentTime: 2
   childObject: {fileID: 5414807113056343146}
   youthObject: {fileID: 1909572164870002061}
   elderObject: {fileID: 7034401490082987140}
