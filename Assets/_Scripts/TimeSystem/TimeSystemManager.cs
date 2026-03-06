@@ -9,8 +9,9 @@ public class TimeSystemManager : MonoBehaviour
     public static TimeSystemManager Instance { get; private set; }
 
     [Header("시간 자원 설정")]
-    [SerializeField] private int maxResource = 4;           // 최대 시간 자원
-    [SerializeField] private int defaultResource = 2;       // 시작 및 리셋 기본값
+    [SerializeField] private int maxResource = 2;           // 최대 시간 자원
+    [SerializeField] private int minResource = -2;           // 최소 시간 자원
+    [SerializeField] private int defaultResource = 0;       // 시작 및 리셋 기본값
 
     [Header("조작 1회 소모량")]
     [SerializeField] private int costPerInteract = 1;
@@ -26,6 +27,7 @@ public class TimeSystemManager : MonoBehaviour
     // 프로퍼티
     public int CurrentResource => currentResource;          // 현재 시간 자원
     public int MaxResource => maxResource;                  // 최대 시간 자원
+    public int MinResource => minResource;                  // 최소 시간 자원
     public TimeMode CurrentMode => currentMode;             // 현재 시간 모드
 
     private void Awake()
@@ -69,7 +71,7 @@ public class TimeSystemManager : MonoBehaviour
         if (amount <= 0) return false;
 
         // 자원이 부족한 경우
-        if (currentResource < amount)
+        if (currentResource - amount < minResource)
         {
             Debug.Log($"자원 부족 - 현재: {currentResource}, 필요: {amount}");
             return false;
@@ -167,8 +169,8 @@ public class TimeSystemManager : MonoBehaviour
     // 현재 자원값을 AgeState로 변환해서 반환
     public AgeState GetCurrentAgeState()
     {
-        if (currentResource <= 1) return AgeState.Child;
-        if (currentResource <= 3) return AgeState.Youth;
+        if (currentResource <= -1) return AgeState.Child;
+        if (currentResource <= 1) return AgeState.Youth;
         return AgeState.Elder;
     }
 

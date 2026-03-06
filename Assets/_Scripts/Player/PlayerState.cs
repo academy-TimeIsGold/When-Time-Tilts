@@ -25,8 +25,7 @@ public class PlayerState : MonoBehaviour
     private InputHandler _inputHandler;           // 키보드/마우스 입력을 받아오는 핸들러
     private PlayerAnimController _animController; // 애니메이션 상태를 변경하는 컨트롤러
 
-    private TimeMode _currentMode = TimeMode.None; // 현재 시간 조작 모드 (None: 평상시, Accelerate: 가속, Revert: 회귀)
-    private List<ITimeable> _focusedObjects = new List<ITimeable>(); // 현재 사거리 내에 들어와서 하이라이트된 오브젝트들 목록
+    private List<IFocusable> _focusedObjects = new List<IFocusable>(); // 현재 사거리 내에 들어와서 하이라이트된 오브젝트들 목록
 
     private float _currentInputX; // 플레이어의 좌우 입력값 (-1, 0, 1)을 저장해두는 변수
     private bool _isGrounded;     // 현재 땅에 닿아있는지 여부 (Update에서 매 프레임 갱신)
@@ -61,7 +60,7 @@ public class PlayerState : MonoBehaviour
 
         // 2. 시간 조작 모드 로직
         // 가속 또는 회귀 모드가 켜져 있을 때만 주변 오브젝트를 탐색(Scan)
-        if (_currentMode != TimeMode.None)
+        if (TimeSystemManager.Instance.CurrentMode != TimeMode.None)
         {
             ScanForTimeableObjects();
         }
@@ -90,6 +89,12 @@ public class PlayerState : MonoBehaviour
         // 입력값 초기화 (이전에 키를 누르고 있었다는 기억을 삭제)
         _currentInputX = 0f;
 
+        // rangeVisual을 OnModeChanged 이벤트에 연결
+        if (TimeSystemManager.Instance != null)
+        {
+            TimeSystemManager.Instance.OnModeChanged += UpdateRangeVisual;
+        }
+
         if (_inputHandler == null) return;
 
         // 입력 이벤트 구독 (키를 누르면 이 함수들을 실행해라! 라고 연결)
@@ -98,6 +103,7 @@ public class PlayerState : MonoBehaviour
         _inputHandler.OnAccel += OnAccelInput;
         _inputHandler.OnRevert += OnRevertInput;
         _inputHandler.OnMouseLeftClick += TryManipulateTime;
+        _inputHandler.OnInteract += TryInteract;
     }
 
     private void OnDisable()
@@ -108,6 +114,11 @@ public class PlayerState : MonoBehaviour
         // 꺼질 때 입력값 초기화 (이 상태가 저장되어 다음 변신 때 제멋대로 움직이는 버그 방지)
         _currentInputX = 0f;
 
+        if (TimeSystemManager.Instance != null)
+        {
+            TimeSystemManager.Instance.OnModeChanged -= UpdateRangeVisual;
+        }
+
         if (_inputHandler == null) return;
 
         // 입력 이벤트 구독 해제 (중복 실행 및 메모리 누수 방지)
@@ -116,6 +127,7 @@ public class PlayerState : MonoBehaviour
         _inputHandler.OnAccel -= OnAccelInput;
         _inputHandler.OnRevert -= OnRevertInput;
         _inputHandler.OnMouseLeftClick -= TryManipulateTime;
+        _inputHandler.OnInteract -= TryInteract;
 
         // 포커스 효과 정리
         ClearFocus();
@@ -176,60 +188,84 @@ public class PlayerState : MonoBehaviour
     // 시간 가속(1번) 키 입력
     private void OnAccelInput()
     {
-        SetTimeMode(TimeMode.Accelerate);
+        TimeSystemManager.Instance.SetMode(TimeMode.Accelerate);
     }
 
     // 시간 회귀(2번) 키 입력
     private void OnRevertInput()
     {
-        SetTimeMode(TimeMode.Revert);
+        TimeSystemManager.Instance.SetMode(TimeMode.Revert);
     }
 
     // 모드 변경 로직 (토글 방식)
-    private void SetTimeMode(TimeMode mode)
+    private void UpdateRangeVisual(TimeMode mode)
     {
-        // 이미 해당 모드라면 끄고(None), 아니면 해당 모드로 변경
-        _currentMode = (_currentMode == mode) ? TimeMode.None : mode;
-
         // 시각적 효과(범위 원) 처리
         if (rangeVisual != null)
         {
             // 모드가 None이 아닐 때만 켬
-            rangeVisual.gameObject.SetActive(_currentMode != TimeMode.None);
+            rangeVisual.gameObject.SetActive(mode != TimeMode.None);
             // 가속은 빨강, 회귀는 파랑으로 색상 변경
-            rangeVisual.color = (_currentMode == TimeMode.Accelerate) ? Color.red : Color.blue;
+            rangeVisual.color = (mode == TimeMode.Accelerate) ? Color.red : Color.blue;
             // 사거리(interactionRange)에 맞춰 원의 크기 조절 (지름 = 반지름 * 2)
             rangeVisual.transform.localScale = new Vector3(interactionRange * 2, interactionRange * 2, 1);
         }
 
         // 모드가 꺼지면 포커스도 즉시 해제
-        if (_currentMode == TimeMode.None) ClearFocus();
+        if (mode == TimeMode.None) ClearFocus();
     }
 
     // 마우스 왼쪽 클릭 시 상호작용 시도
+    // 시간 모드일 때만 동작
     private void TryManipulateTime()
     {
-        // 시간 조작 모드가 아니면 클릭해도 아무 일 없음
-        if (_currentMode == TimeMode.None) return;
-
         // 마우스 화면 좌표를 월드 좌표로 변환
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(_inputHandler.mouseInput);
 
         // 마우스 위치에 있는 오브젝트를 레이캐스트로 검출
         RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero);
 
-        if (hit.collider != null)
-        {
-            // 클릭된 오브젝트가 ITimeable 인터페이스(시간 조작 가능)를 가지고 있는지 확인
-            ITimeable target = hit.collider.GetComponent<ITimeable>();
+        if (hit.collider == null) return;
 
-            // 대상이 존재하고, 플레이어와의 거리가 사거리 이내일 때만 실행
-            if (target != null && Vector2.Distance(transform.position, hit.transform.position) <= interactionRange)
+        // IFocusable이 없으면 시간 조작 대상이 아님
+        if (hit.collider.GetComponent<IFocusable>() == null) return;
+
+        TimeObject timeObj = hit.collider.GetComponent<TimeObject>();
+        if (timeObj == null) return;
+
+        // 대상이 존재하고, 플레이어와의 거리가 사거리 이내일 때만 실행
+        if (Vector2.Distance(transform.position, hit.collider.transform.position) <= interactionRange)
+        {
+            TimeSystemManager.Instance.TryInteract(timeObj);
+        }
+    }
+
+    // 시간 모드 외의 일반 상호작용
+    private void TryInteract()
+    {
+        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, interactionRange);
+
+        IInteractable closest = null;
+        float closestDist = float.MaxValue;
+
+        foreach ( Collider2D hit in hits)
+        {
+            // IFcousable도 있으면 F키 대상에서 제외
+            if (hit.GetComponent<IFocusable>() != null) continue;
+            
+            IInteractable interactable = hit.GetComponent<IInteractable>();
+            if (interactable != null)
             {
-                if (_currentMode == TimeMode.Accelerate) target.Accelerate(); // 미래로
-                else if (_currentMode == TimeMode.Revert) target.Revert();    // 과거로
+                float dist = Vector2.Distance(transform.position, hit.transform.position);
+                if (dist < closestDist)
+                {
+                    closestDist = dist;
+                    closest = interactable;
+                }
             }
         }
+
+        closest?.Interact();
     }
 
     // [9] 주변 스캔 및 하이라이트 (시각적 피드백)
@@ -244,19 +280,22 @@ public class PlayerState : MonoBehaviour
         foreach (Collider2D hit in hits)
         {
             // 범위 내 오브젝트 중 ITimeable이 있는 것만 골라냄
-            ITimeable target = hit.GetComponent<ITimeable>();
-            if (target != null)
-            {
-                target.SetFocus(true); // "너 포커스 됐어!"라고 알려줌 (테두리 표시 등)
-                _focusedObjects.Add(target); // 관리 리스트에 추가
-            }
+            IFocusable focusable = hit.GetComponent<IFocusable>();
+            if (focusable == null) continue;
+
+            TimeObject timeObj = hit.GetComponent<TimeObject>();
+            if (timeObj != null && !TimeSystemManager.Instance.IsCompatible
+                (TimeSystemManager.Instance.CurrentMode, timeObj.currentState)) continue;
+
+            focusable.SetFocus(true);
+            _focusedObjects.Add(focusable);
         }
     }
 
     // 모든 포커스 해제
     private void ClearFocus()
     {
-        foreach (ITimeable obj in _focusedObjects)
+        foreach (IFocusable obj in _focusedObjects)
         {
             obj.SetFocus(false); // 포커스 끄기
         }
