@@ -1,14 +1,9 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(BoxCollider2D))]
 public class PuzzleTrigger : MonoBehaviour
 {
-    [Header("트리거 작동 시 실행할 이벤트")]
-    public UnityEvent OnTriggerActivated;
-
     [Header("트리거 설정")]    
     public bool triggerOnlyOnce = true;
 
@@ -26,19 +21,27 @@ public class PuzzleTrigger : MonoBehaviour
         if (_triggered && triggerOnlyOnce) return;
 
         //Tag가 Player인지 확인
-        if (collision.CompareTag("Player")) ActivateTrigger(collision.gameObject);
+        if (collision.CompareTag("Player"))
+        {
+            //트리거 작동
+            _triggered = true;
+
+            Debug.Log($"{gameObject.name} 퍼즐 트리거 작동. 자동 이동 및 클리어 연출 시작");
+
+            if (GameManager.Instance != null)
+            {
+                GameManager.Instance.StartStageClearSequence(this, collision.gameObject);
+            }
+
+            else
+            {
+                Debug.Log("GameManger가 없습니다. 확인바랍니다.");
+            }
+        }       
     }
-    
-    private void ActivateTrigger(GameObject player)
+
+    public void StartCinematicWalk(GameObject player)
     {
-        //트리거 작동
-        _triggered = true;
-
-        Debug.Log($"{gameObject.name} 퍼즐 트리거 작동. 자동 이동 및 클리어 연출 시작");
-
-        //연결되어 있는 연출 이벤트 작동
-        OnTriggerActivated?.Invoke();
-
         StartCoroutine(CinematicWalkRoutine(player));
     }
 
@@ -46,9 +49,6 @@ public class PuzzleTrigger : MonoBehaviour
     {
         //컴포넌트 초기화
         Rigidbody2D rb = player.GetComponent<Rigidbody2D>();
-        InputHandler inputHandler = FindAnyObjectByType<InputHandler>();
-        
-        inputHandler.enabled = false;
 
         if (rb != null)
         {
@@ -74,6 +74,7 @@ public class PuzzleTrigger : MonoBehaviour
         }
 
         Debug.Log("자동 걷기 연출 종료");
+        GameManager.Instance.EndStageClearSequence();
 
         /*      
         * TODO: [스크린 매니저 연동] ScreenManager를 통한 FadeIn, FadeOut 추가
