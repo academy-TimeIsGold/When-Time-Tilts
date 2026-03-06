@@ -78,6 +78,11 @@ public class PlayerState : MonoBehaviour
         // [중요] 이동 로직을 여기서 실행하는 이유:
         // Update에서 힘을 주면 프레임 드랍 시 캐릭터가 버벅이거나, 물리 엔진의 마찰력 때문에 속도가 줄어듭니다.
         // 여기서 매번 속도를 갱신해줘야 부드럽게 움직입니다.
+        if (GameManager.Instance != null && GameManager.Instance.isCinematicPlaying)
+        {
+            return;
+        }
+
         _moveController.Move(_currentInputX, moveSpeed);
     }
 

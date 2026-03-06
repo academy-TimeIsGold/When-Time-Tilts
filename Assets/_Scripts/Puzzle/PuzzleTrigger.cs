@@ -13,18 +13,18 @@ public class PuzzleTrigger : MonoBehaviour
     [Tooltip("자동 이동을 유지할 시간 (초)")]
     public float autoMoveDuration = 2f;
 
-    private bool _triggered = false; //중복 실행 방지 안전장치 bool 변수
+    private bool isTriggered = false; //중복 실행 방지 안전장치 bool 변수    
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         //전에 이미 작동했다면 빠져나옴
-        if (_triggered && triggerOnlyOnce) return;
+        if (isTriggered && triggerOnlyOnce) return;
 
         //Tag가 Player인지 확인
         if (collision.CompareTag("Player"))
         {
             //트리거 작동
-            _triggered = true;
+            isTriggered = true;
 
             Debug.Log($"{gameObject.name} 퍼즐 트리거 작동. 자동 이동 및 클리어 연출 시작");
 
@@ -48,36 +48,38 @@ public class PuzzleTrigger : MonoBehaviour
     private IEnumerator CinematicWalkRoutine(GameObject player)
     {
         //컴포넌트 초기화
-        Rigidbody2D rb = player.GetComponent<Rigidbody2D>();
-
+        Rigidbody2D rb = player.GetComponentInChildren<Rigidbody2D>();                
+        
         if (rb != null)
-        {
+        {            
             float timer = 0f;
 
             //지정된 자유 이동 시간 동안 반복
             while (timer < autoMoveDuration)
-            {
+            {               
                 //가속도 0
-                rb.linearVelocity = Vector2.zero;
+                //rb.linearVelocity = Vector2.zero;
 
                 //Y축은 그대로, X축만 지정 속도로 이동
                 rb.linearVelocity = new Vector2(autoMoveSpeed, rb.linearVelocity.y);
-                rb.gravityScale = 0f;
+                rb.gravityScale = 0f;                
 
                 timer += Time.deltaTime;
                 yield return null;
             }
-            
+            yield return ScreenManager.Instance.FadeOut();
             //이동이 끝나면 정지
             rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
             rb.gravityScale = 1f;
         }
 
+        
+        yield return ScreenManager.Instance.FadeIn();
+
         Debug.Log("자동 걷기 연출 종료");
         GameManager.Instance.EndStageClearSequence();
-
-        /*      
-        * TODO: [스크린 매니저 연동] ScreenManager를 통한 FadeIn, FadeOut 추가
+        
+        /*              
         * TODO: [세이브 매니저 연동] SaveloadManager를 통한 새로운 SavePoint 지정 스크립트 추가
         */
     }
@@ -85,6 +87,6 @@ public class PuzzleTrigger : MonoBehaviour
     //혹시 퍼즐이 초기화돼서 트리거도 다시 켜야 할 때를 대비한 함수
     public void ResetTrigger()
     {
-        _triggered = false;
+        isTriggered = false;
     }
 }
