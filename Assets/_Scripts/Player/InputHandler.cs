@@ -116,10 +116,25 @@ public class InputHandler : MonoBehaviour
         }
     }
 
-    // --- 입력 모드 전환 ---
-    public void AllDis(bool isOpen)
+    // 입력모드 전환
+    public void OpenUI(bool openUI)
     {
-        if (isOpen)
+        if (openUI)
+        {
+            input.Player.Disable();
+            input.UI.Enable();
+        }
+        else
+        {
+            input.UI.Disable();
+            input.Player.Enable();
+        }
+    }
+
+    // 모든 입력 막기
+    public void AllDis(bool allDis)
+    {
+        if (allDis)
         {
             input.Player.Disable();
             input.UI.Disable();
