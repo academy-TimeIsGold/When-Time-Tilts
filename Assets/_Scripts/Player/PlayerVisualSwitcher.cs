@@ -94,6 +94,12 @@ public class PlayerVisualSwitcher : MonoBehaviour
 
             // 현재 활성 오브젝트 갱신
             _currentActiveObject = nextObject;
+
+            // 카메라 매니저에게 새로운 몸통을 쳐다보라고 알려주기
+            if (CameraManager.Instance != null)
+            {
+                CameraManager.Instance.SetCameraTarget(_currentActiveObject.transform);
+            }
         }
     }
 
