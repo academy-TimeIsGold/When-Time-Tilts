@@ -32,6 +32,8 @@ public class CinematicManager : MonoBehaviour
     {
         currentDirector = director;
 
+        isCutscenePlaying = true;
+
         // 1. 레터박스 애니메이션 시작!
         OnCinematicStateChanged?.Invoke(true);
 
@@ -51,6 +53,8 @@ public class CinematicManager : MonoBehaviour
         // 2. 조작 원상복구
         OnCinematicStateChanged?.Invoke(false);
         currentDirector = null;
+
+        isCutscenePlaying = false;
 
         // 3. 인스펙터에서 연결된 후속 작업 실행 (ex. 씬 이동)
         onCutsceneFinished?.Invoke();
@@ -90,4 +94,9 @@ public class CinematicManager : MonoBehaviour
         // 정지 (EndCutscene 자동 호출)
         currentDirector.Stop();
     }
+
+#if UNITY_EDITOR
+    [ContextMenu("스킵")]
+    void Skip() => SkipCutscene();
+#endif
 }
