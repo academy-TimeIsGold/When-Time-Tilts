@@ -11,6 +11,8 @@ public class PressurePlate : MonoBehaviour
     public UnityEvent OnPlantePressed;
     public UnityEvent OnPlanteReleased;
 
+    private bool isPressed = false;
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         //Tag가 Player인지 확인
@@ -19,20 +21,21 @@ public class PressurePlate : MonoBehaviour
             AgeState currentAge = GetPlayerAgeFromManager();
 
             //현재 나이가 필요 나이조건에 맞으면 실행
-            if (currentAge == requiredAge) Press();
-            else Debug.Log($"조건이 맞지 않아 발판 작동이 안됩니다. (현재 나이: {currentAge}");
+            if (currentAge == requiredAge && !isPressed) Press();
+            else if (currentAge != requiredAge) Debug.Log($"조건이 맞지 않아 발판 작동이 안됩니다. (현재 나이: {currentAge}");
         }               
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {   
         //Player가 Trigger를 빠져 나가면 실행
-        if (other.CompareTag("Player")) Released();
+        if (other.CompareTag("Player") && isPressed) Released();
     }
 
     #region 발판 작동 로직    
     private void Press()
     {
+        isPressed = true;
         Debug.Log($"{gameObject.name} 발판 작동");
         
         //Object의 Vector3의 y값을 -0.1f 만큼 이동
@@ -45,6 +48,7 @@ public class PressurePlate : MonoBehaviour
 
     private void Released()
     {
+        isPressed = false;
         Debug.Log($"{gameObject.name} 발판 초기화");
 
         //Object의 Vector3의 y값을 +0.1f 만큼 이동
@@ -56,10 +60,9 @@ public class PressurePlate : MonoBehaviour
     #endregion
 
 
-    //임시로 제작한 현 플레이어 나이
+    //TimeSystemManager를 통해 현재 나이 확인
     private AgeState GetPlayerAgeFromManager()
-    {
-        //무조건 Elder 나이로 반환
-        return AgeState.Elder;
+    {               
+        return TimeSystemManager.Instance.GetCurrentAgeState();
     }
 }
