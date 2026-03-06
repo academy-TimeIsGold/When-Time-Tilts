@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class ActorProfile : MonoBehaviour
 {
-    public string myID = "Rabbit"; 
+    public string myID;
     public Transform bubblePoint; // 말풍선이 뜰 머리 위 빈 오브젝트 위치
 
     private void Start()

@@ -22,6 +22,9 @@ public class DialogueUIManager : MonoBehaviour
     [Tooltip("글자가 쳐지는 기본 속도 (0.05초면 1초에 20글자)")]
     public float baseTypeSpeed = 0.05f;
 
+    // 말풍선이 따라다녀야할 타겟의 위치를 기억할 변수
+    private Transform currentTargetTransform;
+
     private static Dictionary<string, Transform> actorRegistry = new Dictionary<string, Transform>();
 
     // 현재 타이핑 중인 코루틴을 추적 (안전장치용)
@@ -57,6 +60,15 @@ public class DialogueUIManager : MonoBehaviour
         DialogueBehaviour.OnBubbleStateChanged -= HandleBubbleState;
     }
 
+    // 말풍선이 캐릭터를 따라다니게 
+    private void LateUpdate()
+    {
+        if (speechBubbleRoot.activeSelf && currentTargetTransform != null)
+        {
+            speechBubbleRoot.transform.position = currentTargetTransform.position;
+        }
+    }
+
     /// <summary>
     /// 타임라인 클립에 들어오거나 나갈 때 자동 실행
     /// </summary>
@@ -73,6 +85,8 @@ public class DialogueUIManager : MonoBehaviour
         {
             if (actorRegistry.TryGetValue(line.speakerID, out Transform targetTransform))
             {
+                currentTargetTransform = targetTransform;
+
                 // 말풍선 위치 이동 및 활성화
                 speechBubbleRoot.transform.position = targetTransform.position;
                 speechBubbleRoot.SetActive(true);
@@ -89,6 +103,8 @@ public class DialogueUIManager : MonoBehaviour
         {
             // 타임라인 재생바가 클립을 벗어났으므로 말풍선 끄기
             speechBubbleRoot.SetActive(false);
+
+            currentTargetTransform = null;
         }
     }
 
