@@ -31,18 +31,16 @@ public class CameraManager : MonoBehaviour
         }
     }
 
-    // ==========================================
-    // 스테이지(방) 이동 시 카메라 가두리 변경
-    // ==========================================
-    public void SetBoundingBox(Collider2D newBounds)
+    /// <summary>
+    /// 카메라 추적 대상 변경 (변신 시 호출)
+    /// </summary>
+    /// <param name="newTarget"></param>
+    public void SetCameraTarget(Transform newTarget)
     {
-        if (confiner != null && newBounds != null)
+        if (cam != null && newTarget != null)
         {
-            // 1. 카메라가 못 나가는 테두리를 새로운 방의 테두리로 교체
-            confiner.BoundingShape2D = newBounds;
-
-            // 2. 시네머신에게 "테두리 바뀌었으니 다시 계산 하라고 알림
-            confiner.InvalidateBoundingShapeCache();
+            // 유니티 6 시네머신(3.x)의 최신 타겟 변경 코드!
+            cam.Target.TrackingTarget = newTarget;
         }
     }
 
