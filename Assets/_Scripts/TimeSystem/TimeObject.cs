@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider2D))]
-public class TimeObject : MonoBehaviour, IInteractable
+public class TimeObject : MonoBehaviour, IInteractable, IFocusable
 {
     [Header("상태별 외형 설정")]
     public GameObject pastState;       //과거
@@ -9,6 +9,9 @@ public class TimeObject : MonoBehaviour, IInteractable
 
     [Header("초기 상태 설정")]
     public TimeState currentState = TimeState.Future;   //처음 배치될 때 기본 상태
+
+    [Header("포커스 시각 효과")]
+    [SerializeField] private SpriteRenderer outlineRenderer;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -22,6 +25,14 @@ public class TimeObject : MonoBehaviour, IInteractable
         //오브젝트의 현 상태에 따라 변경
         if (currentState == TimeState.Past) Accelerate();
         else Revert();            
+    }
+
+    public void SetFocus(bool isFocused)
+    {
+        if (outlineRenderer != null)
+        {
+            outlineRenderer.enabled = isFocused;
+        }
     }
 
     public void Accelerate()
