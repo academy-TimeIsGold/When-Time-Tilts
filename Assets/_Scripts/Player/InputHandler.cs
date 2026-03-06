@@ -25,6 +25,7 @@ public class InputHandler : MonoBehaviour
     public event Action OnUIMouseLeftClick;
     public event Action OnUIMouseMiddleClick;
     public event Action OnUIMouseRightClick;
+    public event Action OnUIEscape;
 
     public Vector2 moveInput;
     public Vector2 mouseInput;
@@ -37,7 +38,8 @@ public class InputHandler : MonoBehaviour
 
     private void OnEnable()
     {
-        input.Enable();
+        input.Player.Enable();
+        input.UI.Disable();
 
         //플레이어
         input.Player.Move.performed += MoveCtx;
@@ -59,6 +61,7 @@ public class InputHandler : MonoBehaviour
         input.UI.LeftClick.performed += UILeftClickCtx;
         input.UI.MiddleClick.performed += UIMiddleClickCtx;
         input.UI.RightClick.performed += UIRightClickCtx;
+        input.UI.ESC.performed += UIESCCtx;
 
         //컷신
         CinematicManager.OnCinematicStateChanged += HandleCinematicState;
@@ -86,6 +89,7 @@ public class InputHandler : MonoBehaviour
         input.UI.LeftClick.performed -= UILeftClickCtx;
         input.UI.MiddleClick.performed -= UIMiddleClickCtx;
         input.UI.RightClick.performed -= UIRightClickCtx;
+        input.UI.ESC.performed -= UIESCCtx;
 
         //컷신
         CinematicManager.OnCinematicStateChanged -= HandleCinematicState;
@@ -99,6 +103,7 @@ public class InputHandler : MonoBehaviour
         {
             // 1. 플레이어의 모든 조작(이동, 점프, 스킬 등)을 차단
             input.Player.Disable();
+            input.UI.Enable();
 
             moveInput = Vector2.zero;
             OnMove?.Invoke(Vector2.zero);
@@ -107,16 +112,17 @@ public class InputHandler : MonoBehaviour
         {
             // 컷신이 끝나면 다시 조작을 활성화합니다.
             input.Player.Enable();
+            input.UI.Disable();
         }
     }
 
     // --- 입력 모드 전환 ---
-    public void OpenUI(bool isOpen)
+    public void AllDis(bool isOpen)
     {
         if (isOpen)
         {
             input.Player.Disable();
-            input.UI.Enable();
+            input.UI.Disable();
         }
         else
         {
@@ -186,4 +192,9 @@ public class InputHandler : MonoBehaviour
     {
         OnUIMouseRightClick?.Invoke();
     }
+    void UIESCCtx(InputAction.CallbackContext context)
+    {
+        OnUIEscape?.Invoke();
+    }
+
 }
