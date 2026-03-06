@@ -5,8 +5,13 @@ public class GameManager : MonoBehaviour
     //싱글톤
     public static GameManager Instance {  get; private set; }
 
+    [Header("세이브 시스템")]
+    public Vector3 lastSavePosition { get; private set; }
+    private SavePoint currentSavePoint;
+
     private InputHandler inputHandler;
 
+    //InputHandler에서 활용할 시네마틱 연출용 키입력 가능여부 bool 변수
     public bool isCinematicPlaying { get; private set; } = false;
 
     //씬 이동 시 파괴 방지
@@ -51,5 +56,19 @@ public class GameManager : MonoBehaviour
     {
         isCinematicPlaying = false;
         if (inputHandler != null) inputHandler.AllDis(false);
+    }
+
+    public void UpdateSavePoint(SavePoint newSavePoint, Vector3 newPosition)
+    {
+        if (currentSavePoint != null && currentSavePoint != newSavePoint)
+        {
+            currentSavePoint.DeactivateSavePoint();
+        }
+
+        //새로운 세이브 포인트로 변경
+        currentSavePoint = newSavePoint;
+
+        //넘겨받은 부활 좌표를 글로벌 변수에 저장
+        lastSavePosition = newPosition;
     }
 }
