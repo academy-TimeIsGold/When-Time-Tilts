@@ -75,6 +75,7 @@ public class PuzzleTrigger : MonoBehaviour
 
         //Player 위치 이동
         CameraManager.Instance.TestSnapToNewStage();
+
         //화면 FadeIn
         yield return ScreenManager.Instance.FadeIn();
 
