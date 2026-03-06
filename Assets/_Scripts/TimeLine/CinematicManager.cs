@@ -25,10 +25,14 @@ public class CinematicManager : MonoBehaviour
     [Tooltip("인트로 씬이면 씬 로드 함수를, 인게임이면 비워두거나 필요한 연출을 연결")]
     public UnityEvent onCutsceneFinished;
 
+    private bool isCutscenePlaying = false;
+
     // 버튼 클릭(인트로) 또는 트리거(인게임)에서 호출
     public void PlayCutscene(PlayableDirector director)
     {
         currentDirector = director;
+
+        isCutscenePlaying = true;
 
         // 1. 레터박스 애니메이션 시작!
         OnCinematicStateChanged?.Invoke(true);
@@ -50,6 +54,8 @@ public class CinematicManager : MonoBehaviour
         OnCinematicStateChanged?.Invoke(false);
         currentDirector = null;
 
+        isCutscenePlaying = false;
+
         // 3. 인스펙터에서 연결된 후속 작업 실행 (ex. 씬 이동)
         onCutsceneFinished?.Invoke();
     }
@@ -65,4 +71,32 @@ public class CinematicManager : MonoBehaviour
             currentDirector.Play();
         }
     }
+   
+    // 컷신 스킵
+    public void SkipCutscene()
+    {
+        if (!isCutscenePlaying || currentDirector == null) return;
+
+        StopAllCoroutines();
+
+        // Play 상태가 아니면 강제로 Play (시간 워프를 위해)
+        if (currentDirector.state != PlayState.Playing)
+        {
+            currentDirector.Play();
+        }
+
+        // 타임라인 시간을 맨 끝으로 순간이동
+        currentDirector.time = currentDirector.duration;
+
+        // 애니메이션/위치 상태 강제 갱신
+        currentDirector.Evaluate();
+
+        // 정지 (EndCutscene 자동 호출)
+        currentDirector.Stop();
+    }
+
+#if UNITY_EDITOR
+    [ContextMenu("스킵")]
+    void Skip() => SkipCutscene();
+#endif
 }
