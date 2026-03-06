@@ -161,9 +161,9 @@ public class CameraManager : MonoBehaviour
     private void TestReset() => ResetCamera(1f);
 
     [ContextMenu("테스트 6: 다음 방으로 텔레포트 컷 (Snap)")]
-    private void TestSnapToNewStage()
+    public void TestSnapToNewStage()
     {
-        if (testPlayerTransform != null && testNextStageBounds != null)
+        if (testPlayerTransform != null || testNextStageBounds != null)
         {
             // 1. 플레이어를 임의의 다음 방 좌표로 순간이동
             testPlayerTransform.position = testTeleportPosition;
