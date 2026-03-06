@@ -10,11 +10,15 @@ public class TimeSystemManager : MonoBehaviour
 
     [Header("시간 자원 설정")]
     [SerializeField] private int maxResource = 2;           // 최대 시간 자원
-    [SerializeField] private int minResource = -2;           // 최소 시간 자원
+    [SerializeField] private int minResource = -2;          // 최소 시간 자원
     [SerializeField] private int defaultResource = 0;       // 시작 및 리셋 기본값
 
     [Header("조작 1회 소모량")]
     [SerializeField] private int costPerInteract = 1;
+
+    [Header("시간 모드 슬로우 설정")]
+    [SerializeField] private float slowTimeScale = 0.3f;    // 모드 진입 배속
+    [SerializeField] private float normalTimeScale = 1f;    // 기본 배속
 
     // 이벤트
     public event Action<int> OnResourceChanged;             // 자원 변경 시 이벤트
@@ -104,6 +108,7 @@ public class TimeSystemManager : MonoBehaviour
 
         currentMode = newMode;
         Debug.Log($"[TimeSystem] 모드 전환: {currentMode}");
+        ApplyTimeScale(currentMode != TimeMode.None);
         OnModeChanged?.Invoke(currentMode);
     }
 
@@ -114,7 +119,15 @@ public class TimeSystemManager : MonoBehaviour
         currentMode = TimeMode.None;
         
         Debug.Log($"[TimeSystem] 모드 해제");
+        ApplyTimeScale(false);  // 모드 해제 시 슬로우 모션 해제
         OnModeChanged?.Invoke(currentMode);
+    }
+
+    // 슬로우 모션 적용/해제
+    private void ApplyTimeScale(bool slow)
+    {
+        Time.timeScale = slow ? slowTimeScale : normalTimeScale;
+        Time.fixedDeltaTime = 0.02f * Time.timeScale; // 물리 업데이트도 시간에 맞춰 조정
     }
 
     #endregion
@@ -138,14 +151,17 @@ public class TimeSystemManager : MonoBehaviour
             return false;
         }
 
-        // 자원 소모 시도
-        if (!ConsumeResource(costPerInteract))
+        bool resourceChanged = currentMode == TimeMode.Accelerate
+            ? ConsumeResource(costPerInteract)
+            : AddResource(costPerInteract);
+
+        if (!resourceChanged)
         {
-            Debug.Log("[TimeSystem] 자원 부족");
+            Debug.Log("[TimeSystem] 자원 한계");
             return false;
         }
 
-        target.Interact();
+            target.Interact();
         Debug.Log($"[TimeSystem] 조작 성공 — {target.name} / 남은 자원: {currentResource}");
         return true;
     }
