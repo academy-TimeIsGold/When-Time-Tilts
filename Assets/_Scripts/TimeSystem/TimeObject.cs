@@ -14,20 +14,20 @@ public class TimeObject : MonoBehaviour, IInteractable, IFocusable
     [SerializeField] private SpriteRenderer outlineRenderer;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    protected virtual void Start()
     {
         UpdateVisual();
     }
 
     [ContextMenu("테스트: 상호작용 실행")]
-    public void Interact()
+    public virtual void Interact()
     {
         //오브젝트의 현 상태에 따라 변경
         if (currentState == TimeState.Past) Accelerate();
         else Revert();            
     }
 
-    public void SetFocus(bool isFocused)
+    public virtual void SetFocus(bool isFocused)
     {
         if (outlineRenderer != null)
         {
@@ -35,7 +35,7 @@ public class TimeObject : MonoBehaviour, IInteractable, IFocusable
         }
     }
 
-    public void Accelerate()
+    public virtual void Accelerate()
     {
         if (currentState == TimeState.Future) return;
 
@@ -43,7 +43,7 @@ public class TimeObject : MonoBehaviour, IInteractable, IFocusable
         UpdateVisual();        
     }
 
-    public void Revert()
+    public virtual void Revert()
     {
         if (currentState == TimeState.Past) return;
 
@@ -51,7 +51,7 @@ public class TimeObject : MonoBehaviour, IInteractable, IFocusable
         UpdateVisual();        
     }
 
-    private void UpdateVisual()
+    protected virtual void UpdateVisual()
     {
         if (pastState != null) pastState.SetActive(currentState == TimeState.Past);
         if (futureState != null) futureState.SetActive(currentState == TimeState.Future);
