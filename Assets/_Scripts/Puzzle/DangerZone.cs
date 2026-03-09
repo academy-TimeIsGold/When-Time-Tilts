@@ -58,34 +58,18 @@ public class DangerZone : MonoBehaviour
 
         //리셋 딜레이
         yield return new WaitForSeconds(resetDelay);
-        
+
         //FadeOut
         if (ScreenManager.Instance != null)
         {
             yield return ScreenManager.Instance.FadeOut();
         }
 
-        //리셋 포인트로 이동
-        if (player !=null)
+        if (GameManager.Instance != null)
         {
-            if (GameManager.Instance != null)
-            {
-                player.transform.position = GameManager.Instance.lastSavePosition;
-            }
-
-            //부활 후 화면 다시 FadeIn
-            if (ScreenManager.Instance != null)
-            {
-                yield return ScreenManager.Instance.FadeIn();
-            }
-
-            //유니티 물리엔진 켜기
-            if (rb != null) rb.simulated = true;
+            GameManager.Instance.ResetToSavePoint();
         }
-
-        //DangerZone 재활용을 위한 초기화
-        if(dangerVFX != null) dangerVFX.SetActive(false);
-        isTriggered = false;
+ 
     }
 
     public bool IsPlayerInDanger()

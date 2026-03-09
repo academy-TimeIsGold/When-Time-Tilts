@@ -5,13 +5,13 @@ using UnityEngine;
 [RequireComponent (typeof(BoxCollider2D))]
 public class SavePoint : MonoBehaviour
 {
+    [Header("세이브 포인트 데이터")]
+    [Tooltip("이 세이브 포인트의 고정값 SO 연결. playerPosition은 SO에 직접 입력")]
+    public SavePointData savePointData;
 
     [Header("세이브 포인트 활성화")]
     [Tooltip("세이브 포인트가 켜졌을 때 보여줄 스프라이트 오브젝트")]
     public GameObject activeSprite;
-
-    [Header("부활 위치 설정")]
-    public Transform spawnPoint;
 
     [Header("카메라 세팅")]
     [Tooltip("해당 세이브 포인트가 있는 방의 테두리(Collider2D)")]
@@ -42,11 +42,16 @@ public class SavePoint : MonoBehaviour
             //activeSprite.GetComponent<Animator>().SetTrigger("Activate");
         }
 
+        if (savePointData == null)
+        {
+            Debug.LogWarning($"[SavePoint] {gameObject.name}: SavePointData가 연결되지 않았습니다.");
+            return;
+        }
+
         //SavePoint의 부활 좌표를 넘김
         if (GameManager.Instance != null)
         {
-            Transform targetSpawn = (spawnPoint != null) ? spawnPoint : this.transform;
-            GameManager.Instance.UpdateSavePoint(this, targetSpawn.position);
+            GameManager.Instance.UpdateSavePoint(this, savePointData);
         }
 
         //카메라가 따라옴

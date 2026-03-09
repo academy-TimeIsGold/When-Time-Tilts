@@ -13,6 +13,10 @@ public class PuzzleTrigger : MonoBehaviour
     [Tooltip("자동 이동을 유지할 시간 (초)")]
     public float autoMoveDuration = 2f;
 
+    [Header("다음 세이브 포인트")]
+    [Tooltip("이 스테이지 클리어 후 이동할 세이브 포인트 데이터")]
+    [SerializeField] private SavePointData nextSavePointData;
+    
     private bool isTriggered = false; //중복 실행 방지 안전장치 bool 변수    
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -73,18 +77,26 @@ public class PuzzleTrigger : MonoBehaviour
             rb.gravityScale = 1f;
         }
 
-        //Player 위치 이동
-        CameraManager.Instance.TestSnapToNewStage();
+        // 다음 세이브 포인트로 GameManager 갱신 + 파일 저장
+        if (nextSavePointData != null)
+        {
+            GameManager.Instance.UpdateSavePoint(null, nextSavePointData);
+
+            if (player != null)
+            {
+                player.transform.position = nextSavePointData.playerPosition;
+            }
+        }
+        else
+        {
+            Debug.LogWarning($"[PuzzleTrigger] {gameObject.name}: nextSavePointData가 연결되지 않았습니다.");
+        }
 
         //화면 FadeIn
         yield return ScreenManager.Instance.FadeIn();
 
         Debug.Log("자동 걷기 연출 종료");
         GameManager.Instance.EndStageClearSequence();       
-
-        /*              
-        * TODO: [세이브 매니저 연동] SaveloadManager를 통한 새로운 SavePoint 지정 스크립트 추가
-        */
     }
 
     //혹시 퍼즐이 초기화돼서 트리거도 다시 켜야 할 때를 대비한 함수
