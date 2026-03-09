@@ -58,6 +58,15 @@ public class GameManager : MonoBehaviour
         if (inputHandler != null) inputHandler.AllDis(false);
     }
 
+    // 입력 잠금/해제
+    public void SetInputLock(bool isLocked)
+    {
+        if (inputHandler != null)
+        {
+            inputHandler.AllDis(isLocked);
+        }
+    }
+
     public void UpdateSavePoint(SavePoint newSavePoint, Vector3 newPosition)
     {
         if (currentSavePoint != null && currentSavePoint != newSavePoint)

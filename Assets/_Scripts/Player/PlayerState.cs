@@ -236,17 +236,22 @@ public class PlayerState : MonoBehaviour
 
         if (col == null) return;
 
-        //if (hit.collider == null) return;
-
-        // IFocusable이 없으면 시간 조작 대상이 아님
-        if (col.GetComponent<IFocusable>() == null) return;
-
-        TimeObject timeObj = col.GetComponent<TimeObject>();
+        // 자식 콜라이더 클릭 시 부모 TimeObject 탐색
+        TimeObject timeObj = col.GetComponentInParent<TimeObject>();
         if (timeObj == null) return;
+
+        // SkyController 클릭
+        // is: timeObj가 SkyController이면 SkyController로 변환하여 참조. (주로 상속 관계에서 사용)
+        if (timeObj is SkyController skyController)
+        {
+            if (!skyController.IsAnimating) skyController.Interact();
+            return;
+        }
 
         // 대상이 존재하고, 플레이어와의 거리가 사거리 이내일 때만 실행
         if (Vector2.Distance(transform.position, col.transform.position) <= interactionRange)
         {
+            if (!timeObj.isInteractable) return;    //조작 불가 오브젝트 차단
             bool success = TimeSystemManager.Instance.TryInteract(timeObj);
             if (success) TimeSystemManager.Instance.ClearMode();
         }
@@ -293,15 +298,31 @@ public class PlayerState : MonoBehaviour
         foreach (Collider2D hit in hits)
         {
             // 범위 내 오브젝트 중 ITimeable이 있는 것만 골라냄
-            IFocusable focusable = hit.GetComponent<IFocusable>();
+            IFocusable focusable = hit.GetComponentInParent<IFocusable>();
             if (focusable == null) continue;
 
-            TimeObject timeObj = hit.GetComponent<TimeObject>();
+            TimeObject timeObj = hit.GetComponentInParent<TimeObject>();
+            if (timeObj != null && !timeObj.isInteractable) continue;
             if (timeObj != null && !TimeSystemManager.Instance.IsCompatible
                 (TimeSystemManager.Instance.CurrentMode, timeObj.currentState)) continue;
 
             focusable.SetFocus(true);
             _focusedObjects.Add(focusable);
+        }
+
+        SkyController skyController = FindAnyObjectByType<SkyController>();
+        if (skyController != null && !skyController.IsAnimating)
+        {
+            TimeMode mode = TimeSystemManager.Instance.CurrentMode;
+            bool canInteract =
+                (mode == TimeMode.Accelerate && skyController.currentState == TimeState.Past) ||
+                (mode == TimeMode.Revert && skyController.currentState == TimeState.Future);
+
+            if (canInteract)
+            {
+                skyController.SetFocus(true);
+                _focusedObjects.Add(skyController);
+            }
         }
     }
 

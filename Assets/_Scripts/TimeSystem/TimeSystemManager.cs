@@ -17,7 +17,7 @@ public class TimeSystemManager : MonoBehaviour
     [SerializeField] private int costPerInteract = 1;
 
     [Header("시간 모드 슬로우 설정")]
-    [SerializeField] private float slowTimeScale = 0.3f;    // 모드 진입 배속
+    [SerializeField] private float slowTimeScale = 0.05f;    // 모드 진입 배속
     [SerializeField] private float normalTimeScale = 1f;    // 기본 배속
 
     // 이벤트
