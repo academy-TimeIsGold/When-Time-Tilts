@@ -42,7 +42,7 @@ public class SkyController : TimeObject
             playerTarget.position.y + followOffsetY
             );
         transform.position = Vector2.Lerp(transform.position, targetPos, 
-            followSpeed * Time.Time.unscaledDeltaTime);
+            followSpeed * Time.unscaledDeltaTime);
     }
 
     public override void Interact()
@@ -53,7 +53,13 @@ public class SkyController : TimeObject
 
         if (mode == TimeMode.Accelerate && currentState == TimeState.Past)
         {
-
+            if (!TimeSystemManager.Instance.ConsumeResource(1)) return;
+            StartCoroutine(SwitchRoutine(TimeState.Future));
+        }
+        else if (mode == TimeMode.Revert && currentState == TimeState.Future)
+        {
+            if (!TimeSystemManager.Instance.AddResource(1)) return;
+            StartCoroutine(SwitchRoutine(TimeState.Past));
         }
     }
 
@@ -65,7 +71,41 @@ public class SkyController : TimeObject
         // 모드 해제 (슬로우 모션 해제)
         TimeSystemManager.Instance.ClearMode();
 
-        // 입력 잠금
-        
+        // 입력 잠금 + 시간 정지
+        GameManager.Instance.SetInputLock(true);
+        Time.timeScale = 0f;
+
+        // 해/달 둘 다 켜기
+        if (pastState != null) pastState.SetActive(true);
+        if (futureState != null) futureState.SetActive(true);
+
+        // Pivot 180도 회전
+        float elapsed = 0f;
+        Quaternion startRot = pivot.rotation;
+        Quaternion endRot = startRot * Quaternion.Euler(0f, 0f, 180f);
+
+        while (elapsed < rotateDuration)
+        {
+            elapsed += Time.unscaledDeltaTime;
+            // 가속도가 붙었다가 천천히 멈추는 느낌을 주기 위함
+            float t = Mathf.SmoothStep(0f, 1f, elapsed / rotateDuration);
+            pivot.rotation = Quaternion.Lerp(startRot, endRot, t);
+            yield return null;
+        }
+        pivot.rotation = endRot;
+
+        // 상태 전환 + 비주얼 갱신
+        currentState = targetState;
+        UpdateVisual();
+
+        // SkyState 이벤트 발행
+        OnSkyChanged?.Invoke(CurrentSkyState);
+
+        // 6. 시간 복구 + 입력 잠금 해제
+        Time.timeScale = 1f;
+        Time.fixedDeltaTime = 0.02f * Time.timeScale;
+        GameManager.Instance.SetInputLock(false);
+
+        isAnimating = false;
     }
 }

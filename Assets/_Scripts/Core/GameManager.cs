@@ -52,4 +52,13 @@ public class GameManager : MonoBehaviour
         isCinematicPlaying = false;
         if (inputHandler != null) inputHandler.AllDis(false);
     }
+
+    // 입력 잠금/해제
+    public void SetInputLock(bool isLocked)
+    {
+        if (inputHandler != null)
+        {
+            inputHandler.AllDis(isLocked);
+        }
+    }
 }

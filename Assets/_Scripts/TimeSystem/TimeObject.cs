@@ -1,6 +1,5 @@
 using UnityEngine;
 
-[RequireComponent(typeof(BoxCollider2D))]
 public class TimeObject : MonoBehaviour, IInteractable, IFocusable
 {
     [Header("상태별 외형 설정")]
@@ -12,6 +11,8 @@ public class TimeObject : MonoBehaviour, IInteractable, IFocusable
 
     [Header("포커스 시각 효과")]
     [SerializeField] private SpriteRenderer outlineRenderer;
+
+    public bool isInteractable = true;   //상호작용 가능 여부 (SkyReactor 등에서 사용)
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     protected virtual void Start()
