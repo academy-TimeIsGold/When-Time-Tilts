@@ -42,7 +42,7 @@ public class BootIntro : MonoBehaviour
     //스킵 함수
     private void SkipIntro(InputAction.CallbackContext context)
     {
-        SceneManager.LoadScene(SceneNames.TITLE);
+        GameSceneManager.Instance.LoadScene(SceneNames.TITLE);
     }  
 
     //로고 FadeIn, Out 루틴
@@ -91,6 +91,6 @@ public class BootIntro : MonoBehaviour
             yield return null;
         }
 
-        SceneManager.LoadScene(SceneNames.TITLE);
+        GameSceneManager.Instance.LoadScene(SceneNames.TITLE);
     }
 }
