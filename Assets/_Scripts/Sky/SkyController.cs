@@ -8,10 +8,6 @@ public class SkyController : TimeObject
     [SerializeField] private Transform pivot;               // 회전 중심
     [SerializeField] private float rotateDuration = 1.0f;   // 회전 연출 지속 시간
 
-    [Header("플레이어 추적")]
-    [SerializeField] private float followOffsetY = 4f;
-    [SerializeField] private float followSpeed = 8f;
-
     [Header("플레이어 연결")]
     [SerializeField] private Transform playerTarget;
 
@@ -26,23 +22,6 @@ public class SkyController : TimeObject
     {
         base.Start();
         SetFocus(false);
-    }
-
-    public void SetPlayerTarget(Transform target)
-    {
-        playerTarget = target;
-    }
-
-    private void LateUpdate()
-    {
-        if (playerTarget == null) return;
-
-        Vector3 targetPos = new Vector2(
-            playerTarget.position.x,
-            playerTarget.position.y + followOffsetY
-            );
-        transform.position = Vector2.Lerp(transform.position, targetPos, 
-            followSpeed * Time.unscaledDeltaTime);
     }
 
     public override void Interact()
