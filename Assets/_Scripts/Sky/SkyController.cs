@@ -87,4 +87,11 @@ public class SkyController : TimeObject
 
         isAnimating = false;
     }
+
+    public void SetSkyState(SkyState state)
+    {
+        currentState = (state == SkyState.Day) ? TimeState.Past : TimeState.Future;
+        UpdateVisual();
+        OnSkyChanged?.Invoke(state);
+    }
 }
