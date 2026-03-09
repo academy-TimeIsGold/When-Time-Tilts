@@ -63,7 +63,7 @@ public class Title_Btn : MonoBehaviour
         //TODO: "기존 세이브가 있습니다. 덮어쓰시겠습니까?" 팝업 표시
         //TODO: 새 게임 시작 관련 SaveManager 기존 데이터 삭제 로직 추가        
 
-        GameSceneManager.Instance.LoadScene("INTRO");
+        GameSceneManager.Instance.LoadScene(SceneNames.INTRO);
     }
 
     private void OnContinueClicked()
@@ -72,7 +72,7 @@ public class Title_Btn : MonoBehaviour
         //TODO: "저장된 데이터가 없습니다." 팝업 표시        
 
         //우선 Stage01로 이동
-        GameSceneManager.Instance.LoadScene("Stage01");
+        GameSceneManager.Instance.LoadScene(SceneNames.STAGE01);
     }
 
     private void Option()
