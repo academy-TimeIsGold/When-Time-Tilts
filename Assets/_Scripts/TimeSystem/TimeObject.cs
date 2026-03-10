@@ -13,8 +13,7 @@ public class TimeObject : MonoBehaviour, IInteractable, IFocusable
     [SerializeField] private SpriteRenderer outlineRenderer;
 
     public bool isInteractable = true;   //상호작용 가능 여부 (SkyReactor 등에서 사용)
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    
     protected virtual void Start()
     {
         UpdateVisual();

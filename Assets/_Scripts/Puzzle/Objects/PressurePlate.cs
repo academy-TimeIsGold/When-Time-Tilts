@@ -7,6 +7,10 @@ public class PressurePlate : MonoBehaviour
     [Header("상호작용 필요 나이 조건")]
     public AgeState requiredAge = AgeState.Elder;
 
+    [Header("발판 시각적 오브젝트")]
+    [Tooltip("트리거 영역은 가만히 두고, 이 오브젝트만 위아래로 움직입니다.")]
+    public Transform visualTransform;
+
     [Header("발판 이벤트 연결")]
     public UnityEvent OnPlantePressed;
     public UnityEvent OnPlanteReleased;
@@ -37,10 +41,12 @@ public class PressurePlate : MonoBehaviour
     {
         isPressed = true;
         Debug.Log($"{gameObject.name} 발판 작동");
-        
+
         //Object의 Vector3의 y값을 -0.1f 만큼 이동
-        transform.position = new Vector3(transform.position.x, transform.position.y - 0.1f, transform.position.z);
-        
+        if (visualTransform != null)
+        {
+            visualTransform.localPosition = new Vector3(visualTransform.localPosition.x, visualTransform.localPosition.y - 0.1f, visualTransform.localPosition.z);
+        }
         //발판이 눌렸다고 알림
         OnPlantePressed?.Invoke();
     }
@@ -52,7 +58,10 @@ public class PressurePlate : MonoBehaviour
         Debug.Log($"{gameObject.name} 발판 초기화");
 
         //Object의 Vector3의 y값을 +0.1f 만큼 이동
-        transform.position = new Vector3(transform.position.x, transform.position.y + 0.1f, transform.position.z);
+        if (visualTransform != null)
+        {
+            visualTransform.localPosition = new Vector3(visualTransform.localPosition.x, visualTransform.localPosition.y + 0.1f, visualTransform.localPosition.z);
+        }
 
         //발판이 초기화 됐다고 알림
         OnPlanteReleased?.Invoke();
