@@ -25,7 +25,16 @@ public class PressurePlate : MonoBehaviour
             AgeState currentAge = GetPlayerAgeFromManager();
 
             //현재 나이가 필요 나이조건에 맞으면 실행
-            if (currentAge == requiredAge && !isPressed) Press();
+            if (currentAge == requiredAge && !isPressed)
+            {
+                Press();
+                if (SoundManager.Instance != null)
+                {
+                    //사운드 재생
+                    SoundManager.Instance.PlaySFX("Object", 0);
+                    Debug.Log("효과재생");
+                }
+            }
             else if (currentAge != requiredAge) Debug.Log($"조건이 맞지 않아 발판 작동이 안됩니다. (현재 나이: {currentAge}");
         }               
     }
@@ -47,8 +56,9 @@ public class PressurePlate : MonoBehaviour
         {
             visualTransform.localPosition = new Vector3(visualTransform.localPosition.x, visualTransform.localPosition.y - 0.1f, visualTransform.localPosition.z);
         }
+        
         //발판이 눌렸다고 알림
-        OnPlantePressed?.Invoke();
+        OnPlantePressed?.Invoke();       
     }
 
 
