@@ -16,12 +16,12 @@ public class DangerZone : MonoBehaviour
         if (!isTriggered && collision.CompareTag("Player"))
         {
             //리셋을 위한 플레이어 정보 넘겨줌
-            TriggerRest(collision.gameObject);
+            TriggerReset(collision.gameObject);
         }
     }
 
     //리셋트리거 작동 함수
-    private void TriggerRest(GameObject player)
+    private void TriggerReset(GameObject player)
     {
         isTriggered = true;
         
@@ -59,21 +59,16 @@ public class DangerZone : MonoBehaviour
         //리셋 딜레이
         yield return new WaitForSeconds(resetDelay);
 
-        //FadeOut
-        if (ScreenManager.Instance != null)
-        {
-            yield return ScreenManager.Instance.FadeOut();
-        }
-
         if (GameManager.Instance != null)
         {
             GameManager.Instance.ResetToSavePoint();
         }
- 
+        isTriggered = false;
     }
 
     public bool IsPlayerInDanger()
     {
         return isTriggered;
     }
+
 }

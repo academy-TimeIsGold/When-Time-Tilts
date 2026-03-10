@@ -91,7 +91,7 @@ public class TimeSystemManager : MonoBehaviour
     // 세이브 지점의 자원 초기화 값이 다를 수 있으므로 매개변수로 받음
     public void ResetResource(int savedValue)
     {
-        currentResource = Mathf.Clamp(savedValue, 0, maxResource);
+        currentResource = Mathf.Clamp(savedValue, minResource, maxResource);
         Debug.Log($"자원 초기화 - 디폴트 시간 자원: {savedValue}, 현재 자원: {currentResource}");
         NotifyResourceChanged();
     }

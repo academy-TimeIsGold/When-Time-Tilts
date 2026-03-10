@@ -15,7 +15,7 @@ public class PuzzleTrigger : MonoBehaviour
 
     [Header("다음 세이브 포인트")]
     [Tooltip("이 스테이지 클리어 후 이동할 세이브 포인트 데이터")]
-    [SerializeField] private SavePointData nextSavePointData;
+    [SerializeField] private SavePoint nextSavePoint;
     
     private bool isTriggered = false; //중복 실행 방지 안전장치 bool 변수    
 
@@ -69,8 +69,7 @@ public class PuzzleTrigger : MonoBehaviour
                 yield return null;
             }
 
-            //화면 FadeOut
-            yield return ScreenManager.Instance.FadeOut();
+            
 
             //이동이 끝나면 정지
             rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
@@ -78,25 +77,19 @@ public class PuzzleTrigger : MonoBehaviour
         }
 
         // 다음 세이브 포인트로 GameManager 갱신 + 파일 저장
-        if (nextSavePointData != null)
+        if (nextSavePoint != null && nextSavePoint.savePointData != null)
         {
-            GameManager.Instance.UpdateSavePoint(null, nextSavePointData);
-
-            if (player != null)
-            {
-                player.transform.position = nextSavePointData.playerPosition;
-            }
+            // SavePoint 활성화
+            nextSavePoint.ActiveteSavePoint();
+            GameManager.Instance?.UpdateSavePoint(nextSavePoint, nextSavePoint.savePointData);
         }
         else
         {
             Debug.LogWarning($"[PuzzleTrigger] {gameObject.name}: nextSavePointData가 연결되지 않았습니다.");
         }
 
-        //화면 FadeIn
-        yield return ScreenManager.Instance.FadeIn();
-
         Debug.Log("자동 걷기 연출 종료");
-        GameManager.Instance.EndStageClearSequence();       
+        GameManager.Instance.ResetToSavePoint();      
     }
 
     //혹시 퍼즐이 초기화돼서 트리거도 다시 켜야 할 때를 대비한 함수

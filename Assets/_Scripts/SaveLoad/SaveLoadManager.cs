@@ -23,7 +23,7 @@ public class SaveLoadManager : MonoBehaviour
     }
 
     // 저장
-    public void SaveFile(SavePointData data)
+    public void SaveFile(SavePointData data, Vector3 playerPosition)
     {
         if (data == null)
         {
@@ -34,7 +34,7 @@ public class SaveLoadManager : MonoBehaviour
         SaveFileData saveData = new SaveFileData
         {
             sceneName = data.sceneName,
-            playerPosition = data.playerPosition,
+            playerPosition = playerPosition,
             startResource = data.startResource,
             startSkyState = data.startSkyState
         };

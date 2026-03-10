@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -9,6 +11,12 @@ public class GameManager : MonoBehaviour
     // 현재 활성화된 세이브 포인트 데이터 (씬 리로드 후에도 유지)
     public SavePointData currentSavePointData { get; private set; }
     private SavePoint currentSavePoint;
+    private Vector3 currentSpawnPosition;    // 씬 리로드 후에도 유지되는 스폰 위치
+
+    private SavePoint currentCheckpoint;    // 중간 체크 포인트
+    private Vector3 currentCheckpointPosition;  // 체크포인트 위치
+
+    public SavePoint CurrentSavePoint => currentSavePoint;     // SceneInitializer에서 roomBounds 접근용
 
     private InputHandler inputHandler;
 
@@ -56,12 +64,22 @@ public class GameManager : MonoBehaviour
     public void EndStageClearSequence()
     {
         isCinematicPlaying = false;
+
+        // 씬 로드 후 파괴될 수 있으므로 재탐색
+        if (inputHandler == null)
+        {
+            inputHandler = FindAnyObjectByType<InputHandler>();
+        }
+
         if (inputHandler != null) inputHandler.AllDis(false);
     }
 
     // 입력 잠금/해제
     public void SetInputLock(bool isLocked)
     {
+        if (inputHandler == null)
+            inputHandler = FindAnyObjectByType<InputHandler>();
+
         if (inputHandler != null)
         {
             inputHandler.AllDis(isLocked);
@@ -83,10 +101,19 @@ public class GameManager : MonoBehaviour
         //넘겨받은 부활 좌표를 글로벌 변수에 저장
         currentSavePointData = data;
 
+        // 새 스테이지 세이브 포인트 등록 시 체크포인트 초기화
+        ClearCheckpoint();
+
+        // 위치를 Vector3로 미리 저장
+        if (newSavePoint != null)
+        {
+             currentSpawnPosition = newSavePoint.transform.position;
+        }
+
         // 파일 저장
         if (SaveLoadManager.Instance != null)
         {
-            SaveLoadManager.Instance.SaveFile(data);
+            SaveLoadManager.Instance.SaveFile(data, currentSpawnPosition);
         }
     }
 
@@ -103,7 +130,10 @@ public class GameManager : MonoBehaviour
         PlayerVisualSwitcher player = FindAnyObjectByType<PlayerVisualSwitcher>();
         if (player != null)
         {
-            player.transform.position = currentSavePointData.playerPosition;
+            player.transform.position = currentSpawnPosition;
+
+            foreach (Transform child in player.transform)
+                child.localPosition = Vector3.zero;
         }
 
         // 시간 자원 복원
@@ -118,15 +148,34 @@ public class GameManager : MonoBehaviour
         {
             skyController.SetSkyState(currentSavePointData.startSkyState);
         }
+
+        Debug.LogWarning("[GameManager] 복원 완료");
     }
 
     // 씬 리로드 (DangerZone에서 호출)
     public void ResetToSavePoint()
     {
-        if (GameManager.Instance != null)
+        if (currentCheckpoint != null)
         {
-            GameSceneManager.Instance.ReloadCurrentScene();
+            StartCoroutine(ResetToCheckpointRoutine());
         }
+        else
+        {
+            StartCoroutine(ResetToSavePointRoutine());
+        }
+    }
+
+    // 스테이지 세이브 포인트 리셋 — FadeOut 후 씬 리로드, FadeIn은 SceneInitializer 담당
+    private IEnumerator ResetToSavePointRoutine()
+    {
+        SetInputLock(true);
+
+        if (ScreenManager.Instance != null)
+        {
+            yield return ScreenManager.Instance.FadeOut();
+        }
+
+        GameSceneManager.Instance.ReloadCurrentScene();
     }
 
     // 저장 파일로부터 이어하기 (타이틀에서 호출)
@@ -142,6 +191,70 @@ public class GameManager : MonoBehaviour
         {
             GameSceneManager.Instance.LoadScene(saveData.sceneName);
         }
+    }
+
+    // 중간 체크포인트 등록 (파일 저장 없이 위치만 기억)
+    public void RegisterCheckpoint(SavePoint checkpoint)
+    {
+        currentCheckpoint = checkpoint;
+        currentCheckpointPosition = checkpoint.transform.position;
+    }
+
+    // 체크포인트 리셋
+    private IEnumerator ResetToCheckpointRoutine()
+    {
+        SetInputLock(true);
+
+        // FadeOut
+        if (ScreenManager.Instance != null)
+        {
+            yield return ScreenManager.Instance.FadeOut();
+        }
+
+        // 플레이어 위치만 체크포인트로 이동
+        PlayerVisualSwitcher player = FindAnyObjectByType<PlayerVisualSwitcher>();
+        if (player != null)
+        {
+            player.transform.position = currentCheckpointPosition;
+
+            foreach (Transform child in player.transform)
+                child.localPosition = Vector3.zero;
+        }
+
+        // 카메라 스냅
+        if (CameraManager.Instance != null)
+        {
+            CameraManager.Instance.SnapToNewStage(
+                currentSavePoint != null ? currentSavePoint.roomBounds : null
+            );
+        }
+
+        // 잠깐 대기
+        yield return new WaitForSeconds(1f);
+
+        // FadeIn
+        if (ScreenManager.Instance != null)
+        {
+            yield return ScreenManager.Instance.FadeIn();
+        }
+
+        if (player != null)
+        {
+            Rigidbody2D rb = player.GetComponentInChildren<Rigidbody2D>();
+            if (rb != null)
+            {
+                rb.simulated = true;
+            }
+        }
+
+        SetInputLock(false);
+    }
+
+    // 씬 전환 시 체크포인트 초기화
+    public void ClearCheckpoint()
+    {
+        currentCheckpoint = null;
+        currentCheckpointPosition = Vector3.zero;
     }
 
 #if UNITY_EDITOR
@@ -161,7 +274,6 @@ public class GameManager : MonoBehaviour
         }
         Debug.Log($"[GameManager] 현재 SavePointData: {currentSavePointData.name}\n" +
                   $"  씬: {currentSavePointData.sceneName}\n" +
-                  $"  위치: {currentSavePointData.playerPosition}\n" +
                   $"  자원: {currentSavePointData.startResource}\n" +
                   $"  하늘: {currentSavePointData.startSkyState}");
     }
