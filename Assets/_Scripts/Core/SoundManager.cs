@@ -84,7 +84,7 @@ public class SoundManager : MonoBehaviour
         AddSFX("UI", UI_SFX);
 
         //초기 볼륨 적용
-        ApplyAllVolums();
+        ApplyAllVolumes();
     }
 
     //BGM 재생
@@ -144,8 +144,29 @@ public class SoundManager : MonoBehaviour
         else sfxDictionary.Add(name, clips);
     }
 
+    //마스터 볼륨 조절
+    public void SetMasterVolume(float volume)
+    {
+        masterVolume = Mathf.Clamp01(volume);
+        ApplyAllVolumes();
+    }
+
+    //배경음악 볼륨 조절
+    public void SetBGMVolume(float volume)
+    {
+        bgmVolume = Mathf.Clamp01(volume);
+        ApplyAllVolumes();
+    }
+
+    //효과음 볼륨 조절
+    public void SetSFXVolume(float volume)
+    {
+        sfxVolume = Mathf.Clamp01(volume);
+        ApplyAllVolumes();
+    }
+
     //모든 오디오 파일 볼륨 설정
-    private void ApplyAllVolums()
+    private void ApplyAllVolumes()
     {
         //BGM 볼륨
         if (bgmSource != null) bgmSource.volume = masterVolume * bgmSource.volume;
