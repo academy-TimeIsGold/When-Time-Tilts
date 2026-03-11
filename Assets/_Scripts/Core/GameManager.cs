@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     private Vector3 currentCheckpointPosition;  // 체크포인트 위치
 
     public SavePoint CurrentSavePoint => currentSavePoint;     // SceneInitializer에서 roomBounds 접근용
+    public bool HasCheckpoint => currentCheckpoint != null;     // 설정 UI에서 체크포인트 버튼 비활성화/활성화 여부
 
     private InputHandler inputHandler;
 
@@ -256,6 +257,30 @@ public class GameManager : MonoBehaviour
         currentCheckpoint = null;
         currentCheckpointPosition = Vector3.zero;
     }
+
+    #region 설정 호출 용 명시적 리셋
+
+    // 설정에서 호출 — 체크포인트 무시하고 항상 세이브포인트로 리셋
+    public void ResetToSavePointForced()
+    {
+        ClearCheckpoint();
+        StartCoroutine(ResetToSavePointRoutine());
+    }
+
+    // 설정에서 호출 — 체크포인트 있으면 체크포인트로, 없으면 세이브포인트로 리셋
+    public void ResetToCheckpointForced()
+    {
+        if (currentCheckpoint != null)
+            StartCoroutine(ResetToCheckpointRoutine());
+        else
+        {
+            Debug.LogWarning("[GameManager] 체크 포인트 없음");
+        }
+    }
+
+    #endregion
+
+
 
 #if UNITY_EDITOR
     [ContextMenu("디버그: 리셋 테스트")]
