@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: TestSavePoint1
   m_EditorClassIdentifier: Assembly-CSharp::SavePointData
   sceneName: LRH
-  startResource: 0
+  startResource: -2
   startSkyState: 0
