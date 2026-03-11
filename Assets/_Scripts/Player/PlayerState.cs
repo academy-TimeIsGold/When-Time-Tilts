@@ -196,13 +196,17 @@ public class PlayerState : MonoBehaviour
     // 시간 가속(1번) 키 입력
     private void OnAccelInput()
     {
+        _animController.PlayAction();
         TimeSystemManager.Instance.SetMode(TimeMode.Accelerate);
+        
     }
 
     // 시간 회귀(2번) 키 입력
     private void OnRevertInput()
     {
+        _animController.PlayAction();
         TimeSystemManager.Instance.SetMode(TimeMode.Revert);
+        
     }
 
     // 모드 변경 로직 (토글 방식)
