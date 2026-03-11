@@ -1,0 +1,87 @@
+:root {
+}
+
+.Button {
+    top: 600px;
+    left: auto;
+    height: 57px;
+    width: 210px;
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    border-left-color: rgba(149, 149, 149, 0);
+    border-right-color: rgba(149, 149, 149, 0);
+    border-top-color: rgba(149, 149, 149, 0);
+    border-bottom-color: rgba(149, 149, 149, 0);
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    -unity-font-definition: url("project://database/Assets/Font/Suhgung12.ttf?fileID=12800000&guid=50a5a7fc76a6c7541bad2989c194a4d8&type=3#Suhgung12");
+    color: rgb(255, 255, 255);
+    background-color: rgba(188, 188, 188, 0);
+    -unity-text-align: middle-left;
+    align-items: center;
+    align-self: center;
+    justify-content: center;
+    font-size: 40px;
+    right: 400px;
+}
+
+.Button:hover {
+    top: 600px;
+    left: auto;
+    height: 57px;
+    width: 210px;
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    border-left-color: rgba(149, 149, 149, 0);
+    border-right-color: rgba(149, 149, 149, 0);
+    border-top-color: rgba(149, 149, 149, 0);
+    border-bottom-color: rgba(149, 149, 149, 0);
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    -unity-font-definition: url("project://database/Assets/Font/Suhgung12.ttf?fileID=12800000&guid=50a5a7fc76a6c7541bad2989c194a4d8&type=3#Suhgung12");
+    color: rgb(255, 255, 255);
+    background-color: rgba(188, 188, 188, 0);
+    -unity-text-align: middle-left;
+    align-items: center;
+    align-self: center;
+    justify-content: center;
+    font-size: 40px;
+    right: 400px;
+    scale: 1.2 1.2 1.2;
+}
+
+.Button:active {
+    top: 600px;
+    left: auto;
+    height: 57px;
+    width: 210px;
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    border-left-color: rgba(149, 149, 149, 0);
+    border-right-color: rgba(149, 149, 149, 0);
+    border-top-color: rgba(149, 149, 149, 0);
+    border-bottom-color: rgba(149, 149, 149, 0);
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    -unity-font-definition: url("project://database/Assets/Font/Suhgung12.ttf?fileID=12800000&guid=50a5a7fc76a6c7541bad2989c194a4d8&type=3#Suhgung12");
+    color: rgb(255, 255, 255);
+    background-color: rgba(188, 188, 188, 0);
+    -unity-text-align: middle-left;
+    align-items: center;
+    align-self: center;
+    justify-content: center;
+    font-size: 40px;
+    right: 400px;
+}
