@@ -87,4 +87,18 @@ public class SkyController : TimeObject
 
         isAnimating = false;
     }
+
+    public void SetSkyState(SkyState state)
+    {
+        currentState = (state == SkyState.Day) ? TimeState.Past : TimeState.Future;
+        
+        // pivot 즉시 회전
+        if (pivot != null)
+        {
+            pivot.rotation = Quaternion.Euler(0f, 0f, state == SkyState.Day ? 0f : 180f);
+        }
+
+        UpdateVisual();
+        OnSkyChanged?.Invoke(state);
+    }
 }

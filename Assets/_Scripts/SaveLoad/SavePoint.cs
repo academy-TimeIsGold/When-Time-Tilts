@@ -5,13 +5,16 @@ using UnityEngine;
 [RequireComponent (typeof(BoxCollider2D))]
 public class SavePoint : MonoBehaviour
 {
+    [Header("세이브 포인트 데이터")]
+    [Tooltip("이 세이브 포인트의 고정값 SO 연결. playerPosition은 SO에 직접 입력")]
+    public SavePointData savePointData;
+
+    [Tooltip("true: 중간 체크 포인트(위치만 기억, 파일 저장 X)\nfalse: 스테이지 세이브 포인트 (파일 저장O)")]
+    [SerializeField] private bool isCheckpoint = false;
 
     [Header("세이브 포인트 활성화")]
     [Tooltip("세이브 포인트가 켜졌을 때 보여줄 스프라이트 오브젝트")]
     public GameObject activeSprite;
-
-    [Header("부활 위치 설정")]
-    public Transform spawnPoint;
 
     [Header("카메라 세팅")]
     [Tooltip("해당 세이브 포인트가 있는 방의 테두리(Collider2D)")]
@@ -21,13 +24,13 @@ public class SavePoint : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.CompareTag("Player") && !isActivated)
-        {
-            ActiveteSavePoint();
-        }
+        if (!collision.CompareTag("Player")) return;
+        if (isActivated) return;
+
+        ActiveteSavePoint();
     }
 
-    private void ActiveteSavePoint()
+    public void ActiveteSavePoint()
     {
         //SavePoint 활성화
         isActivated = true;
@@ -42,17 +45,10 @@ public class SavePoint : MonoBehaviour
             //activeSprite.GetComponent<Animator>().SetTrigger("Activate");
         }
 
-        //SavePoint의 부활 좌표를 넘김
-        if (GameManager.Instance != null)
+        if (isCheckpoint)
         {
-            Transform targetSpawn = (spawnPoint != null) ? spawnPoint : this.transform;
-            GameManager.Instance.UpdateSavePoint(this, targetSpawn.position);
-        }
-
-        //카메라가 따라옴
-        if (CameraManager.Instance != null || roomBounds != null)
-        {
-            CameraManager.Instance.SnapToNewStage(roomBounds);
+            // 체크 포인트 위치 전달
+            GameManager.Instance?.RegisterCheckpoint(this);
         }
     }
 

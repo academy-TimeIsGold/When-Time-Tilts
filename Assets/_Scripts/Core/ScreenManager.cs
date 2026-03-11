@@ -27,7 +27,7 @@ public class ScreenManager : MonoBehaviour
         if (fadeCanvasGroup != null)
         {
             //게임 시작 시 화면이 보이게 투명도 0
-            fadeCanvasGroup.alpha = 0f;
+            fadeCanvasGroup.alpha = 1f;
             fadeCanvasGroup.blocksRaycasts = false;
         }
     }       
