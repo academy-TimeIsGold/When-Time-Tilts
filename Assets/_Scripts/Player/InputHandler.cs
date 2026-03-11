@@ -189,6 +189,9 @@ public class InputHandler : MonoBehaviour
     void ESCCtx(InputAction.CallbackContext ctx)
     {
         OnEscape?.Invoke();
+
+        //옵션 싱글톤 찾아 메뉴 켜기
+        if (OptionButton.Instance != null) OptionButton.Instance.ToggleMenu();
     }
     void UIMousePointCtx(InputAction.CallbackContext ctx)
     {
@@ -210,6 +213,7 @@ public class InputHandler : MonoBehaviour
     void UIESCCtx(InputAction.CallbackContext context)
     {
         OnUIEscape?.Invoke();
+        if (OptionButton.Instance != null) OptionButton.Instance.OnBackInput();
     }
 
 }
