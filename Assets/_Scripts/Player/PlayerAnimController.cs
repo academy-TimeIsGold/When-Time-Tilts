@@ -10,6 +10,7 @@ public class PlayerAnimController
     private readonly int _hashYVelocity = Animator.StringToHash("yVelocity");   // 점프/낙하 블렌딩 (Float)
     private readonly int _hashIsGrounded = Animator.StringToHash("isGrounded"); // 땅에 닿았는지 (Bool)
     private readonly int _hashInteract = Animator.StringToHash("Interact");     // 상호작용 트리거 (Trigger)
+    private readonly int _hsahAction = Animator.StringToHash("Action");         // 시간모드 진입이나 초기화시 출력할 애니메이션(Trigger)
 
     // 생성자: 애니메이터를 받아옴
     public PlayerAnimController(Animator anim)
@@ -38,5 +39,12 @@ public class PlayerAnimController
     {
         if (_anim == null) return;
         _anim.SetTrigger(_hashInteract);
+    }
+
+    //액션 애니메이션
+    public void PlayAction()
+    {
+        if( _anim == null) return;
+        _anim.SetTrigger(_hsahAction);
     }
 }
