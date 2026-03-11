@@ -1,10 +1,16 @@
 fileFormatVersion: 2
-guid: d6054b5d7f05f5e4b8976435c5eaf5e7
+guid: cc662500cc1a69440ba254ad0aedcca1
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -6311452558322502869
-    second: Forest_5_L6_0
+      213: -3538500352785864816
+    second: "\uBE0C\uB9BF\uC9C0 \uC644\uC131\uBCF8_0"
+  - first:
+      213: -7808856585001248351
+    second: "\uBE0C\uB9BF\uC9C0 \uC644\uC131\uBCF8_1"
+  - first:
+      213: 5593003817205060026
+    second: "\uBE0C\uB9BF\uC9C0 \uC644\uC131\uBCF8_2"
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -49,8 +55,8 @@ TextureImporter:
   spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
-  alignment: 7
-  spritePivot: {x: 0.5, y: 0}
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
@@ -97,24 +103,11 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 0
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
     buildTarget: Android
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -126,13 +119,35 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Forest_5_L6_0
+      name: "\uBE0C\uB9BF\uC9C0 \uC644\uC131\uBCF8_0"
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 576
-        height: 324
+        x: 7
+        y: 6
+        width: 132
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 097aa9a4da8b4eec0800000000000000
+      internalID: -3538500352785864816
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\uBE0C\uB9BF\uC9C0 \uC644\uC131\uBCF8_2"
+      rect:
+        serializedVersion: 2
+        x: 164
+        y: 6
+        width: 132
+        height: 36
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,52 +156,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b23f47476573968a0800000000000000
-      internalID: -6311452558322502869
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Layer_1_0
-      rect:
-        serializedVersion: 2
-        x: 575
-        y: 0
-        width: 493
-        height: 59
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b7a7d5d04602f394090a4c8a62e5c382
-      internalID: 894410853
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Layer_1_1
-      rect:
-        serializedVersion: 2
-        x: 1149
-        y: 0
-        width: 258
-        height: 324
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8a3bd3d086386824780033b3422ba53d
-      internalID: -1768427745
+      spriteID: ab159e7b6575e9d40800000000000000
+      internalID: 5593003817205060026
       vertices: []
       indices: 
       edges: []
@@ -195,7 +166,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: dc66c8cebc0afe249a475f9f19a4b6ec
     internalID: 0
     vertices: []
     indices: 
@@ -205,9 +176,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Forest_5_L6_0: -6311452558322502869
-      Layer_1_0: 894410853
-      Layer_1_1: -1768427745
+      "\uBE0C\uB9BF\uC9C0 \uC644\uC131\uBCF8_0": -3538500352785864816
+      "\uBE0C\uB9BF\uC9C0 \uC644\uC131\uBCF8_1": -7808856585001248351
+      "\uBE0C\uB9BF\uC9C0 \uC644\uC131\uBCF8_2": 5593003817205060026
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
