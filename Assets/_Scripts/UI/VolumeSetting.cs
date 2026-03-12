@@ -6,6 +6,9 @@ public class VolumeSetting : MonoBehaviour
 {
     public static VolumeSetting Instance;
 
+    [Header("패널")]
+    public GameObject soundPanel;
+
     [Header("버튼")]
     public Button closeButton;
 
@@ -23,8 +26,7 @@ public class VolumeSetting : MonoBehaviour
     {
         if(Instance == null)
         {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
+            Instance = this;            
         }
 
         else Destroy(gameObject);
@@ -115,9 +117,15 @@ public class VolumeSetting : MonoBehaviour
 
     void OnClosePanel()
     {
-        if(OptionButton.Instance.gameObject.activeSelf)
+        if (OptionButton.Instance == null)
+        {
+            VolumeSetting.Instance.soundPanel.SetActive(false);
+            return;
+        }
+
+        else if (OptionButton.Instance.gameObject.activeSelf)
         {
             OptionButton.Instance.soundPanel.SetActive(false);
-        }
+        }        
     }
 }

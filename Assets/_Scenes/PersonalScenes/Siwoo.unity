@@ -639,6 +639,7 @@ MonoBehaviour:
   pastState: {fileID: 1176179299}
   futureState: {fileID: 263176226}
   currentState: 1
+  fadeDuration: 0.5
   outlineRenderer: {fileID: 0}
   isInteractable: 1
 --- !u!1 &56025399
@@ -2556,6 +2557,7 @@ MonoBehaviour:
   pastState: {fileID: 85479438}
   futureState: {fileID: 938710653}
   currentState: 1
+  fadeDuration: 0.5
   outlineRenderer: {fileID: 0}
   isInteractable: 1
   pivot: {fileID: 395851843}
@@ -2835,6 +2837,7 @@ MonoBehaviour:
   pastState: {fileID: 6276661}
   futureState: {fileID: 1653144067}
   currentState: 2
+  fadeDuration: 0.5
   outlineRenderer: {fileID: 0}
   isInteractable: 1
 --- !u!4 &495191484
@@ -3080,6 +3083,7 @@ MonoBehaviour:
   pastState: {fileID: 1830122580}
   futureState: {fileID: 688005737}
   currentState: 2
+  fadeDuration: 0.5
   outlineRenderer: {fileID: 0}
   isInteractable: 1
 --- !u!1 &575964795
@@ -3145,6 +3149,7 @@ MonoBehaviour:
   pastState: {fileID: 1506306734}
   futureState: {fileID: 312350050}
   currentState: 1
+  fadeDuration: 0.5
   outlineRenderer: {fileID: 0}
   isInteractable: 1
 --- !u!4 &579579672
@@ -5370,7 +5375,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1095199694
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6470,6 +6475,7 @@ MonoBehaviour:
   pastState: {fileID: 329970769}
   futureState: {fileID: 996022399}
   currentState: 2
+  fadeDuration: 0.5
   outlineRenderer: {fileID: 0}
   isInteractable: 1
 --- !u!4 &1400666928
@@ -6998,6 +7004,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 480d2563bfe915d41b804f1b6189e9b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Title_Btn
+  soundPanel: {fileID: 0}
 --- !u!114 &1441526134
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7090,7 +7097,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1463132551
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9106,6 +9113,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09b07058a7cdfc6479555f47ce15e64a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::VolumeSetting
+  soundPanel: {fileID: 1299202705}
   closeButton: {fileID: 9345986}
   masterSlider: {fileID: 1228496855}
   bgmSlider: {fileID: 406711424}
