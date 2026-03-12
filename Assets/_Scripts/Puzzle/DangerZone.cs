@@ -31,6 +31,8 @@ public class DangerZone : MonoBehaviour
 
     private IEnumerator ResetRoutine(GameObject player)
     {
+        TimeSystemManager.Instance?.ClearMode();
+
         //Rigidbody 초기화
         Rigidbody2D rb = null;
 

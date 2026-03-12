@@ -170,6 +170,7 @@ public class GameManager : MonoBehaviour
     private IEnumerator ResetToSavePointRoutine()
     {
         SetInputLock(true);
+        TimeSystemManager.Instance?.ClearMode();
 
         if (ScreenManager.Instance != null)
         {
@@ -205,6 +206,7 @@ public class GameManager : MonoBehaviour
     private IEnumerator ResetToCheckpointRoutine()
     {
         SetInputLock(true);
+        TimeSystemManager.Instance?.ClearMode();
 
         // FadeOut
         if (ScreenManager.Instance != null)
