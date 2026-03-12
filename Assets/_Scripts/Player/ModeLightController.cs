@@ -9,7 +9,7 @@ public class ModeLightController : MonoBehaviour
 
     [Header("Global Light 설정")]
     [SerializeField] private float normalIntensity = 1f;
-    [SerializeField] private float modeIntensity = 0.35f;
+    [SerializeField] private float modeIntensity = 0.15f;
 
     [Header("Player Light 설정")]
     [SerializeField] private float playerLightIntensity = 1f;
