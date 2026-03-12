@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 [RequireComponent(typeof(BoxCollider2D))]
+[RequireComponent(typeof(AudioSource))]
 public class PressurePlate : MonoBehaviour
 {
     [Header("상호작용 필요 나이 조건")]
@@ -15,7 +16,22 @@ public class PressurePlate : MonoBehaviour
     public UnityEvent OnPlantePressed;
     public UnityEvent OnPlanteReleased;
 
+    [Header("오브젝트 사운드 연결")]
+    public AudioClip onSound;
+    public AudioClip offSound;
+
+    private AudioSource audioSource;
     private bool isPressed = false;
+
+    private void Awake()
+    {
+        //오디오 소스 컴포넌트 초기화
+        audioSource = GetComponent<AudioSource>();
+        audioSource.playOnAwake = false;
+
+        //입체음향
+        audioSource.spatialBlend = 1.0f;
+    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -31,7 +47,7 @@ public class PressurePlate : MonoBehaviour
                 if (SoundManager.Instance != null)
                 {
                     //사운드 재생
-                    SoundManager.Instance.PlaySFX("Object", 0);
+                    //PlaySound(onSound);
                     Debug.Log("효과재생");
                 }
             }
@@ -43,6 +59,7 @@ public class PressurePlate : MonoBehaviour
     {   
         //Player가 Trigger를 빠져 나가면 실행
         if (other.CompareTag("Player") && isPressed) Released();
+        PlaySound(offSound);
     }
 
     #region 발판 작동 로직    
@@ -50,6 +67,7 @@ public class PressurePlate : MonoBehaviour
     {
         isPressed = true;
         Debug.Log($"{gameObject.name} 발판 작동");
+        PlaySound(onSound);
 
         //Object의 Vector3의 y값을 -0.1f 만큼 이동
         if (visualTransform != null)
@@ -84,4 +102,15 @@ public class PressurePlate : MonoBehaviour
     {               
         return TimeSystemManager.Instance.GetCurrentAgeState();
     }
+
+    #region 오브젝트별 소리 재생 로직
+    private void PlaySound(AudioClip clip)
+    {
+        if (clip != null && SoundManager.Instance != null)
+        {
+            audioSource.volume = SoundManager.Instance.masterVolume * SoundManager.Instance.sfxVolume;
+            audioSource.PlayOneShot(clip);
+        }
+    }
+    #endregion
 }

@@ -1,7 +1,9 @@
-using UnityEngine;
-using System.Collections;
 using System;
+using System.Collections;
+using UnityEngine;
+using UnityEngine.Audio;
 
+[RequireComponent(typeof(AudioSource))]
 public class MovingObject : PuzzleMechanism
 {
     [Header("")]
@@ -14,6 +16,11 @@ public class MovingObject : PuzzleMechanism
     [Tooltip("제자리로 돌아오는 데 걸리는 시간(초)")]
     public float returnDuration = 2.0f;
 
+    [Header("오브젝트 사운드 연결")]
+    public AudioClip onSound;
+    public AudioClip offSound;
+
+    private AudioSource audioSource;
     private Vector3 startPos;
     private Vector3 targetPos;
     private Coroutine moveCoroutine;
@@ -23,6 +30,13 @@ public class MovingObject : PuzzleMechanism
         //게임 시작 시 현재 위치를 출발점으로 offset을 더한 위치를 도착점으로 기억함
         startPos = transform.position;
         targetPos = startPos + moveOffset;
+
+        //오디오 소스 컴포넌트 초기화
+        audioSource = GetComponent<AudioSource>();
+        audioSource.playOnAwake = false;
+        
+        //입체음향
+        audioSource.spatialBlend = 1.0f;
     }
 
     //발판이 눌렸을 때 실행
@@ -31,6 +45,7 @@ public class MovingObject : PuzzleMechanism
         //이동 중이라면 멈추고 새로운 목적치로 이동
         if (moveCoroutine != null) StopCoroutine(moveCoroutine);
         moveCoroutine = StartCoroutine(MoveRoutine(targetPos, moveDuration));
+        PlaySound(onSound);
     }
 
     //발판에서 발이 떨어졌을 때 실행
@@ -38,6 +53,7 @@ public class MovingObject : PuzzleMechanism
     {
         if (moveCoroutine != null) StopCoroutine(moveCoroutine);
         moveCoroutine = StartCoroutine(MoveRoutine(startPos, returnDuration));
+        PlaySound(offSound);
     }
 
     private IEnumerator MoveRoutine(Vector3 destination, float duration)
@@ -56,4 +72,15 @@ public class MovingObject : PuzzleMechanism
         //소수점 오차를 막기위한 정확한 목적지 좌표로 고정
         transform.position = destination;
     }
+
+    #region 오브젝트별 소리 재생 로직
+    private void PlaySound(AudioClip clip)
+    {
+        if (clip != null && SoundManager.Instance != null)
+        {
+            audioSource.volume = SoundManager.Instance.masterVolume * SoundManager.Instance.sfxVolume;
+            audioSource.PlayOneShot(clip);
+        }
+    }
+    #endregion
 }
