@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.Rendering.Universal;
 
 // 플레이어의 상태(이동, 점프, 시간 능력 등)를 총괄하는 핵심 클래스입니다.
 // 아이/청년/노인 오브젝트에 각각 부착되어, 나이대별로 다른 능력을 수행하게 합니다.
@@ -18,7 +19,7 @@ public class PlayerState : MonoBehaviour
     [SerializeField] private LayerMask groundLayer; // 무엇을 '땅'으로 인식할지 설정 (인스펙터에서 Layer 체크)
 
     [Header("시각적 효과")]
-    [SerializeField] private SpriteRenderer rangeVisual; // 시간 조작 모드일 때 범위를 보여주는 원형 이미지
+    [SerializeField] private Light2D playerLight;
 
     // [2] 내부 로직용 변수 (코드에서만 사용)
     private PlayerMoveController _moveController; // 실제 물리 이동을 담당하는 클래스
@@ -46,9 +47,6 @@ public class PlayerState : MonoBehaviour
         {
             _animController = new PlayerAnimController(myAnimator);
         }
-
-        // 4. 시작할 때는 범위 시각화(파란/빨간 원)를 꺼둠
-        if (rangeVisual != null) rangeVisual.gameObject.SetActive(false);
     }
 
     // [4] 메인 루프 (Update) - 매 프레임 실행되는 로직
@@ -70,8 +68,10 @@ public class PlayerState : MonoBehaviour
             ClearFocus();
         }
 
-        if (rangeVisual != null && rangeVisual.gameObject.activeSelf)
-            rangeVisual.transform.position = transform.position;
+        if (playerLight != null && playerLight.gameObject.activeSelf)
+        {
+            playerLight.transform.position = transform.position;
+        }
     }
 
     // [5] 물리 루프 (FixedUpdate) - 0.02초마다 실행되는 물리 연산 전용
@@ -208,17 +208,6 @@ public class PlayerState : MonoBehaviour
     // 모드 변경 로직 (토글 방식)
     private void UpdateRangeVisual(TimeMode mode)
     {
-        // 시각적 효과(범위 원) 처리
-        if (rangeVisual != null)
-        {
-            // 모드가 None이 아닐 때만 켬
-            rangeVisual.gameObject.SetActive(mode != TimeMode.None);
-            // 가속은 빨강, 회귀는 파랑으로 색상 변경
-            rangeVisual.color = (mode == TimeMode.Accelerate) ? new Color(1f, 0f, 0f, 0.5f): new Color(0f, 0f, 1f, 0.5f);
-            // 사거리(interactionRange)에 맞춰 원의 크기 조절 (지름 = 반지름 * 2)
-            rangeVisual.transform.localScale = new Vector3(interactionRange * 2, interactionRange * 2, 1);
-        }
-
         // 모드가 꺼지면 포커스도 즉시 해제
         if (mode == TimeMode.None) ClearFocus();
     }

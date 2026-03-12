@@ -17,6 +17,10 @@ public class TimeObject : MonoBehaviour, IInteractable, IFocusable
     [Header("포커스 시각 효과")]
     [SerializeField] private SpriteRenderer outlineRenderer;
 
+    // 모드별 색상
+    private static readonly Color accelColor = new Color(0.2f, 0.4f, 1f, 1f);   // 가속 (파랑)
+    private static readonly Color revertColor = new Color(1f, 0.2f, 0.1f, 1f);  // 회귀 (빨강)
+
     public bool isInteractable = true;   //상호작용 가능 여부 (SkyReactor 등에서 사용)
 
     private Coroutine fadeCoroutine;
@@ -37,6 +41,11 @@ public class TimeObject : MonoBehaviour, IInteractable, IFocusable
             futureState.SetActive(currentState == TimeState.Future);
             SetAlpha(futureState, currentState == TimeState.Future ? 1.0f : 0.0f);
         }
+
+        if (outlineRenderer != null)
+        {
+            outlineRenderer.enabled = false;
+        }
     }
 
     [ContextMenu("테스트: 상호작용 실행")]
@@ -49,9 +58,25 @@ public class TimeObject : MonoBehaviour, IInteractable, IFocusable
 
     public virtual void SetFocus(bool isFocused)
     {
-        if (outlineRenderer != null)
+        if (outlineRenderer == null) return;
+
+        outlineRenderer.enabled = isFocused;
+
+        if (!isFocused) return;
+
+        // 활성화된 자식 오브젝트 위치로 이동
+        GameObject activeState = currentState == TimeState.Past ? pastState : futureState;
+        if (activeState != null)
         {
-            outlineRenderer.enabled = isFocused;
+            outlineRenderer.transform.position = activeState.transform.position;
+        }
+
+        // 현재 모드에 따라 색상 변경
+        if (TimeSystemManager.Instance != null)
+        {
+            outlineRenderer.color = TimeSystemManager.Instance.CurrentMode == TimeMode.Accelerate
+                ? accelColor
+                : revertColor;
         }
     }
 
@@ -73,9 +98,6 @@ public class TimeObject : MonoBehaviour, IInteractable, IFocusable
 
     protected virtual void UpdateVisual()
     {
-        //if (pastState != null) pastState.SetActive(currentState == TimeState.Past);
-        //if (futureState != null) futureState.SetActive(currentState == TimeState.Future);
-
         if (fadeCoroutine != null) StopCoroutine(fadeCoroutine);
         fadeCoroutine = StartCoroutine(CrossFadeRoutine());
     }
