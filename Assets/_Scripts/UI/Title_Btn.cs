@@ -9,10 +9,14 @@ public class Title_Btn : MonoBehaviour
     UIDocument document;
     VisualElement panel;
 
-    Button startBtn;        //새로시작
-    Button continueBtn;     //이어하기
-    Button optionBtn;       //설정
-    Button exitBtn;         //종료    
+    [Header("Sound Panel 연결")]    
+    public GameObject soundPanel;  //소리 설정 패널
+
+    [Header("메뉴 버튼")]
+    public Button startBtn;        //새로시작
+    public Button continueBtn;     //이어하기
+    public Button optionBtn;       //설정
+    public Button exitBtn;         //종료    
 
     [Header("Fade 효과")]
     float fadeDuration = 1.0f;
@@ -60,25 +64,31 @@ public class Title_Btn : MonoBehaviour
 
     private void StartWTT()
     {
-        //TODO: "기존 세이브가 있습니다. 덮어쓰시겠습니까?" 팝업 표시
-        //TODO: 새 게임 시작 관련 SaveManager 기존 데이터 삭제 로직 추가        
+        //새 게임 시작 관련 SaveManager 기존 데이터 삭제        
+        if (SaveLoadManager.Instance != null) SaveLoadManager.Instance.DeleteSaveFile();
+        
+        //체크 포인트 초기화
+        if (GameManager.Instance != null) GameManager.Instance.ClearCheckpoint();
 
+        //Intro Scene 이동
         GameSceneManager.Instance.LoadScene(SceneNames.INTRO);
+        
     }
 
     private void OnContinueClicked()
     {
-        //TODO: Save 데이터 슬롯 창 띄우기
-        //TODO: "저장된 데이터가 없습니다." 팝업 표시        
-
-        //우선 Stage01로 이동
-        GameSceneManager.Instance.LoadScene(SceneNames.STAGE01);
+        //저장 데이터 확인
+        if (SaveLoadManager.Instance != null && SaveLoadManager.Instance.HasSaveFile())
+        {
+            //이어하기      
+            if (GameManager.Instance !=null) GameManager.Instance.LoadFromFile();
+        }
     }
 
     private void Option()
     {
         //옵션 패널 ON
-        //optionPanel.gameObject.SetActive(true);
+        if (soundPanel != null) soundPanel.SetActive(true);
     }
 
     void Exit()
@@ -95,7 +105,12 @@ public class Title_Btn : MonoBehaviour
     private void UpdateContinueButton()
     {
         //세이브데이터가 있으면 활성화
-        //bool hasSaveData = SaveManager.HasSaveData();
-        //continueBtn.SetEnabled(hasSaveData);
+        if (SaveLoadManager.Instance != null)
+        {
+            bool hasSaveData = SaveLoadManager.Instance.HasSaveFile();
+            continueBtn.SetEnabled(hasSaveData);
+        }
+
+        else continueBtn.SetEnabled(false);        
     }
 }
