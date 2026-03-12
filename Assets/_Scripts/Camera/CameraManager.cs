@@ -27,7 +27,14 @@ public class CameraManager : MonoBehaviour
         if (cam != null)
         {
             follow = cam.GetComponent<CinemachineFollow>();
-            confiner = cam.GetComponent<CinemachineConfiner2D>(); 
+            confiner = cam.GetComponent<CinemachineConfiner2D>();
+
+            //cam.transform.position = new Vector3(0, 0, -10f);
+
+            //if (follow != null)
+            //{
+            //    follow.FollowOffset = new Vector3(0, 0, -10f);
+            //}
         }
     }
 

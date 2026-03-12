@@ -19,6 +19,8 @@ public class DialogueBehaviour : PlayableBehaviour
     // 타임라인 재생 바가 이 클립 구간에 진입할 때 실행
     public override void OnBehaviourPlay(Playable playable, FrameData info)
     {
+        Debug.Log($"[Timeline] 클립 재생 시도! 데이터 여부: {dialogueData != null}");
+
         if (Application.isPlaying && dialogueData != null && lineIndex < dialogueData.dialogueLines.Length)
         {
             // UI쪽에 "이 대사 데이터로 말풍선 켜줘!" 라고 방송
