@@ -30,6 +30,8 @@ public class PuzzleTrigger : MonoBehaviour
             //트리거 작동
             isTriggered = true;
 
+            TimeSystemManager.Instance?.ClearMode();
+
             Debug.Log($"{gameObject.name} 퍼즐 트리거 작동. 자동 이동 및 클리어 연출 시작");
 
             if (GameManager.Instance != null)
