@@ -1,3 +1,4 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -22,6 +23,11 @@ public class VolumeSetting : MonoBehaviour
     public TextMeshProUGUI bgmText;
     public TextMeshProUGUI sfxText;
 
+    [Header("저장 딜레이 (초)")]
+    [SerializeField] private float debounceTime = 0.5f;
+
+    private Coroutine saveCoroutine;
+
     private void Awake()
     {
         if(Instance == null)
@@ -35,10 +41,7 @@ public class VolumeSetting : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        //슬라이더 초기화
-        masterSlider.value = SoundManager.Instance.masterVolume;
-        bgmSlider.value = SoundManager.Instance.bgmVolume;
-        sfxSlider.value = SoundManager.Instance.sfxVolume;
+        LoadSoundSettings();
 
         //텍스트 초기화
         UpdateTexts();
@@ -55,6 +58,32 @@ public class VolumeSetting : MonoBehaviour
         closeButton.onClick.AddListener(OnClosePanel);
     }
 
+    private void LoadSoundSettings()
+    {
+        if (SaveLoadManager.Instance == null) return;
+
+        if (!SaveLoadManager.Instance.HasSoundSaveFile())
+        {
+            // 저장 파일 없으면 SoundManager 기본값으로 슬라이더 초기화
+            masterSlider.value = SoundManager.Instance.masterVolume;
+            bgmSlider.value = SoundManager.Instance.bgmVolume;
+            sfxSlider.value = SoundManager.Instance.sfxVolume;
+            return;
+        }
+
+        // 저장 파일 존재 시
+        SoundSaveData data = SaveLoadManager.Instance.LoadSoundSettings();
+        if (data == null) return;
+
+        SoundManager.Instance.SetMasterVolume(data.masterVolume);
+        SoundManager.Instance.SetBGMVolume(data.bgmVolume);
+        SoundManager.Instance.SetSFXVolume(data.sfxVolume);
+
+        masterSlider.value = data.masterVolume;
+        bgmSlider.value = data.bgmVolume;
+        sfxSlider.value = data.sfxVolume;
+    }
+
     //마스터 볼륨 조절
     void OnMasterChanged(float value)
     {
@@ -66,6 +95,7 @@ public class VolumeSetting : MonoBehaviour
             masterSlider.fillRect.gameObject.SetActive(value > 0);
         }
         UpdateTexts();
+        ScheduleSave();
     }
 
     //BGM 볼륨 조절
@@ -78,6 +108,7 @@ public class VolumeSetting : MonoBehaviour
             bgmSlider.fillRect.gameObject.SetActive(value > 0);
         }
         UpdateTexts();
+        ScheduleSave();
     }
     
     //SFX 볼륨 조절
@@ -90,6 +121,32 @@ public class VolumeSetting : MonoBehaviour
             sfxSlider.fillRect.gameObject.SetActive(value > 0);
         }
         UpdateTexts();
+        ScheduleSave();
+    }
+
+    // 0.5초 딜레이 후 저장
+    private void ScheduleSave()
+    {
+        if (saveCoroutine != null)
+        {
+            StopCoroutine(saveCoroutine);
+        }
+        saveCoroutine = StartCoroutine(SaveAfterDelay());
+    }
+
+    private IEnumerator SaveAfterDelay()
+    {
+        yield return new WaitForSecondsRealtime(debounceTime);
+
+        if (SaveLoadManager.Instance != null)
+        {
+            SaveLoadManager.Instance.SaveSoundSetting(new SoundSaveData
+            {
+                masterVolume = SoundManager.Instance.masterVolume,
+                bgmVolume = SoundManager.Instance.bgmVolume,
+                sfxVolume = SoundManager.Instance.sfxVolume
+            });
+        }
     }
 
     //텍스트 초기화
@@ -128,4 +185,28 @@ public class VolumeSetting : MonoBehaviour
             OptionButton.Instance.soundPanel.SetActive(false);
         }        
     }
+
+    // 사운드 설정 초기화 - UI 초기화 버튼에서 호출
+    public void ResetToDefault()
+    {
+        // SoundManager 기본값으로 슬라이더 설정
+        masterSlider.value = 1f;
+        bgmSlider.value = 0.7f;
+        sfxSlider.value = 0.7f;
+
+        // Fill 상태 갱신
+        if (masterSlider.fillRect != null) masterSlider.fillRect.gameObject.SetActive(masterSlider.value > 0);
+        if (bgmSlider.fillRect != null) bgmSlider.fillRect.gameObject.SetActive(bgmSlider.value > 0);
+        if (sfxSlider.fillRect != null) sfxSlider.fillRect.gameObject.SetActive(sfxSlider.value > 0);
+
+        UpdateTexts();
+
+        // 슬라이더 값 변경이 OnValueChanged를 트리거하므로 ScheduleSave 자동 호출됨
+        // 파일도 기본값으로 덮어씌워짐
+    }
+
+#if UNITY_EDITOR
+    [ContextMenu("디버그: 사운드 설정 초기화")]
+    private void Debug_ResetToDefault() => ResetToDefault();
+#endif
 }

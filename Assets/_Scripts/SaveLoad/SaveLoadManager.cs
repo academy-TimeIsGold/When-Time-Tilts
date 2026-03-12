@@ -6,6 +6,7 @@ public class SaveLoadManager : MonoBehaviour
     public static SaveLoadManager Instance { get; private set; }
 
     private string savePath;
+    private string soundSavePath;
 
     private void Awake()
     {
@@ -20,7 +21,10 @@ public class SaveLoadManager : MonoBehaviour
         }
 
         savePath = Path.Combine(Application.persistentDataPath, "save.json");
+        soundSavePath = Path.Combine(Application.persistentDataPath, "sound.json");
     }
+
+    #region 게임 저장
 
     // 저장
     public void SaveFile(SavePointData data, Vector3 playerPosition)
@@ -74,6 +78,61 @@ public class SaveLoadManager : MonoBehaviour
             Debug.Log("[SaveLoadManager] 저장 파일 삭제 완료");
         }
     }
+
+    #endregion
+
+    #region 사운드 저장
+
+    // 사운드 설정 저장
+    public void SaveSoundSetting(SoundSaveData data)
+    {
+        if (data == null)
+        {
+            Debug.LogWarning("[SaveLoadManager] SoundSaveData가 null입니다.");
+            return;
+        }
+
+        string json = JsonUtility.ToJson(data, true);
+        File.WriteAllText (soundSavePath, json);
+        Debug.Log("[SaveLoadManager] 사운드 설정 저장 완료");
+    }
+
+    // 사운드 설정 불러오기
+    public SoundSaveData LoadSoundSettings()
+    {
+        if (!File.Exists(soundSavePath))
+        {
+            Debug.Log("[SaveLoadManager] 사운드 설정 파일 없음 — 기본값 사용");
+            return null;
+        }
+
+        string json = File.ReadAllText(soundSavePath);
+        SoundSaveData data = JsonUtility.FromJson<SoundSaveData>(json);
+        Debug.Log("[SaveLoadManager] 사운드 설정 불러오기 완료");
+        return data;
+    }
+
+    // 사운드 설정 파일 존재 여부 확인
+    public bool HasSoundSaveFile()
+    {
+        return File.Exists(soundSavePath);
+    }
+
+    // 사운드 설정 파일 삭제
+    public void DeleteSoundSaveFile()
+    {
+        if (File.Exists(soundSavePath))
+        {
+            File.Delete(soundSavePath);
+            Debug.Log("[SaveLoadManager] 사운드 설정 파일 삭제 완료");
+        }
+    }
+
+#if UNITY_EDITOR
+    [ContextMenu("디버그: 사운드 설정 파일 삭제")]
+    private void Debug_DeleteSoundSaveFile() => DeleteSoundSaveFile();
+#endif
+    #endregion
 }
 
 // JSON 직렬화용 저장 데이터 구조체
@@ -85,4 +144,13 @@ public class SaveFileData
     public Vector3 playerPosition;
     public int startResource;
     public SkyState startSkyState;
+}
+
+// 사운드 설장 저장 데이터
+[System.Serializable]
+public class SoundSaveData
+{
+    public float masterVolume;
+    public float bgmVolume;
+    public float sfxVolume;
 }
