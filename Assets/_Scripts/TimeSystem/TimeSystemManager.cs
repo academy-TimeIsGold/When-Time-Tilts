@@ -128,6 +128,14 @@ public class TimeSystemManager : MonoBehaviour
     {
         Time.timeScale = slow ? slowTimeScale : normalTimeScale;
         Time.fixedDeltaTime = 0.02f * Time.timeScale; // 물리 업데이트도 시간에 맞춰 조정
+        if (slow)
+        {
+            SoundManager.Instance?.SetPitch(0.65f);
+        }
+        else
+        {
+            SoundManager.Instance?.SetPitch(1f);
+        }
     }
 
     #endregion

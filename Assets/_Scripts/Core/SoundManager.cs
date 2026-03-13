@@ -172,4 +172,11 @@ public class SoundManager : MonoBehaviour
         if (bgmSource != null) bgmSource.volume = masterVolume * bgmSource.volume;
         if (sfxSource != null) sfxSource.volume = masterVolume * sfxSource.volume;
     }
+
+    // 재생 속도(pitch) 조절
+    public void SetPitch(float pitch)
+    {
+        if (bgmSource != null) bgmSource.pitch = pitch;
+        if (sfxSource != null) sfxSource.pitch = pitch;
+    }
 }
