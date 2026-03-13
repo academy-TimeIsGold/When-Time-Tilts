@@ -39,6 +39,18 @@ public class Title_Btn : MonoBehaviour
         optionBtn.clickable.clicked += Option;
         exitBtn.clickable.clicked += Exit;
 
+        //마우스 오버 사운드 재생
+        startBtn.RegisterCallback<MouseEnterEvent>(e => PlayHoverSound());
+        continueBtn.RegisterCallback<MouseEnterEvent>(e => PlayHoverSound());
+        optionBtn.RegisterCallback<MouseEnterEvent>(e => PlayHoverSound());
+        exitBtn.RegisterCallback<MouseEnterEvent>(e => PlayHoverSound());
+
+        //마우스 클릭 사운드 재생
+        startBtn.clickable.clicked += PlayClickSound;
+        continueBtn.clickable.clicked += PlayClickSound;
+        optionBtn.clickable.clicked += PlayClickSound;
+        exitBtn.clickable.clicked += PlayClickSound;
+
         UpdateContinueButton();
 
         //Title Scene FadeIn 효과
@@ -112,5 +124,15 @@ public class Title_Btn : MonoBehaviour
         }
 
         else continueBtn.SetEnabled(false);        
+    }
+
+    private void PlayHoverSound()
+    {
+        if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX("UI", 0);        
+    }
+
+    private void PlayClickSound()
+    {
+        if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX("UI", 1);
     }
 }
