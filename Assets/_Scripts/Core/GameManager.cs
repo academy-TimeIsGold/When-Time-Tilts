@@ -195,6 +195,12 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    // 씬 리로드 후 CurrentSavePoint 참조만 복구
+    public void RestoreCurrentSavePoint (SavePoint savePoint)
+    {
+        currentSavePoint = savePoint;
+    }
+
     // 중간 체크포인트 등록 (파일 저장 없이 위치만 기억)
     public void RegisterCheckpoint(SavePoint checkpoint)
     {
