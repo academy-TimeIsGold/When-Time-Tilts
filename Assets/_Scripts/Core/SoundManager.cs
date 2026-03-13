@@ -55,10 +55,6 @@ public class SoundManager : MonoBehaviour
     public AudioClip[] GAME_BGM;
     public AudioClip[] GAME_SFX;
 
-    [Header("Object")]
-    public AudioClip[] OBJECT_BGM;
-    public AudioClip[] OBJECT_SFX;
-
     [Header("UI")]
     public AudioClip[] UI_BGM;
     public AudioClip[] UI_SFX;    
@@ -72,15 +68,13 @@ public class SoundManager : MonoBehaviour
         //해당 Scene BGM 생성
         AddBGM("Title", TITLE_BGM);
         AddBGM("Intro", INTRO_BGM);
-        AddBGM("Game", GAME_BGM);
-        AddBGM("Object", OBJECT_BGM);
+        AddBGM("Game", GAME_BGM);       
         AddBGM("UI", UI_BGM);
 
         //해당 Scene SFX 생성
         AddSFX("Title", TITLE_SFX);
         AddSFX("Intro", INTRO_SFX);
         AddSFX("Game", GAME_SFX);
-        AddSFX("Object", OBJECT_SFX);
         AddSFX("UI", UI_SFX);
 
         //초기 볼륨 적용
