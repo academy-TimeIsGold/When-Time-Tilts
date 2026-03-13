@@ -51,9 +51,11 @@ public class TimeObject : MonoBehaviour, IInteractable, IFocusable
     [ContextMenu("테스트: 상호작용 실행")]
     public virtual void Interact()
     {
+        if (TimeSystemManager.Instance == null) return;
+
         //오브젝트의 현 상태에 따라 변경
-        if (currentState == TimeState.Past) Accelerate();
-        else Revert();            
+        if (TimeSystemManager.Instance.CurrentMode == TimeMode.Accelerate) Accelerate();
+        else if (TimeSystemManager.Instance.CurrentMode == TimeMode.Revert) Revert();            
     }
 
     public virtual void SetFocus(bool isFocused)
@@ -160,7 +162,7 @@ public class TimeObject : MonoBehaviour, IInteractable, IFocusable
     private void ToggleColliders(GameObject gameObject, bool isEnabled)
     {
         if (gameObject == null) return;
-        Collider2D[] colliders = gameObject.GetComponentsInChildren<Collider2D>();
+        Collider2D[] colliders = gameObject.GetComponentsInChildren<Collider2D>(true);
         foreach (var col in colliders)
         {
             col.enabled = isEnabled;
