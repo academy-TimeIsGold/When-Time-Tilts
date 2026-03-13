@@ -180,7 +180,7 @@ public class VolumeSetting : MonoBehaviour
             return;
         }
 
-        else if (OptionButton.Instance.gameObject.activeSelf)
+        if (OptionButton.Instance.gameObject.activeSelf)
         {
             OptionButton.Instance.soundPanel.SetActive(false);
         }        
