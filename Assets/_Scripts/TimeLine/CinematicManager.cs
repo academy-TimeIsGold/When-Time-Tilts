@@ -29,6 +29,8 @@ public class CinematicManager : MonoBehaviour
     [Tooltip("인트로 씬이면 씬 로드 함수를, 인게임이면 비워두거나 필요한 연출을 연결")]
     public UnityEvent onCutsceneFinished;
 
+    public HourglassUI hourglass;
+
     private bool isCutscenePlaying = false;
 
     private void Awake()
@@ -58,6 +60,9 @@ public class CinematicManager : MonoBehaviour
 
         isCutscenePlaying = true;
 
+
+        hourglass.Close();
+
         if (TimeSystemManager.Instance != null)
         {
             // defaultResource(0)로 초기화하여 청년 폼으로 만듭니다.
@@ -79,6 +84,8 @@ public class CinematicManager : MonoBehaviour
     {
         // 1. 이벤트 구독 해제
         director.stopped -= EndCutscene;
+
+        hourglass.Open();
 
         // 2. 조작 원상복구
         OnCinematicStateChanged?.Invoke(false);

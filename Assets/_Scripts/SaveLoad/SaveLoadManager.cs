@@ -40,7 +40,8 @@ public class SaveLoadManager : MonoBehaviour
             sceneName = data.sceneName,
             playerPosition = playerPosition,
             startResource = data.startResource,
-            startSkyState = data.startSkyState
+            startSkyState = data.startSkyState,
+            savePointDataName = data.name
         };
 
         string json = JsonUtility.ToJson(saveData, true);
@@ -144,6 +145,7 @@ public class SaveFileData
     public Vector3 playerPosition;
     public int startResource;
     public SkyState startSkyState;
+    public string savePointDataName;
 }
 
 // 사운드 설장 저장 데이터

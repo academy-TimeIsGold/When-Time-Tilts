@@ -28,10 +28,18 @@ public class SavePoint : MonoBehaviour
     private void Start()
     {
         // 첫 게임 시작 시 자동 등록
-        if (isStartPoint && !isCheckpoint && GameManager.Instance?.currentSavePointData == null)
+        if (isStartPoint && !isCheckpoint && GameManager.Instance?.currentSavePointData == null
+            && (SaveLoadManager.Instance == null || !SaveLoadManager.Instance.HasSaveFile()))
         {
             GameManager.Instance.UpdateSavePoint(this, savePointData);
             Debug.Log($"[SavePoint] {gameObject.name} 시작 세이브 포인트 자동 등록");
+        }
+
+        if (!isCheckpoint && savePointData != null
+            && GameManager.Instance?.currentSavePointData == savePointData)
+        {
+            // 씬 리로드 후 GameManager의 CurrentSavePoint 참조 복구
+            GameManager.Instance.RestoreCurrentSavePoint(this);
         }
     }
 

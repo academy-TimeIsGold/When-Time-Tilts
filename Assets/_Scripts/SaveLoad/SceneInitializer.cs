@@ -19,12 +19,13 @@ public class SceneInitializer : MonoBehaviour
         {
             GameManager.Instance.RestoreFromSavePoint();
 
+            // SavePointRegistry로 roomBounds 찾기
+            SavePoint sp = SavePointRegistry.Instance?.GetSavePoint(GameManager.Instance.currentSavePointData);
+
             // 카메라 즉시 스냅
             if (CameraManager.Instance != null)
             {
-                CameraManager.Instance.SnapToNewStage(
-                    GameManager.Instance.CurrentSavePoint != null ? GameManager.Instance.CurrentSavePoint.roomBounds : null
-                );
+                CameraManager.Instance.SnapToNewStage(sp?.roomBounds);
             }
         }
         // 저장된 파일이 있으면 파일에서 복원 (이어하기)
@@ -70,6 +71,13 @@ public class SceneInitializer : MonoBehaviour
         if (skyController != null)
         {
             skyController.SetSkyState(data.startSkyState);
+        }
+
+        // SavePointRegistry로 roomBounds 찾기
+        SavePoint sp = SavePointRegistry.Instance?.GetSavePointByName(data.savePointDataName);
+        if (CameraManager.Instance != null)
+        {
+            CameraManager.Instance.SnapToNewStage(sp?.roomBounds);
         }
     }
 }
