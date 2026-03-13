@@ -2482,7 +2482,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 8.916824, y: 5.0625}
+  m_Offset: {x: 0, y: 5.0625}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0}
@@ -2492,7 +2492,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 36.18048, y: 10.125}
+  m_Size: {x: 54, y: 10.125}
   m_EdgeRadius: 0
 --- !u!1 &835975627
 GameObject:
@@ -2970,19 +2970,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2702811681748480022, guid: a6671b697b106124c9c63fea420c40d2, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.7
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2702811681748480022, guid: a6671b697b106124c9c63fea420c40d2, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3202483250374175061, guid: a6671b697b106124c9c63fea420c40d2, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3202483250374175061, guid: a6671b697b106124c9c63fea420c40d2, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3575553431535084174, guid: a6671b697b106124c9c63fea420c40d2, type: 3}
       propertyPath: m_Name
@@ -2990,7 +2990,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3575553431535084174, guid: a6671b697b106124c9c63fea420c40d2, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4226285214183167078, guid: a6671b697b106124c9c63fea420c40d2, type: 3}
       propertyPath: m_AnchorMax.x
@@ -3102,11 +3102,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7385818739025799310, guid: a6671b697b106124c9c63fea420c40d2, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.7
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7385818739025799310, guid: a6671b697b106124c9c63fea420c40d2, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4020,7 +4020,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1402061047
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5709,53 +5709,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 4.125, y: 1.125}
   m_EdgeRadius: 0
---- !u!1 &2001561060
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2001561062}
-  - component: {fileID: 2001561061}
-  m_Layer: 0
-  m_Name: SavePointRegistry
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &2001561061
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2001561060}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc43d95346ce7e64eb05be6b58ceda52, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SavePointRegistry
-  savePoints:
-  - {fileID: 1448616443}
-  - {fileID: 303778041}
---- !u!4 &2001561062
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2001561060}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 13.14606, y: -1.36474, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2022954507
 GameObject:
   m_ObjectHideFlags: 0
@@ -6196,7 +6149,6 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 2100184239}
-  - {fileID: 2001561062}
   - {fileID: 515831059}
   - {fileID: 927353030}
   - {fileID: 1090148216}
