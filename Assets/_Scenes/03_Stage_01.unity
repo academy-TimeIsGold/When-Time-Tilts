@@ -3981,7 +3981,8 @@ MonoBehaviour:
   TITLE_SFX: []
   INTRO_BGM: []
   INTRO_SFX: []
-  GAME_BGM: []
+  GAME_BGM:
+  - {fileID: 8300000, guid: 7ec6aed5cc34c5649a02891b01391667, type: 3}
   GAME_SFX: []
   OBJECT_BGM: []
   OBJECT_SFX: []
