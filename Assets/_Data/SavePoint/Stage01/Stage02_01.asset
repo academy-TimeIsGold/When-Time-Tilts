@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4ef6211a96a61394bbecc840edf08615, type: 3}
-  m_Name: Stage01_02
+  m_Name: Stage02_01
   m_EditorClassIdentifier: Assembly-CSharp::SavePointData
   sceneName: 03_Stage_01
   startResource: 0
