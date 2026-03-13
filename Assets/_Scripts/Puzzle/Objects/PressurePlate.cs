@@ -14,7 +14,7 @@ public class PressurePlate : MonoBehaviour
 
     [Header("발판 이벤트 연결")]
     public UnityEvent OnPlantePressed;
-    public UnityEvent OnPlanteReleased;
+    public UnityEvent OnPlanteReleased;    
 
     [Header("오브젝트 사운드 연결")]
     public AudioClip onSound;
@@ -113,4 +113,14 @@ public class PressurePlate : MonoBehaviour
         }
     }
     #endregion
+
+    public void ForcePress()
+    {
+        if (!isPressed) Press();
+    }
+
+    public void ForceRelease()
+    {
+        if (isPressed) Released();
+    }
 }

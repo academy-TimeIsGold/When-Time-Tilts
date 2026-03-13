@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class TimeObject : MonoBehaviour, IInteractable, IFocusable
 {
@@ -16,6 +17,13 @@ public class TimeObject : MonoBehaviour, IInteractable, IFocusable
 
     [Header("포커스 시각 효과")]
     [SerializeField] private SpriteRenderer outlineRenderer;
+
+    [Header("시간 변화 이벤트")]
+    [Tooltip("미래(Accelerate)로 변할 때 실행할 기능들")]
+    public UnityEvent onAccelerated;
+
+    [Tooltip("과거(Revert)로 변할 때 실행할 기능들")]
+    public UnityEvent onReverted;
 
     // 모드별 색상
     private static readonly Color accelColor = new Color(0.2f, 0.4f, 1f, 1f);   // 가속 (파랑)
@@ -87,7 +95,10 @@ public class TimeObject : MonoBehaviour, IInteractable, IFocusable
         if (currentState == TimeState.Future) return;
 
         currentState = TimeState.Future;
-        UpdateVisual();        
+        UpdateVisual();
+
+        //Plate 호출
+        onAccelerated?.Invoke();
     }
 
     public virtual void Revert()
@@ -95,7 +106,10 @@ public class TimeObject : MonoBehaviour, IInteractable, IFocusable
         if (currentState == TimeState.Past) return;
 
         currentState = TimeState.Past;
-        UpdateVisual();        
+        UpdateVisual();
+
+        //Plate 호출
+        onReverted?.Invoke();
     }
 
     protected virtual void UpdateVisual()
@@ -149,7 +163,7 @@ public class TimeObject : MonoBehaviour, IInteractable, IFocusable
     //TimeObject 자식들 알파값 조정
     private void SetAlpha(GameObject gameObject, float alpha)
     {
-        SpriteRenderer[] spriteRenderers = gameObject.GetComponentsInChildren<SpriteRenderer>();
+        SpriteRenderer[] spriteRenderers = gameObject.GetComponentsInChildren<SpriteRenderer>(true);
         foreach (var sr in spriteRenderers)
         {
             Color c =sr.color;
