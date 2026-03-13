@@ -19,7 +19,7 @@ EditorBuildSettings:
     guid: 5076e3b4c8a838941b4eaf5420856a3e
   - enabled: 1
     path: Assets/_Scenes/03_Stage_01.unity
-    guid: 35014cb38e61ef24b8a95d4b12dbee85
+    guid: 8fef8a796c581f6488dfa33e6b287d91
   - enabled: 1
     path: Assets/_Scenes/PersonalScenes/LRH.unity
     guid: b68d7ff1de8504f4fb99a443bd164431

@@ -20,7 +20,20 @@ public class SavePoint : MonoBehaviour
     [Tooltip("해당 세이브 포인트가 있는 방의 테두리(Collider2D)")]
     public Collider2D roomBounds;
 
+    [Tooltip("true = 씬 시작 시 자동으로 세이브 포인트 등록 (첫 번째 세이브 포인트에 체크)")]
+    [SerializeField] private bool isStartPoint = false;
+
     private bool isActivated = false;   //SavePoint 비활성화 상태
+
+    private void Start()
+    {
+        // 첫 게임 시작 시 자동 등록
+        if (isStartPoint && !isCheckpoint && GameManager.Instance?.currentSavePointData == null)
+        {
+            GameManager.Instance.UpdateSavePoint(this, savePointData);
+            Debug.Log($"[SavePoint] {gameObject.name} 시작 세이브 포인트 자동 등록");
+        }
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
