@@ -90,6 +90,14 @@ public class SkyController : TimeObject
 
     public void SetSkyState(SkyState state)
     {
+        if (state == SkyState.None)
+        {
+            gameObject.SetActive(false);
+            return;
+        }
+
+        gameObject.SetActive(true);
+
         currentState = (state == SkyState.Day) ? TimeState.Past : TimeState.Future;
         
         // pivot 즉시 회전
