@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: DialogueClip(Clone)(Clone)
   m_EditorClassIdentifier: Assembly-CSharp::DialogueClip
   dialogueData: {fileID: 11400000, guid: 2e9d5c38d8568a5469c791b74885be3e, type: 2}
-  lineID: Stage.1
+  lineID: 3
 --- !u!114 &-8166867514851328140
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -461,7 +461,7 @@ MonoBehaviour:
   m_Name: DialogueClip(Clone)(Clone)
   m_EditorClassIdentifier: Assembly-CSharp::DialogueClip
   dialogueData: {fileID: 11400000, guid: fb7794aaf62397f4e94430ac2cd6981f, type: 2}
-  lineID: Stage.1
+  lineID: 4
 --- !u!114 &-5097016267246008439
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -475,7 +475,7 @@ MonoBehaviour:
   m_Name: DialogueClip(Clone)(Clone)(Clone)
   m_EditorClassIdentifier: Assembly-CSharp::DialogueClip
   dialogueData: {fileID: 11400000, guid: 2e9d5c38d8568a5469c791b74885be3e, type: 2}
-  lineID: Stage.1
+  lineID: 4
 --- !u!114 &-5056523473841361262
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -594,7 +594,7 @@ MonoBehaviour:
   m_Name: DialogueClip
   m_EditorClassIdentifier: Assembly-CSharp::DialogueClip
   dialogueData: {fileID: 11400000, guid: fb7794aaf62397f4e94430ac2cd6981f, type: 2}
-  lineID: Stage.1
+  lineID: 1
 --- !u!114 &-2753566244574242236
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -608,7 +608,7 @@ MonoBehaviour:
   m_Name: DialogueClip(Clone)(Clone)(Clone)(Clone)
   m_EditorClassIdentifier: Assembly-CSharp::DialogueClip
   dialogueData: {fileID: 11400000, guid: 2e9d5c38d8568a5469c791b74885be3e, type: 2}
-  lineID: Stage.1
+  lineID: 5
 --- !u!114 &-2685614984695132355
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1012,7 +1012,7 @@ MonoBehaviour:
   m_Name: DialogueClip(Clone)(Clone)(Clone)(Clone)(Clone)(Clone)
   m_EditorClassIdentifier: Assembly-CSharp::DialogueClip
   dialogueData: {fileID: 11400000, guid: fb7794aaf62397f4e94430ac2cd6981f, type: 2}
-  lineID: Stage.1
+  lineID: 8
 --- !u!74 &-914694783939321309
 AnimationClip:
   m_ObjectHideFlags: 0
@@ -1968,7 +1968,7 @@ MonoBehaviour:
   m_Name: DialogueClip(Clone)(Clone)(Clone)(Clone)
   m_EditorClassIdentifier: Assembly-CSharp::DialogueClip
   dialogueData: {fileID: 11400000, guid: fb7794aaf62397f4e94430ac2cd6981f, type: 2}
-  lineID: Stage.1
+  lineID: 6
 --- !u!114 &1606385778571269338
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2143,7 +2143,7 @@ MonoBehaviour:
   m_Name: DialogueClip
   m_EditorClassIdentifier: Assembly-CSharp::DialogueClip
   dialogueData: {fileID: 11400000, guid: 2e9d5c38d8568a5469c791b74885be3e, type: 2}
-  lineID: Stage.1
+  lineID: 1
 --- !u!114 &4069525811658405362
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2157,7 +2157,7 @@ MonoBehaviour:
   m_Name: DialogueClip(Clone)(Clone)(Clone)
   m_EditorClassIdentifier: Assembly-CSharp::DialogueClip
   dialogueData: {fileID: 11400000, guid: fb7794aaf62397f4e94430ac2cd6981f, type: 2}
-  lineID: Stage.1
+  lineID: 5
 --- !u!114 &4821920937238170273
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2193,7 +2193,7 @@ MonoBehaviour:
   m_Name: DialogueClip(Clone)
   m_EditorClassIdentifier: Assembly-CSharp::DialogueClip
   dialogueData: {fileID: 11400000, guid: 2e9d5c38d8568a5469c791b74885be3e, type: 2}
-  lineID: Stage.1
+  lineID: 2
 --- !u!114 &6428724486812584424
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2207,7 +2207,7 @@ MonoBehaviour:
   m_Name: DialogueClip
   m_EditorClassIdentifier: Assembly-CSharp::DialogueClip
   dialogueData: {fileID: 11400000, guid: fb7794aaf62397f4e94430ac2cd6981f, type: 2}
-  lineID: Stage.1
+  lineID: 2
 --- !u!114 &6432714847228513814
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2262,7 +2262,7 @@ MonoBehaviour:
   m_Name: DialogueClip(Clone)(Clone)(Clone)(Clone)(Clone)
   m_EditorClassIdentifier: Assembly-CSharp::DialogueClip
   dialogueData: {fileID: 11400000, guid: fb7794aaf62397f4e94430ac2cd6981f, type: 2}
-  lineID: Stage.1
+  lineID: 7
 --- !u!114 &8603930475294717555
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2276,4 +2276,4 @@ MonoBehaviour:
   m_Name: DialogueClip(Clone)
   m_EditorClassIdentifier: Assembly-CSharp::DialogueClip
   dialogueData: {fileID: 11400000, guid: fb7794aaf62397f4e94430ac2cd6981f, type: 2}
-  lineID: Stage.1
+  lineID: 3
