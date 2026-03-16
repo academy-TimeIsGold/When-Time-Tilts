@@ -1,5 +1,13 @@
 fileFormatVersion: 2
 guid: 7f0277971ddd3f84b969ec55faa90370
+AssetOrigin:
+  serializedVersion: 1
+  productId: 351422
+  packageName: 280 Ultimate Pixel Backgrounds Collection
+  packageVersion: 1.2
+  assetPath: Assets/Ultimate Backgrounds Collection/PNG/Layers/MOUNTAIN/Mountain
+    4/Mountain_24/Layer_2.png
+  uploadId: 850090
 TextureImporter:
   internalIDToNameTable:
   - first:
@@ -109,6 +117,19 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -154,11 +175,3 @@ TextureImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 351422
-  packageName: 280 Ultimate Pixel Backgrounds Collection
-  packageVersion: 1.2
-  assetPath: Assets/Ultimate Backgrounds Collection/PNG/Layers/MOUNTAIN/Mountain
-    4/Mountain_24/Layer_2.png
-  uploadId: 850090

@@ -9,6 +9,10 @@ using UnityEngine;
 [System.Serializable]
 public struct DialogueLine
 {
+    [Header("식별자")]
+    [Tooltip("이 대사를 찾는 고유 키값 (예: S1_Intro_01)")]
+    public string lineID; 
+
     [Header("화자 정보")]
     [Tooltip("누구 머리 위에 말풍선을 띄울지 결정하는 ID (예: Player, RabbitNPC 등)")]
     public string speakerID;
