@@ -4,7 +4,6 @@ using System;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(HingeJoint2D))]
-[RequireComponent(typeof(AudioSource))]
 public class DrawObject : PuzzleMechanism
 {
     [Header("물리 설정")]
@@ -20,11 +19,6 @@ public class DrawObject : PuzzleMechanism
     [Tooltip("제자리로 돌아오는 데 걸리는 시간(초)")]
     public float returnDuration = 2.0f;
 
-    [Header("오브젝트 사운드 연결")]
-    public AudioClip onSound;
-    public AudioClip offSound;
-
-    private AudioSource audioSource;
     private Rigidbody2D rb;
     private HingeJoint2D hinge;
     private JointAngleLimits2D limits;
@@ -37,17 +31,13 @@ public class DrawObject : PuzzleMechanism
     //코루틴 추적용 변수
     private Coroutine returnCorutine;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+
         //컴포넌트 초기화
         rb = GetComponent<Rigidbody2D>();
         hinge = GetComponent<HingeJoint2D>();        
-        audioSource = GetComponent<AudioSource>();
-
-        audioSource.playOnAwake = false;
-
-        //입체음향
-        audioSource.spatialBlend = 1.0f;
 
         //초기 물리 세팅
         rb.simulated = false;
@@ -76,7 +66,7 @@ public class DrawObject : PuzzleMechanism
         rb.simulated = true;
         rb.gravityScale = fallingGravityScale;
         
-        PlaySound(onSound);
+        PlaySound(onAccelSound);
     }
 
     //발판에서 떨어졌을 때 초기위치로 변경
@@ -91,7 +81,7 @@ public class DrawObject : PuzzleMechanism
         if (returnCorutine != null) StopCoroutine(returnCorutine);
         returnCorutine = StartCoroutine(ReturnCorutine());
 
-        PlaySound(offSound);
+        PlaySound(offRevertSound);
     }
 
     private IEnumerator ReturnCorutine()
@@ -116,15 +106,4 @@ public class DrawObject : PuzzleMechanism
         transform.position = startPos;
         transform.rotation = startRot;
     }
-
-    #region 오브젝트별 소리 재생 로직
-    private void PlaySound(AudioClip clip)
-    {
-        if (clip != null && SoundManager.Instance != null)
-        {
-            audioSource.volume = SoundManager.Instance.masterVolume * SoundManager.Instance.sfxVolume;
-            audioSource.PlayOneShot(clip);
-        }
-    }
-    #endregion
 }

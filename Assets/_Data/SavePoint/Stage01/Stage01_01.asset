@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Stage01_01
   m_EditorClassIdentifier: Assembly-CSharp::SavePointData
   sceneName: 03_Stage_01
-  startResource: 0
+  startResource: -2
   startSkyState: 0
