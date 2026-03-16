@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class TimeObject : MonoBehaviour, IInteractable, IFocusable
+public class TimeObject : ObjectSound, IInteractable, IFocusable
 {
     [Header("상태별 외형 설정")]
     public GameObject pastState;       //과거
@@ -24,6 +24,7 @@ public class TimeObject : MonoBehaviour, IInteractable, IFocusable
 
     [Tooltip("과거(Revert)로 변할 때 실행할 기능들")]
     public UnityEvent onReverted;
+
 
     // 모드별 색상
     private static readonly Color accelColor = new Color(0.2f, 0.4f, 1f, 1f);   // 가속 (파랑)
@@ -96,6 +97,7 @@ public class TimeObject : MonoBehaviour, IInteractable, IFocusable
 
         currentState = TimeState.Future;
         UpdateVisual();
+        PlaySound(onAccelSound);
 
         //Plate 호출
         onAccelerated?.Invoke();
@@ -107,6 +109,7 @@ public class TimeObject : MonoBehaviour, IInteractable, IFocusable
 
         currentState = TimeState.Past;
         UpdateVisual();
+        PlaySound(offRevertSound);
 
         //Plate 호출
         onReverted?.Invoke();

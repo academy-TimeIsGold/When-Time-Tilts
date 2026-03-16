@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PuzzleMechanism : MonoBehaviour
+public class PuzzleMechanism : ObjectSound
 {
     public virtual void ActivateMechanism()
     {
