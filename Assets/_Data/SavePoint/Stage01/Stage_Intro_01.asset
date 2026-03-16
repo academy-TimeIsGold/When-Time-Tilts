@@ -9,11 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 50949a20347a1b342a76b4212abf92ab, type: 3}
-  m_Name: Merry
-  m_EditorClassIdentifier: Assembly-CSharp::SODialogue
-  dialogueLines:
-  - speakerID: Merry
-    dialogueText: 
-    typeSpeedMultiplier: 0
-    voiceClip: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: 4ef6211a96a61394bbecc840edf08615, type: 3}
+  m_Name: Stage_Intro_01
+  m_EditorClassIdentifier: Assembly-CSharp::SavePointData
+  sceneName: 03_Stage_01
+  startResource: 0
+  startSkyState: 0

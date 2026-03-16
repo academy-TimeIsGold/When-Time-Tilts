@@ -1,5 +1,12 @@
 fileFormatVersion: 2
 guid: a51b675b6bfe68447a373e459feac67d
+AssetOrigin:
+  serializedVersion: 1
+  productId: 351422
+  packageName: 280 Ultimate Pixel Backgrounds Collection
+  packageVersion: 1.2
+  assetPath: Assets/Ultimate Backgrounds Collection/PNG/Layers/1-BIT/Cyberpunk 1-Bit/Cyberpunk_1-Bit_3/Layer_3.png
+  uploadId: 850090
 TextureImporter:
   internalIDToNameTable:
   - first:
@@ -203,6 +210,19 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
     buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -1064,10 +1084,3 @@ TextureImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 351422
-  packageName: 280 Ultimate Pixel Backgrounds Collection
-  packageVersion: 1.2
-  assetPath: Assets/Ultimate Backgrounds Collection/PNG/Layers/1-BIT/Cyberpunk 1-Bit/Cyberpunk_1-Bit_3/Layer_3.png
-  uploadId: 850090

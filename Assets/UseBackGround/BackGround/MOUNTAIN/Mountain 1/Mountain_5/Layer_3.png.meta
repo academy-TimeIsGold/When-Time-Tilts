@@ -1,5 +1,13 @@
 fileFormatVersion: 2
 guid: f00abc5be9cad834d8bbd2f8f8e9ce47
+AssetOrigin:
+  serializedVersion: 1
+  productId: 351422
+  packageName: 280 Ultimate Pixel Backgrounds Collection
+  packageVersion: 1.2
+  assetPath: Assets/Ultimate Backgrounds Collection/PNG/Layers/MOUNTAIN/Mountain
+    1/Mountain_5/Layer_3.png
+  uploadId: 850090
 TextureImporter:
   internalIDToNameTable:
   - first:
@@ -158,6 +166,19 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
     buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -674,11 +695,3 @@ TextureImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 351422
-  packageName: 280 Ultimate Pixel Backgrounds Collection
-  packageVersion: 1.2
-  assetPath: Assets/Ultimate Backgrounds Collection/PNG/Layers/MOUNTAIN/Mountain
-    1/Mountain_5/Layer_3.png
-  uploadId: 850090
