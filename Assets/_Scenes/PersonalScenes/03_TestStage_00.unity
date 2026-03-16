@@ -3093,6 +3093,12 @@ MonoBehaviour:
   currentState: 1
   fadeDuration: 0.5
   outlineRenderer: {fileID: 0}
+  onAccelerated:
+    m_PersistentCalls:
+      m_Calls: []
+  onReverted:
+    m_PersistentCalls:
+      m_Calls: []
   isInteractable: 1
   pivot: {fileID: 1052965690}
   rotateDuration: 1
@@ -4837,6 +4843,7 @@ MonoBehaviour:
   onCutsceneFinished:
     m_PersistentCalls:
       m_Calls: []
+  hourglass: {fileID: 0}
 --- !u!4 &1883166565
 Transform:
   m_ObjectHideFlags: 0
@@ -4949,6 +4956,12 @@ MonoBehaviour:
   currentState: 2
   fadeDuration: 0.5
   outlineRenderer: {fileID: 0}
+  onAccelerated:
+    m_PersistentCalls:
+      m_Calls: []
+  onReverted:
+    m_PersistentCalls:
+      m_Calls: []
   isInteractable: 1
 --- !u!1 &1940295308
 GameObject:
