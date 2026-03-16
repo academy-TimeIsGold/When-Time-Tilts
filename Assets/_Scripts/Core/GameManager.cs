@@ -24,6 +24,9 @@ public class GameManager : MonoBehaviour
     //InputHandler에서 활용할 시네마틱 연출용 키입력 가능여부 bool 변수
     public bool isCinematicPlaying { get; private set; } = false;
 
+    // 이어하기(Load)로 씬에 진입했는지 알려주는 꼬리표
+    public bool isGameLoadedFromSave = false;
+
     //씬 이동 시 파괴 방지
     private void Awake()
     {
@@ -187,6 +190,8 @@ public class GameManager : MonoBehaviour
 
         SaveFileData saveData = SaveLoadManager.Instance.LoadFile();
         if (saveData == null) return;
+
+        isGameLoadedFromSave = true;
 
         // 저장된 씬으로 이동
         if (GameSceneManager.Instance != null)

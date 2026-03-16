@@ -65,6 +65,11 @@ public class InputHandler : MonoBehaviour
 
         //컷신
         CinematicManager.OnCinematicStateChanged += HandleCinematicState;
+
+        if (CinematicManager.Instance != null && CinematicManager.Instance.currentDirector != null)
+        {
+            HandleCinematicState(true);
+        }
     }
 
     private void OnDisable()
@@ -142,6 +147,8 @@ public class InputHandler : MonoBehaviour
         else
         {
             input.UI.Disable();
+
+            if (GameManager.Instance != null && GameManager.Instance.isCinematicPlaying) return;
             input.Player.Enable();
         }
     }
@@ -150,11 +157,15 @@ public class InputHandler : MonoBehaviour
     //콜백 메서드
     void MoveCtx(InputAction.CallbackContext ctx)
     {
+        if (CinematicManager.Instance != null && CinematicManager.Instance.currentDirector != null) return;
+
         moveInput = ctx.ReadValue<Vector2>();
         OnMove?.Invoke(moveInput);
     }
     void JumpCtx(InputAction.CallbackContext ctx)
     {
+        if (CinematicManager.Instance != null && CinematicManager.Instance.currentDirector != null) return;
+     
         OnJump?.Invoke();
     }
     void InteractCtx(InputAction.CallbackContext ctx)
