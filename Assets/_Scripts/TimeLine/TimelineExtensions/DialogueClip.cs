@@ -13,8 +13,8 @@ public class DialogueClip : PlayableAsset, ITimelineClipAsset
     [Tooltip("이 클립에서 재생할 대사 데이터(SO)")]
     public SODialogue dialogueData;
 
-    [Tooltip("이 클립에서 띄울 대사의 인덱스 번호 (0번부터 시작)")]
-    public int lineIndex = 0;
+    [Tooltip("출력할 대사의 고유 ID를 적어주세요 (예: S1_Intro_01)")]
+    public string lineID = ""; 
 
     // 클립이 섞이거나(블렌딩) 루프되지 않도록 설정
     public ClipCaps clipCaps => ClipCaps.None;
@@ -26,7 +26,7 @@ public class DialogueClip : PlayableAsset, ITimelineClipAsset
 
         //데이터 넘겨주기
         clone.dialogueData = dialogueData;
-        clone.lineIndex = lineIndex;
+        clone.lineID = lineID;
         return playable;
     }
 }

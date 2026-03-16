@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: DialogueClip(Clone)(Clone)
   m_EditorClassIdentifier: Assembly-CSharp::DialogueClip
   dialogueData: {fileID: 11400000, guid: 2e9d5c38d8568a5469c791b74885be3e, type: 2}
-  lineIndex: 2
+  lineID: Stage.1
 --- !u!114 &-8166867514851328140
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -461,7 +461,7 @@ MonoBehaviour:
   m_Name: DialogueClip(Clone)(Clone)
   m_EditorClassIdentifier: Assembly-CSharp::DialogueClip
   dialogueData: {fileID: 11400000, guid: fb7794aaf62397f4e94430ac2cd6981f, type: 2}
-  lineIndex: 3
+  lineID: Stage.1
 --- !u!114 &-5097016267246008439
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -475,7 +475,7 @@ MonoBehaviour:
   m_Name: DialogueClip(Clone)(Clone)(Clone)
   m_EditorClassIdentifier: Assembly-CSharp::DialogueClip
   dialogueData: {fileID: 11400000, guid: 2e9d5c38d8568a5469c791b74885be3e, type: 2}
-  lineIndex: 3
+  lineID: Stage.1
 --- !u!114 &-5056523473841361262
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -594,7 +594,7 @@ MonoBehaviour:
   m_Name: DialogueClip
   m_EditorClassIdentifier: Assembly-CSharp::DialogueClip
   dialogueData: {fileID: 11400000, guid: fb7794aaf62397f4e94430ac2cd6981f, type: 2}
-  lineIndex: 0
+  lineID: Stage.1
 --- !u!114 &-2753566244574242236
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -608,7 +608,7 @@ MonoBehaviour:
   m_Name: DialogueClip(Clone)(Clone)(Clone)(Clone)
   m_EditorClassIdentifier: Assembly-CSharp::DialogueClip
   dialogueData: {fileID: 11400000, guid: 2e9d5c38d8568a5469c791b74885be3e, type: 2}
-  lineIndex: 4
+  lineID: Stage.1
 --- !u!114 &-2685614984695132355
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1012,7 +1012,7 @@ MonoBehaviour:
   m_Name: DialogueClip(Clone)(Clone)(Clone)(Clone)(Clone)(Clone)
   m_EditorClassIdentifier: Assembly-CSharp::DialogueClip
   dialogueData: {fileID: 11400000, guid: fb7794aaf62397f4e94430ac2cd6981f, type: 2}
-  lineIndex: 7
+  lineID: Stage.1
 --- !u!74 &-914694783939321309
 AnimationClip:
   m_ObjectHideFlags: 0
@@ -1816,10 +1816,10 @@ MonoBehaviour:
     m_PreExtrapolationTime: 0
     m_DisplayName: DialogueClip
   - m_Version: 1
-    m_Start: 24.5
+    m_Start: 24.566666666666666
     m_ClipIn: 0
     m_Asset: {fileID: -1551562255398406032}
-    m_Duration: 1.5
+    m_Duration: 1.4333333333333336
     m_TimeScale: 1
     m_ParentTrack: {fileID: 771265950621583072}
     m_EaseInDuration: 0
@@ -1968,7 +1968,7 @@ MonoBehaviour:
   m_Name: DialogueClip(Clone)(Clone)(Clone)(Clone)
   m_EditorClassIdentifier: Assembly-CSharp::DialogueClip
   dialogueData: {fileID: 11400000, guid: fb7794aaf62397f4e94430ac2cd6981f, type: 2}
-  lineIndex: 5
+  lineID: Stage.1
 --- !u!114 &1606385778571269338
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2143,7 +2143,7 @@ MonoBehaviour:
   m_Name: DialogueClip
   m_EditorClassIdentifier: Assembly-CSharp::DialogueClip
   dialogueData: {fileID: 11400000, guid: 2e9d5c38d8568a5469c791b74885be3e, type: 2}
-  lineIndex: 0
+  lineID: Stage.1
 --- !u!114 &4069525811658405362
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2157,7 +2157,7 @@ MonoBehaviour:
   m_Name: DialogueClip(Clone)(Clone)(Clone)
   m_EditorClassIdentifier: Assembly-CSharp::DialogueClip
   dialogueData: {fileID: 11400000, guid: fb7794aaf62397f4e94430ac2cd6981f, type: 2}
-  lineIndex: 4
+  lineID: Stage.1
 --- !u!114 &4821920937238170273
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2193,7 +2193,7 @@ MonoBehaviour:
   m_Name: DialogueClip(Clone)
   m_EditorClassIdentifier: Assembly-CSharp::DialogueClip
   dialogueData: {fileID: 11400000, guid: 2e9d5c38d8568a5469c791b74885be3e, type: 2}
-  lineIndex: 1
+  lineID: Stage.1
 --- !u!114 &6428724486812584424
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2207,7 +2207,7 @@ MonoBehaviour:
   m_Name: DialogueClip
   m_EditorClassIdentifier: Assembly-CSharp::DialogueClip
   dialogueData: {fileID: 11400000, guid: fb7794aaf62397f4e94430ac2cd6981f, type: 2}
-  lineIndex: 1
+  lineID: Stage.1
 --- !u!114 &6432714847228513814
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2262,7 +2262,7 @@ MonoBehaviour:
   m_Name: DialogueClip(Clone)(Clone)(Clone)(Clone)(Clone)
   m_EditorClassIdentifier: Assembly-CSharp::DialogueClip
   dialogueData: {fileID: 11400000, guid: fb7794aaf62397f4e94430ac2cd6981f, type: 2}
-  lineIndex: 6
+  lineID: Stage.1
 --- !u!114 &8603930475294717555
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2276,4 +2276,4 @@ MonoBehaviour:
   m_Name: DialogueClip(Clone)
   m_EditorClassIdentifier: Assembly-CSharp::DialogueClip
   dialogueData: {fileID: 11400000, guid: fb7794aaf62397f4e94430ac2cd6981f, type: 2}
-  lineIndex: 2
+  lineID: Stage.1

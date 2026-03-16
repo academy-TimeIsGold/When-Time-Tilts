@@ -1,10 +1,17 @@
 fileFormatVersion: 2
 guid: bfa96cdd7a637df458c5466b43b27d9b
+AssetOrigin:
+  serializedVersion: 1
+  productId: 351422
+  packageName: 280 Ultimate Pixel Backgrounds Collection
+  packageVersion: 1.2
+  assetPath: Assets/Ultimate Backgrounds Collection/PNG/Layers/ORIGINAL/Street OG/Street_OG_4/Layer_7.png
+  uploadId: 850090
 TextureImporter:
   internalIDToNameTable:
   - first:
       213: 7885389240055956270
-    second: "\0\0\0\0\0\0\0\0\0\0"
+    second: 
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -109,11 +116,24 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: "\0\0\0\0\0\0\0\0\0\0"
+      name: 
       rect:
         serializedVersion: 2
         x: 0
@@ -148,16 +168,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      "\0\0\0\0P\0\0\0\x01\0": 7885389240055956270
+      : 7885389240055956270
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 351422
-  packageName: 280 Ultimate Pixel Backgrounds Collection
-  packageVersion: 1.2
-  assetPath: Assets/Ultimate Backgrounds Collection/PNG/Layers/ORIGINAL/Street OG/Street_OG_4/Layer_7.png
-  uploadId: 850090

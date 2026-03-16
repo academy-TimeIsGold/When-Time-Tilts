@@ -10,7 +10,7 @@ using static DialogueLine;
 public class DialogueBehaviour : PlayableBehaviour
 {
     public SODialogue dialogueData;
-    public int lineIndex;
+    public string lineID;
 
     // UI 매니저에게 말풍선을 켜라고/끄라고 전달할 이벤트
     // true면 켜기, false면 끄기. 그리고 대사 데이터 한 줄을 통째로 보냅니다.
@@ -21,10 +21,29 @@ public class DialogueBehaviour : PlayableBehaviour
     {
         Debug.Log($"[Timeline] 클립 재생 시도! 데이터 여부: {dialogueData != null}");
 
-        if (Application.isPlaying && dialogueData != null && lineIndex < dialogueData.dialogueLines.Length)
+        if (Application.isPlaying && dialogueData != null && !string.IsNullOrEmpty(lineID))
         {
-            // UI쪽에 "이 대사 데이터로 말풍선 켜줘!" 라고 방송
-            OnBubbleStateChanged?.Invoke(true, dialogueData.dialogueLines[lineIndex]);
+            // 1. SO의 배열에서 lineID가 일치하는 대사를 찾는다.
+            DialogueLine? foundLine = null;
+            foreach (var line in dialogueData.dialogueLines)
+            {
+                if (line.lineID == lineID)
+                {
+                    foundLine = line;
+                    break;
+                }
+            }
+
+            // 2. 대사를 찾았다면 UI쪽에 방송
+            if (foundLine.HasValue)
+            {
+                OnBubbleStateChanged?.Invoke(true, foundLine.Value);
+            }
+            else
+            {
+                // 오타를 냈을 경우를 대비한 경고 
+                Debug.LogWarning($"[Timeline] '{lineID}' ID를 가진 대사를 찾을 수 없습니다! SO 데이터를 확인해주세요.");
+            }
         }
     }
 
