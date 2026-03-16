@@ -11,6 +11,6 @@ public class StageIntroCutscene : MonoBehaviour
 
     private void Start()
     {
-        CinematicManager.Instance.PlayCutscene(timelineToPlay);
+        //CinematicManager.Instance.PlayCutscene(timelineToPlay);
     }
 }
