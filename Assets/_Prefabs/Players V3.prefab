@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3540264573697759645}
   - component: {fileID: 3548203344413834747}
   - component: {fileID: 4891400140575747091}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Players V3
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -80,9 +80,9 @@ GameObject:
   - component: {fileID: 5207414521978126084}
   - component: {fileID: 6899276568144388396}
   - component: {fileID: 8096586510562022616}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ChildV1
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -209,7 +209,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!70 &6899276568144388396
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -259,8 +259,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c2f40be005eb404484814d029b36b64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerState
-  moveSpeed: 0
-  jumpForce: 0
+  moveSpeed: 5
+  jumpForce: 5
   canTriggerWeightPlate: 0
   interactionRange: 5
   groundCheckPoint: {fileID: 5481558616711232359}
@@ -283,9 +283,9 @@ GameObject:
   - component: {fileID: 5594425618574925137}
   - component: {fileID: 7876244046999626222}
   - component: {fileID: 6909907631732541593}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ElderV1
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -486,9 +486,9 @@ GameObject:
   - component: {fileID: 1893113421733648815}
   - component: {fileID: 4835234108497273388}
   - component: {fileID: 369933325664341324}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: WTTYouthV1
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

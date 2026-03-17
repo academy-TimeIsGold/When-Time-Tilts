@@ -15,7 +15,7 @@ public class CameraManager : MonoBehaviour
     private CinemachineConfiner2D confiner;                         // 카메라 이탈 방지
 
     [Header("기본 설정")]
-    public float defaultOrthoSize = 8f;
+    public float defaultOrthoSize = 5f;
 
     private void Awake()
     {
@@ -24,18 +24,45 @@ public class CameraManager : MonoBehaviour
 
         impulseSource = GetComponent<CinemachineImpulseSource>();
 
+        UpdateCameraReferences(cam);
+    }
+
+    private void UpdateCameraReferences(CinemachineCamera targetCam)
+    {
+        if (targetCam == null) return;
+
+        cam = targetCam;
+        impulseSource = cam.GetComponent<CinemachineImpulseSource>();
+        follow = cam.GetComponent<CinemachineFollow>();
+        confiner = cam.GetComponent<CinemachineConfiner2D>();
+    }
+
+    /// <summary>
+    /// 다른 가상 카메라의 우선순위를 높여 화면을 부드럽게 전환
+    /// (트리거 진입 시 팀원들이 이 함수를 호출하면 됩니다)
+    /// </summary>
+    /// <param name="newCam">새로 활성화할 스테이지 카메라</param>
+    public void SwitchToCamera(CinemachineCamera newCam)
+    {
+        if (newCam == null || cam == newCam) return;
+
+        // 1. 기존 카메라의 우선순위를 낮춤
         if (cam != null)
         {
-            follow = cam.GetComponent<CinemachineFollow>();
-            confiner = cam.GetComponent<CinemachineConfiner2D>();
-
-            //cam.transform.position = new Vector3(0, 0, -10f);
-
-            //if (follow != null)
-            //{
-            //    follow.FollowOffset = new Vector3(0, 0, -10f);
-            //}
+            cam.Priority = 10;
         }
+
+        // 2. 새 카메라가 켜질 때 플레이어를 타겟으로 잡아줌
+        if (cam.Target.TrackingTarget != null)
+        {
+            newCam.Target.TrackingTarget = cam.Target.TrackingTarget; // 플레이어 넘겨주기
+        }
+
+        // 3. 새 카메라의 우선순위를 높여 화면 주도권을 가져옴
+        newCam.Priority = 20;
+
+        // 3. 매니저가 제어할 타겟 컴포넌트들을 새 카메라로 교체
+        UpdateCameraReferences(newCam);
     }
 
     /// <summary>
