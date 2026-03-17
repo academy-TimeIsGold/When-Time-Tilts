@@ -31,14 +31,19 @@ public class PressurePlate : ObjectSound
                 Press();
             }
             else if (currentAge != requiredAge) Debug.Log($"조건이 맞지 않아 발판 작동이 안됩니다. (현재 나이: {currentAge}");
-        }               
+        }
+        else if (other.CompareTag("PressurePlateObject"))
+        {
+            Press();
+        }
     }
 
     private void OnTriggerExit2D(Collider2D other)
-    {   
+    {
         //Player가 Trigger를 빠져 나가면 실행
         if (other.CompareTag("Player") && isPressed) Released();
-        PlaySound(offRevertSound);
+        else if (other.CompareTag("PressurePlateObject")) Released();
+            PlaySound(offRevertSound);
     }
 
     #region 발판 작동 로직    

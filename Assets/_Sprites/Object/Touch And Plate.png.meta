@@ -127,7 +127,7 @@ TextureImporter:
         width: 92
         height: 7
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -149,7 +149,7 @@ TextureImporter:
         width: 8
         height: 11
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -166,12 +166,12 @@ TextureImporter:
       name: Touch And Plate_2
       rect:
         serializedVersion: 2
-        x: 52
+        x: 53
         y: 0
-        width: 45
-        height: 5
+        width: 22
+        height: 4
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -184,11 +184,33 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Touch And Plate_3
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 0
+        width: 18
+        height: 2
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a1472cff4a7f1aa4f8aa5306bfa6bd70
+      internalID: 1830091078
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 40e925050c2e9f842b796307f0225997
     internalID: 0
     vertices: []
     indices: 
@@ -201,6 +223,7 @@ TextureImporter:
       Touch And Plate_0: 1626381636698328723
       Touch And Plate_1: 4014484836354603982
       Touch And Plate_2: -6558430774613556528
+      Touch And Plate_3: 1830091078
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
