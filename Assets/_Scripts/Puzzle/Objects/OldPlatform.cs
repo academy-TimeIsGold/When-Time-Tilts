@@ -1,6 +1,5 @@
 using UnityEngine;
 using System.Collections;
-using System;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(BoxCollider2D))]
@@ -15,6 +14,12 @@ public class OldPlatform : MonoBehaviour
 
     [Tooltip("오브젝트 리스폰 시간")]
     public float respawnDelay = 3.0f;
+
+    [Tooltip("오브젝트 흔들 강도")]
+    public float shakeMagnitude = 0.1f;
+
+    [Tooltip("오브젝트 흔들 속도")]
+    public float shakeSpeed = 20.0f;
 
     private Rigidbody2D rb;
     private Vector3 startPos;
@@ -46,8 +51,27 @@ public class OldPlatform : MonoBehaviour
 
     private IEnumerator FallRoutine()
     {
-        //설정한 추락 시간까지 대기
-        yield return new WaitForSeconds(fallDelay);
+        //효과음
+        //if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX("Platform", 0);
+
+        float timer = 0f;
+        while (timer < fallDelay)
+        {
+            timer += Time.deltaTime;
+
+            //사인파(Mathf.Sin)와 시간(timer)을 이용해 빠르게 변하는 무작위 값을 계산
+            float randomX = (Mathf.Sin(timer * shakeSpeed) + Random.Range(-1f, 1f)) * shakeMagnitude;
+            float randomY = (Mathf.Sin((timer + 0.1f) * shakeSpeed) + Random.Range(-1f, 1f)) * shakeMagnitude;
+
+            //원래 위치(startPos)에 계산된 무작위 값을 더해 흔들리는 효과 적용
+            transform.position = startPos + new Vector3(randomX, randomY, 0f);
+
+            //한 프레임 쉼
+            yield return null;
+        }
+        
+        //추락 직전 위치를 원래대로 맞춤
+        transform.position = startPos;
 
         //물리 엔진 상태를 변경하여 오브젝트 추락
         rb.bodyType = RigidbodyType2D.Dynamic;
