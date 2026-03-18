@@ -1,4 +1,5 @@
 using System;
+using Unity.Cinemachine;
 using UnityEditor;
 using UnityEngine;
 
@@ -19,6 +20,9 @@ public class SavePoint : MonoBehaviour
     [Header("카메라 세팅")]
     [Tooltip("해당 세이브 포인트가 있는 방의 테두리(Collider2D)")]
     public Collider2D roomBounds;
+
+    [Tooltip("해당 스테이지에서 사용할 시네머신 카메라")]
+    public CinemachineCamera stageCamera;
 
     [Tooltip("true = 씬 시작 시 자동으로 세이브 포인트 등록 (첫 번째 세이브 포인트에 체크)")]
     [SerializeField] private bool isStartPoint = false;
