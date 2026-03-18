@@ -244,7 +244,8 @@ public class PlayerState : MonoBehaviour
             bool success = TimeSystemManager.Instance.TryInteract(timeObj);
             if (success) TimeSystemManager.Instance.ClearMode();
         }
-        
+
+        _animController.PlayAction();
     }
 
     // 시간 모드 외의 일반 상호작용
