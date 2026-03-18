@@ -33,11 +33,13 @@ public class SkyController : TimeObject
         if (mode == TimeMode.Accelerate && currentState == TimeState.Past)
         {
             if (!TimeSystemManager.Instance.ConsumeResource(1)) return;
+            PlaySound(onAccelSound);
             StartCoroutine(SwitchRoutine(TimeState.Future));
         }
         else if (mode == TimeMode.Revert && currentState == TimeState.Future)
         {
             if (!TimeSystemManager.Instance.AddResource(1)) return;
+            PlaySound(offRevertSound);
             StartCoroutine(SwitchRoutine(TimeState.Past));
         }
     }
