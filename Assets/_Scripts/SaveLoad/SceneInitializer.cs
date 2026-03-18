@@ -26,6 +26,11 @@ public class SceneInitializer : MonoBehaviour
             if (CameraManager.Instance != null)
             {
                 CameraManager.Instance.SnapToNewStage(sp?.roomBounds);
+
+                if (sp?.stageCamera != null)
+                {
+                    CameraManager.Instance.SwitchToCamera(sp.stageCamera);
+                }
             }
         }
         // 저장된 파일이 있으면 파일에서 복원 (이어하기)
@@ -78,6 +83,11 @@ public class SceneInitializer : MonoBehaviour
         if (CameraManager.Instance != null)
         {
             CameraManager.Instance.SnapToNewStage(sp?.roomBounds);
+
+            if (sp?.stageCamera != null)
+            {
+                CameraManager.Instance.SwitchToCamera(sp.stageCamera);
+            }
         }
     }
 }

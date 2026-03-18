@@ -46,20 +46,17 @@ public class CameraManager : MonoBehaviour
     {
         if (newCam == null || cam == newCam) return;
 
-        // 1. 기존 카메라의 우선순위를 낮춤
+        // 플레이어 타겟 넘겨주기
+        if (cam != null && cam.Target.TrackingTarget != null)
+            newCam.Target.TrackingTarget = cam.Target.TrackingTarget;
+
+        // 기존 카메라 비활성화 — Position Constraint 타겟이 꺼져서 배경 고정됨
         if (cam != null)
-        {
-            cam.Priority = 10;
-        }
+            cam.gameObject.SetActive(false);
 
-        // 2. 새 카메라가 켜질 때 플레이어를 타겟으로 잡아줌
-        if (cam.Target.TrackingTarget != null)
-        {
-            newCam.Target.TrackingTarget = cam.Target.TrackingTarget; // 플레이어 넘겨주기
-        }
-
-        // 3. 새 카메라의 우선순위를 높여 화면 주도권을 가져옴
-        newCam.Priority = 20;
+        // 새 카메라 활성화 + 즉시 컷 전환
+        newCam.gameObject.SetActive(true);
+        newCam.PreviousStateIsValid = false;
 
         // 3. 매니저가 제어할 타겟 컴포넌트들을 새 카메라로 교체
         UpdateCameraReferences(newCam);
