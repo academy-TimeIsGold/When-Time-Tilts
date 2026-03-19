@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Playables;
 
@@ -11,6 +12,8 @@ public class StageIntroCutscene : MonoBehaviour
 
     private void Start()
     {
-        //CinematicManager.Instance.PlayCutscene(timelineToPlay);
+        StartCoroutine(ScreenManager.Instance.FadeIn());
+
+        CinematicManager.Instance.PlayCutscene(timelineToPlay);
     }
 }

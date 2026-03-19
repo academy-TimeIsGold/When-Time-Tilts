@@ -163,8 +163,8 @@ public class SoundManager : MonoBehaviour
     private void ApplyAllVolumes()
     {
         //BGM 볼륨
-        if (bgmSource != null) bgmSource.volume = masterVolume * bgmSource.volume;
-        if (sfxSource != null) sfxSource.volume = masterVolume * sfxSource.volume;
+        if (bgmSource != null) bgmSource.volume = masterVolume * bgmVolume;
+        if (sfxSource != null) sfxSource.volume = masterVolume * sfxVolume;
     }
 
     // 재생 속도(pitch) 조절

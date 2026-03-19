@@ -39,29 +39,59 @@ public class ScreenManager : MonoBehaviour
         //UI를 클릭하지 Ray끄기
         fadeCanvasGroup.blocksRaycasts = true;
 
+        // FadeOut 시작 시 현재 BGM 볼륨 저장
+        float startBGMVolume = SoundManager.Instance != null ? SoundManager.Instance.bgmSource.volume : 0f;
+
         float timer = 0f;
         while (timer < fadeDuration)
         {
             timer += Time.deltaTime;
-            
+            float t = timer / fadeDuration;
+
             //부드럽게 장면 전환
-            fadeCanvasGroup.alpha = Mathf.Lerp(0f, 1f, timer / fadeDuration);
+            fadeCanvasGroup.alpha = Mathf.Lerp(0f, 1f, t);
+
+            //BGM 볼륨도 같이 줄이기
+            if (SoundManager.Instance != null)
+            {
+                SoundManager.Instance.bgmSource.volume = Mathf.Lerp(startBGMVolume, 0f, t);
+            }
+             
             yield return null;
         }
 
         //완전 불투명으로 고정
         fadeCanvasGroup.alpha = 1f;
+
+        //BGM 완전 끄고 정지
+        if (SoundManager.Instance != null)
+        {
+            SoundManager.Instance.bgmSource.volume = 0f;
+            SoundManager.Instance.StopBGM();
+        }
     }
 
     public IEnumerator FadeIn()
     {
         if (fadeCanvasGroup == null) yield break;
 
+        //FadeIn 시작 시 BGM 볼륨 복구
+        float targetBGMVolume = SoundManager.Instance != null ? SoundManager.Instance.bgmSource.volume : 0f;
+
         float timer = 0f;
         while (timer < fadeDuration)
         {
             timer += Time.deltaTime;
-            fadeCanvasGroup.alpha = Mathf.Lerp(1f, 0f, timer / fadeDuration);
+            float t = timer / fadeDuration;
+
+            fadeCanvasGroup.alpha = Mathf.Lerp(1f, 0f, t);
+
+            //BGM 볼륨도 같이 올리기
+            if (SoundManager.Instance != null)
+            {
+                SoundManager.Instance.bgmSource.volume = Mathf.Lerp(0f, targetBGMVolume, t);
+            }
+
             yield return null;
         }
 
@@ -70,5 +100,10 @@ public class ScreenManager : MonoBehaviour
 
         //레이 활성화
         fadeCanvasGroup.blocksRaycasts = false; 
+
+        if (SoundManager.Instance != null)
+        {
+            SoundManager.Instance.bgmSource.volume = targetBGMVolume;
+        }
     }
 }
