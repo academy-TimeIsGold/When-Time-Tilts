@@ -82,18 +82,31 @@ public class Title_Btn : MonoBehaviour
         //체크 포인트 초기화
         if (GameManager.Instance != null) GameManager.Instance.ClearCheckpoint();
 
+        StartCoroutine(StartFade());
+    }
+
+    private IEnumerator StartFade()
+    {
+        yield return StartCoroutine(ScreenManager.Instance.FadeOut());
+
         //Intro Scene 이동
         GameSceneManager.Instance.LoadScene(SceneNames.INTRO);
-        
     }
 
     private void OnContinueClicked()
     {
+        StartCoroutine(ContinueFade());
+    }
+
+    private IEnumerator ContinueFade()
+    {
+        yield return StartCoroutine(ScreenManager.Instance.FadeOut());
+
         //저장 데이터 확인
         if (SaveLoadManager.Instance != null && SaveLoadManager.Instance.HasSaveFile())
         {
             //이어하기      
-            if (GameManager.Instance !=null) GameManager.Instance.LoadFromFile();
+            if (GameManager.Instance != null) GameManager.Instance.LoadFromFile();
         }
     }
 

@@ -78,6 +78,29 @@ public class SoundManager : MonoBehaviour
         AddSFX("UI", UI_SFX);
 
         //초기 볼륨 적용
+        LoadSavedSettings();
+    }
+
+    // 저장된 볼륨 설정 불러오기
+    private void LoadSavedSettings()
+    {
+        if (SaveLoadManager.Instance == null || !SaveLoadManager.Instance.HasSoundSaveFile())
+        {
+            ApplyAllVolumes();
+            return;
+        }
+
+        SoundSaveData data = SaveLoadManager.Instance.LoadSoundSettings();
+        if (data == null)
+        {
+            ApplyAllVolumes();
+            return;
+        }
+
+        masterVolume = data.masterVolume;
+        bgmVolume = data.bgmVolume;
+        sfxVolume = data.sfxVolume;
+
         ApplyAllVolumes();
     }
 
