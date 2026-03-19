@@ -35,6 +35,7 @@ public class CameraManager : MonoBehaviour
         impulseSource = cam.GetComponent<CinemachineImpulseSource>();
         follow = cam.GetComponent<CinemachineFollow>();
         confiner = cam.GetComponent<CinemachineConfiner2D>();
+
     }
 
     /// <summary>
@@ -80,7 +81,19 @@ public class CameraManager : MonoBehaviour
     // ==========================================
     public void ShakeCamera(float force = 1f)
     {
-        if (impulseSource != null) impulseSource.GenerateImpulseWithForce(force);
+        if (impulseSource != null)
+        {
+            // 정상 작동
+            impulseSource.GenerateImpulseWithForce(force);
+        }
+        else
+        {
+            Debug.LogWarning($"[CameraManager] {cam.name}에 Impulse Source가 없습니다! 컴포넌트를 추가해주세요.");
+
+            // 혹시 모르니 다시 한번 찾아보기 (보험)
+            impulseSource = cam.GetComponent<CinemachineImpulseSource>();
+            if (impulseSource != null) impulseSource.GenerateImpulseWithForce(force);
+        }
     }
 
     public void ZoomCamera(float targetSize, float duration)
@@ -168,14 +181,6 @@ public class CameraManager : MonoBehaviour
     //CameraManager.Instance.cam.Target.TrackingTarget = 현재조종중인캐릭터Transform   <= 나중에 변경할 방식
 
 #if UNITY_EDITOR
-    [Header("--- 테스트용 세팅 (Snap 테스트용) ---")]
-    [Tooltip("순간이동 시킬 플레이어 (TestYouth)")]
-    public Transform testPlayerTransform;
-    [Tooltip("플레이어가 텔레포트할 다음 방의 임의 좌표")]
-    public Vector2 testTeleportPosition = new Vector2(20f, 0f);
-    [Tooltip("다음 방의 테두리 (Stage2 Collider)")]
-    public Collider2D testNextStageBounds;
-
     [ContextMenu("테스트 1: 화면 흔들기 (Shake)")]
     private void TestShake() => ShakeCamera(20f);
 
@@ -190,24 +195,5 @@ public class CameraManager : MonoBehaviour
 
     [ContextMenu("테스트 5: 원래대로 복구 (Reset)")]
     private void TestReset() => ResetCamera(1f);
-
-    [ContextMenu("테스트 6: 다음 방으로 텔레포트 컷 (Snap)")]
-    public void TestSnapToNewStage()
-    {
-        if (testPlayerTransform != null || testNextStageBounds != null)
-        {
-            // 1. 플레이어를 임의의 다음 방 좌표로 순간이동
-            testPlayerTransform.position = testTeleportPosition;
-
-            // 2. 가두리 교체 및 카메라 텔레포트 스냅
-            SnapToNewStage(testNextStageBounds);
-
-            Debug.Log("다음 방으로 깔끔하게 컷 완료!");
-        }
-        else
-        {
-            Debug.LogWarning("인스펙터에서 Snap 테스트용 변수(Player, Bounds)를 먼저 연결해 주세요");
-        }
-    }
 #endif
 }
