@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class LoadNextScene : MonoBehaviour
@@ -6,6 +7,12 @@ public class LoadNextScene : MonoBehaviour
 
     public void NextScene()
     {
+        StartCoroutine(ScreenFade());
+    }
+
+    private IEnumerator ScreenFade()
+    {
+        yield return StartCoroutine(ScreenManager.Instance.FadeOut());
         GameSceneManager.Instance.LoadScene(nextScene);
     }
 }

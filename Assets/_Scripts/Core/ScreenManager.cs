@@ -39,6 +39,10 @@ public class ScreenManager : MonoBehaviour
         //UI를 클릭하지 Ray끄기
         fadeCanvasGroup.blocksRaycasts = true;
 
+        if (SoundManager.Instance == null)
+        {
+            Debug.LogWarning("SoundManager없음");
+        }
         // FadeOut 시작 시 현재 BGM 볼륨 저장
         float startBGMVolume = SoundManager.Instance != null ? SoundManager.Instance.bgmSource.volume : 0f;
 
@@ -76,7 +80,9 @@ public class ScreenManager : MonoBehaviour
         if (fadeCanvasGroup == null) yield break;
 
         //FadeIn 시작 시 BGM 볼륨 복구
-        float targetBGMVolume = SoundManager.Instance != null ? SoundManager.Instance.bgmSource.volume : 0f;
+        float targetBGMVolume = SoundManager.Instance != null
+            ? SoundManager.Instance.masterVolume * SoundManager.Instance.bgmVolume 
+            : 0f;
 
         float timer = 0f;
         while (timer < fadeDuration)
