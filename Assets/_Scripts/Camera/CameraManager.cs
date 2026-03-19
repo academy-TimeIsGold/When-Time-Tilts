@@ -32,7 +32,7 @@ public class CameraManager : MonoBehaviour
         if (targetCam == null) return;
 
         cam = targetCam;
-        impulseSource = cam.GetComponent<CinemachineImpulseSource>();
+        impulseSource = GetComponent<CinemachineImpulseSource>();
         follow = cam.GetComponent<CinemachineFollow>();
         confiner = cam.GetComponent<CinemachineConfiner2D>();
 
@@ -89,10 +89,6 @@ public class CameraManager : MonoBehaviour
         else
         {
             Debug.LogWarning($"[CameraManager] {cam.name}에 Impulse Source가 없습니다! 컴포넌트를 추가해주세요.");
-
-            // 혹시 모르니 다시 한번 찾아보기 (보험)
-            impulseSource = cam.GetComponent<CinemachineImpulseSource>();
-            if (impulseSource != null) impulseSource.GenerateImpulseWithForce(force);
         }
     }
 
