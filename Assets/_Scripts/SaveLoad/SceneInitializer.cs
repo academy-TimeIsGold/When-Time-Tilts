@@ -32,6 +32,12 @@ public class SceneInitializer : MonoBehaviour
                     CameraManager.Instance.SwitchToCamera(sp.stageCamera);
                 }
             }
+
+            // BGM 재생
+            if (sp != null && !string.IsNullOrEmpty(sp.bgmKey))
+            {
+                SoundManager.Instance?.PlayBGM(sp.bgmKey, sp.bgmIndex);
+            }
         }
         // 저장된 파일이 있으면 파일에서 복원 (이어하기)
         else if (SaveLoadManager.Instance != null && SaveLoadManager.Instance.HasSaveFile())
@@ -88,6 +94,11 @@ public class SceneInitializer : MonoBehaviour
             {
                 CameraManager.Instance.SwitchToCamera(sp.stageCamera);
             }
+        }
+
+        if (sp != null && !string.IsNullOrEmpty(sp.bgmKey))
+        {
+            SoundManager.Instance?.PlayBGM(sp.bgmKey, sp.bgmIndex);
         }
     }
 }
