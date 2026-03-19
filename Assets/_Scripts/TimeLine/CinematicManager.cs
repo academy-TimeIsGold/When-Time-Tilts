@@ -60,8 +60,10 @@ public class CinematicManager : MonoBehaviour
 
         isCutscenePlaying = true;
 
-
-        hourglass.Close();
+        if (hourglass != null)
+        {
+            hourglass.Close();
+        }
 
         if (TimeSystemManager.Instance != null)
         {
@@ -85,8 +87,11 @@ public class CinematicManager : MonoBehaviour
         // 1. 이벤트 구독 해제
         director.stopped -= EndCutscene;
 
-        hourglass.Open();
-
+        if ( hourglass != null)
+        {
+            hourglass.Open();
+        }
+        
         // 2. 조작 원상복구
         OnCinematicStateChanged?.Invoke(false);
         currentDirector = null;

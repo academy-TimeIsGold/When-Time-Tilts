@@ -36,6 +36,7 @@ public class BootIntro : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        StartCoroutine(ScreenManager.Instance.FadeIn());
         StartCoroutine(FadeTextToFullAlpha(1.5f, intro_1, intro_2, intro_3));
     }
 
