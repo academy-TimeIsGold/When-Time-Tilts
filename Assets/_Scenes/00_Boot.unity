@@ -516,12 +516,16 @@ MonoBehaviour:
   sfxVolume: 0.7
   bgmSource: {fileID: 2086544073}
   sfxSource: {fileID: 1183553772}
-  TITLE_BGM: []
+  TITLE_BGM:
+  - {fileID: 8300000, guid: be1ff3ae0d4e3b74b90a4d3d64d02ecf, type: 3}
   TITLE_SFX: []
-  INTRO_BGM: []
+  INTRO_BGM:
+  - {fileID: 8300000, guid: 5e72d51d8ac72e24ea5fa8e3d742c0ae, type: 3}
   INTRO_SFX: []
   GAME_BGM:
-  - {fileID: 8300000, guid: 7ec6aed5cc34c5649a02891b01391667, type: 3}
+  - {fileID: 8300000, guid: f728dfa3b1464a246ae42dcc2cc60cb0, type: 3}
+  - {fileID: 8300000, guid: 050d7ef2c4bacdb4f87965df9ce90dbf, type: 3}
+  - {fileID: 8300000, guid: 794bd6742167d344e92fee3430d0edc0, type: 3}
   GAME_SFX: []
   UI_BGM: []
   UI_SFX: []

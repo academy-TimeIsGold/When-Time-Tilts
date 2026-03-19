@@ -27,6 +27,12 @@ public class SavePoint : MonoBehaviour
     [Tooltip("true = 씬 시작 시 자동으로 세이브 포인트 등록 (첫 번째 세이브 포인트에 체크)")]
     [SerializeField] private bool isStartPoint = false;
 
+    [Header("BGM 설정")]
+    [Tooltip("재생할 BGM 키")]
+    public string bgmKey;
+    [Tooltip("재생할 BGM 인덱스")]
+    public int bgmIndex;
+
     private bool isActivated = false;   //SavePoint 비활성화 상태
 
     private void Start()
