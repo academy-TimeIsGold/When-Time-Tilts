@@ -14,17 +14,34 @@ public class CutsceneTrigger : MonoBehaviour
     [Tooltip("체크 시 한 번 재생 후 이 트리거를 파괴")]
     [SerializeField] bool playOnlyOnce = true;
 
+    [Range(-1, 1)]
+    [SerializeField] float lookDirection = 1f;
+
     public void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
-            CinematicManager.Instance.PlayCutscene(timelineToPlay);
-
-            playOnlyOnce = true;
-
-            if (playOnlyOnce)
+            if (CinematicManager.Instance != null && timelineToPlay != null)
             {
-                gameObject.SetActive(false);
+                Rigidbody2D rb = collision.GetComponent<Rigidbody2D>();
+
+                if (rb != null)
+                {
+                    rb.linearVelocity = Vector2.zero; 
+                }
+
+                Vector3 currentScale = collision.transform.localScale;
+                float targetScaleX = Mathf.Abs(currentScale.x) * lookDirection;
+                collision.transform.localScale = new Vector3(targetScaleX, currentScale.y, currentScale.z);
+
+                CinematicManager.Instance.PlayCutscene(timelineToPlay);
+
+                playOnlyOnce = true;
+
+                if (playOnlyOnce)
+                {
+                    gameObject.SetActive(false);
+                }
             }
 
         }

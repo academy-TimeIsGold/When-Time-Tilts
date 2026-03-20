@@ -5,6 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Playables;
+using UnityEngine.UI;
 
 /// <summary>
 /// 역할: 컷신 총괄 매니저
@@ -30,6 +31,8 @@ public class CinematicManager : MonoBehaviour
     public UnityEvent onCutsceneFinished;
 
     public HourglassUI hourglass;
+
+    public Button skipBtn;
 
     private bool isCutscenePlaying = false;
 
@@ -74,6 +77,11 @@ public class CinematicManager : MonoBehaviour
         // 1. 레터박스 애니메이션 시작!
         OnCinematicStateChanged?.Invoke(true);
 
+        if (skipBtn != null)
+        {
+            skipBtn.gameObject.SetActive(true);
+        }
+
         // 2. 타임라인 종료 이벤트 구독
         currentDirector.stopped += EndCutscene;
 
@@ -91,7 +99,12 @@ public class CinematicManager : MonoBehaviour
         {
             hourglass.Open();
         }
-        
+
+        if (skipBtn != null)
+        {
+            skipBtn.gameObject.SetActive(false);
+        }
+
         // 2. 조작 원상복구
         OnCinematicStateChanged?.Invoke(false);
         currentDirector = null;
