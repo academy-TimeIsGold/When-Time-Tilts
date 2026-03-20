@@ -14,27 +14,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SODialogue
   dialogueLines:
   - lineID: 1
-    speakerID: Player
+    speakerID: Player1
     dialogueText: .....
     typeSpeedMultiplier: 0.5
     voiceClip: {fileID: 0}
   - lineID: 2
-    speakerID: Player
+    speakerID: Player1
     dialogueText: .....?
     typeSpeedMultiplier: 0.5
     voiceClip: {fileID: 0}
   - lineID: 3
-    speakerID: Player
+    speakerID: Player1
     dialogueText: "\uBC29\uAE08 \uADF8\uAC74 \uBB50\uC600\uC9C0...?"
     typeSpeedMultiplier: 0.5
     voiceClip: {fileID: 0}
   - lineID: 4
-    speakerID: Player
+    speakerID: Player1
     dialogueText: "... \uC774\uC0C1\uD558\uAD70"
     typeSpeedMultiplier: 0.5
     voiceClip: {fileID: 0}
   - lineID: 5
-    speakerID: Player
+    speakerID: Player1
     dialogueText: "\uD655\uC778\uD574\uBD10\uC57C\uACA0\uC5B4"
     typeSpeedMultiplier: 0.5
     voiceClip: {fileID: 0}
