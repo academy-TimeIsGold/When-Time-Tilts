@@ -30,9 +30,9 @@ public class CutsceneTrigger : MonoBehaviour
                     rb.linearVelocity = Vector2.zero; 
                 }
 
-                Vector3 currentScale = collision.transform.localScale;
-                float targetScaleX = Mathf.Abs(currentScale.x) * lookDirection;
-                collision.transform.localScale = new Vector3(targetScaleX, currentScale.y, currentScale.z);
+                Vector3 fixedScale = collision.transform.localScale;
+                fixedScale.x = 1f;
+                collision.transform.localScale = fixedScale;
 
                 CinematicManager.Instance.PlayCutscene(timelineToPlay);
 

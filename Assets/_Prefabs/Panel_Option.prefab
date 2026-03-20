@@ -456,6 +456,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09b07058a7cdfc6479555f47ce15e64a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::VolumeSetting
+  soundPanel: {fileID: 7233243160809837830}
   closeButton: {fileID: 1817358833512123542}
   masterSlider: {fileID: 8721867003815233571}
   bgmSlider: {fileID: 5742166883444542859}
@@ -463,6 +464,7 @@ MonoBehaviour:
   masterText: {fileID: 6831148804965505526}
   bgmText: {fileID: 8195608778205473186}
   sfxText: {fileID: 2704831800951854227}
+  debounceTime: 0.5
 --- !u!1 &2077440032469999127
 GameObject:
   m_ObjectHideFlags: 0
