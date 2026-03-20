@@ -31,9 +31,9 @@ public class SoundManager : MonoBehaviour
     [Range(0f, 1f)]
     public float masterVolume = 1f;
     [Range(0f, 1f)]
-    public float bgmVolume = 0.7f;
+    public float bgmVolume = 1f;
     [Range(0f, 1f)]
-    public float sfxVolume = 0.7f;
+    public float sfxVolume = 1f;
 
     //오디오 소스 컴포넌트
     [Header("Audio Sources")]
@@ -195,5 +195,14 @@ public class SoundManager : MonoBehaviour
     {
         if (bgmSource != null) bgmSource.pitch = pitch;
         if (sfxSource != null) sfxSource.pitch = pitch;
+    }
+
+    public void RegisterExternalSource(AudioSource source)
+    {
+        // 타임라인 전용 소스도 마스터 볼륨의 영향을 받게 설정
+        if (source != null)
+        {
+            source.volume = masterVolume * sfxVolume; // 컷신은 보통 SFX 볼륨을 따름
+        }
     }
 }

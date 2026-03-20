@@ -512,8 +512,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SoundManager
   soundPanel: {fileID: 0}
   masterVolume: 1
-  bgmVolume: 0.7
-  sfxVolume: 0.7
+  bgmVolume: 1
+  sfxVolume: 1
   bgmSource: {fileID: 2086544073}
   sfxSource: {fileID: 1183553772}
   TITLE_BGM:
