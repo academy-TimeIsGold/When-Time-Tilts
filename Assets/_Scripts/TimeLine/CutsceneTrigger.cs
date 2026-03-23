@@ -23,16 +23,16 @@ public class CutsceneTrigger : MonoBehaviour
         {
             if (CinematicManager.Instance != null && timelineToPlay != null)
             {
-                Rigidbody2D rb = collision.GetComponent<Rigidbody2D>();
+                //Rigidbody2D rb = collision.GetComponent<Rigidbody2D>();
 
-                if (rb != null)
-                {
-                    rb.linearVelocity = Vector2.zero; 
-                }
+                //if (rb != null)
+                //{
+                //    rb.linearVelocity = Vector2.zero; 
+                //}
 
-                Vector3 fixedScale = collision.transform.localScale;
-                fixedScale.x = 1f;
-                collision.transform.localScale = fixedScale;
+                //Vector3 fixedScale = collision.transform.localScale;
+                //fixedScale.x = 1f;
+                //collision.transform.localScale = fixedScale;
 
                 CinematicManager.Instance.PlayCutscene(timelineToPlay);
 
