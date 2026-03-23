@@ -51,6 +51,10 @@ public class PlayerVisualSwitcher : MonoBehaviour
         // 1. 변신 전, 현재 위치 기억하기 (참고한 스크립트의 로직 응용)
         Vector3 lastPosition = transform.position; // 기본값은 부모 위치
 
+        Vector3 lastScale = (_currentActiveObject != null && syncPosition)
+            ? _currentActiveObject.transform.localScale
+            : Vector3.one;
+
         // 만약 이전에 활성화된 자식이 있었다면 그 녀석의 위치를 가져옴
         if (syncPosition && _currentActiveObject != null)
         {
@@ -91,6 +95,9 @@ public class PlayerVisualSwitcher : MonoBehaviour
         {
             nextObject.transform.position = lastPosition;
         }
+
+        // 이전 방향 유지
+        nextObject.transform.localScale = lastScale;
 
         // 오브젝트 켜기
         nextObject.SetActive(true);
