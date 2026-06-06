@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NpcDialogueDatabase : MonoBehaviour
+public class NpcDialogueDatabase
 {
     // group_id -> 해당 그룹의 대사 목록
     private readonly Dictionary<string, List<NpcDialogueDef>> groupDB

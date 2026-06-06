@@ -35,6 +35,13 @@ public class NpcDialogueDef
     // 배경 말풍선 타입인가
     public bool IsAmbient => string.Equals(dialogueType, DialogueType.AMBIENT, StringComparison.OrdinalIgnoreCase);
 
+    // 디스플레이 타임 적용
+    public void ApplyAutoDisplayTime()
+    {
+        if (IsAmbient && displayTime <= 0f)
+            displayTime = 2f + (textKr.Length * 0.1f);
+    }
+
     #endregion
 
     #region 팩토리 메서드

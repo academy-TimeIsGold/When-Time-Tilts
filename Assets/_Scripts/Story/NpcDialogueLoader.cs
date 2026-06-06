@@ -106,12 +106,7 @@ public class NpcDialogueLoader : MonoBehaviour
             var def = NpcDialogueDef.FromRow(row);
             if (def == null) continue;
 
-            // display_time이 0이면 글자 수 기반 자동 계산
-            // 기본 2초 + 글자 당 0.1초
-            if (def.IsAmbient && def.displayTime <= 0f)
-            {
-                def.displayTime = 2f + (def.textKr.Length * 0.1f);
-            }
+            def.ApplyAutoDisplayTime();
 
             dialogueDb.Register(def);
             count++;
